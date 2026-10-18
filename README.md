@@ -12,13 +12,6 @@
   </p>
 
   <p align="center">
-    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-0d6e6e.svg?style=flat-square" alt="MIT License" /></a>
-    <a href="http://localhost:8080/api"><img src="https://img.shields.io/badge/REST_API-Spring_Boot_3.x-6DB33F.svg?style=flat-square" alt="Spring Boot 3.x REST API" /></a>
-    <a href="#-guest-experience-customer-facing-portal"><img src="https://img.shields.io/badge/360°_Virtual_Tour-WebGL_Three.js-111111.svg?style=flat-square" alt="360° Virtual Tour" /></a>
-    <a href="https://dev.java/"><img src="https://img.shields.io/badge/Java-17_%7C_21_%7C_25-ED8B00.svg?style=flat-square" alt="Java LTS" /></a>
-  </p>
-
-  <p align="center">
     <strong>A full-stack, enterprise-grade luxury hospitality booking and property management system (PMS) featuring photorealistic 360° WebGL virtual tours, dynamic state/destination inventory filtering across India, transparent luxury inclusions, and high-performance Spring Boot microservices.</strong>
   </p>
 
