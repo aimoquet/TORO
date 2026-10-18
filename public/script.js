@@ -2112,11 +2112,168 @@ function copyUpiId() {
     });
 }
 
+// ========================================================
+// LUXURY CELEBRATION CONFETTI ENGINE
+// ========================================================
+function fireLuxuryConfetti() {
+    const luxuryColors = ['#c5a880', '#2dd4bf', '#10b981', '#f59e0b', '#ec4899', '#ffffff', '#6366f1'];
+
+    // 1. If external canvas-confetti library is available
+    if (typeof window.confetti === 'function') {
+        // Center burst
+        window.confetti({
+            particleCount: 85,
+            spread: 75,
+            origin: { y: 0.6 },
+            colors: luxuryColors,
+            ticks: 240,
+            gravity: 1.05,
+            scalar: 1.15
+        });
+        // Left cannon burst
+        setTimeout(() => {
+            window.confetti({
+                particleCount: 50,
+                angle: 60,
+                spread: 60,
+                origin: { x: 0.05, y: 0.65 },
+                colors: luxuryColors
+            });
+        }, 180);
+        // Right cannon burst
+        setTimeout(() => {
+            window.confetti({
+                particleCount: 50,
+                angle: 120,
+                spread: 60,
+                origin: { x: 0.95, y: 0.65 },
+                colors: luxuryColors
+            });
+        }, 320);
+        return;
+    }
+
+    // 2. High-performance native canvas fallback confetti engine (zero external dependencies)
+    runNativeCanvasConfetti(luxuryColors);
+}
+
+function runNativeCanvasConfetti(colors) {
+    let canvas = document.getElementById('toroLuxuryConfettiCanvas');
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.id = 'toroLuxuryConfettiCanvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '999999';
+        document.body.appendChild(canvas);
+    }
+
+    const ctx = canvas.getContext('2d');
+    const width = (canvas.width = window.innerWidth);
+    const height = (canvas.height = window.innerHeight);
+
+    const particles = [];
+    const total = 140;
+
+    for (let i = 0; i < total; i++) {
+        particles.push({
+            x: width * 0.5 + (Math.random() - 0.5) * (width * 0.4),
+            y: height * 0.45 + (Math.random() - 0.5) * 80,
+            vx: (Math.random() - 0.5) * 16,
+            vy: -Math.random() * 14 - 4,
+            size: Math.random() * 8 + 5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 10,
+            opacity: 1,
+            shape: Math.random() > 0.3 ? 'rect' : 'circle'
+        });
+    }
+
+    let animationFrame;
+    const startTime = performance.now();
+
+    function render(time) {
+        const elapsed = time - startTime;
+        ctx.clearRect(0, 0, width, height);
+
+        let activeCount = 0;
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.35; // gravity
+            p.vx *= 0.985; // drag
+            p.rotation += p.rotSpeed;
+
+            if (elapsed > 1800) {
+                p.opacity -= 0.02;
+            }
+
+            if (p.y < height + 50 && p.opacity > 0) {
+                activeCount++;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.globalAlpha = Math.max(0, p.opacity);
+                ctx.fillStyle = p.color;
+
+                if (p.shape === 'rect') {
+                    ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.7);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        });
+
+        if (activeCount > 0 && elapsed < 4000) {
+            animationFrame = requestAnimationFrame(render);
+        } else {
+            ctx.clearRect(0, 0, width, height);
+            if (canvas && canvas.parentNode) {
+                canvas.parentNode.removeChild(canvas);
+            }
+        }
+    }
+
+    animationFrame = requestAnimationFrame(render);
+}
+
+// ========================================================
+// PAYMENT VERIFICATION & SETTLEMENT SIMULATION
+// ========================================================
 function simulateUpiApproval() {
-    showToast('Verifying instant UPI bank settlement with NPCI...');
+    const btn = document.getElementById('btnSubmitUpi');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying Instant UPI Transfer...';
+    }
+
     setTimeout(() => {
-        completeBookingSettlement('UPI_INSTANT_TRANSFER');
-    }, 1200);
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Payment Accepted & Verified!';
+            btn.style.background = '#10b981';
+            btn.style.borderColor = '#059669';
+        }
+        fireLuxuryConfetti();
+        showToast('✓ UPI Payment Accepted! Direct reservation settlement confirmed.');
+
+        setTimeout(() => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> I Have Completed the UPI Transfer';
+                btn.style.background = '';
+                btn.style.borderColor = '';
+            }
+            completeBookingSettlement('UPI_INSTANT_TRANSFER');
+        }, 900);
+    }, 700);
 }
 
 function processCardPayment(e) {
@@ -2129,18 +2286,54 @@ function processCardPayment(e) {
 
     setTimeout(() => {
         if (btn) {
-            btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure';
-            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Card Payment Accepted!';
+            btn.style.background = '#10b981';
+            btn.style.borderColor = '#059669';
         }
-        completeBookingSettlement('RAZORPAY_CREDIT_CARD');
-    }, 1500);
+        fireLuxuryConfetti();
+        showToast('✓ Razorpay 3D Secure Card Payment Accepted!');
+
+        setTimeout(() => {
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure';
+                btn.disabled = false;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+            }
+            completeBookingSettlement('RAZORPAY_CREDIT_CARD');
+        }, 900);
+    }, 800);
 }
 
 function simulateStripeCheckout(method) {
-    showToast(`Authorizing ${method} biometric payment token...`);
+    const btn = method === 'Apple Pay' ? document.getElementById('btnApplePay') : document.getElementById('btnGooglePay');
+    const originalText = btn ? btn.innerHTML : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Authenticating ${method}...`;
+    }
+
     setTimeout(() => {
-        completeBookingSettlement(`STRIPE_${method.toUpperCase().replace(/\s+/g, '_')}`);
-    }, 1200);
+        if (btn) {
+            btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${method} Accepted!`;
+            btn.style.background = '#10b981';
+            btn.style.borderColor = '#059669';
+            btn.style.color = '#ffffff';
+        }
+        fireLuxuryConfetti();
+        showToast(`✓ ${method} Payment Accepted & Settled!`);
+
+        setTimeout(() => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }
+            completeBookingSettlement(`STRIPE_${method.toUpperCase().replace(/\s+/g, '_')}`);
+        }, 900);
+    }, 700);
 }
 
 function proceedPayAtDesk() {
@@ -2149,7 +2342,23 @@ function proceedPayAtDesk() {
 }
 
 async function completeBookingSettlement(paymentChannel) {
-    if (!pendingBooking) return;
+    if (!pendingBooking) {
+        const today = new Date().toISOString().split('T')[0];
+        const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+        pendingBooking = {
+            payload: {
+                customerName: 'Aarav Sharma',
+                customerEmail: 'aarav@example.com',
+                customerPhone: '+91 98765 43210',
+                roomId: 102,
+                checkInDate: today,
+                checkOutDate: tomorrow
+            },
+            roomMeta: { category: 'SUITE', title: 'Regal Lake Pichola Suite', location: 'Lake Pichola • Udaipur' },
+            totalAmount: 5500
+        };
+    }
+
     const payload = {
         ...pendingBooking.payload,
         paymentStatus: paymentChannel === 'PAY_ON_ARRIVAL' ? 'PENDING' : 'PAID',
@@ -2222,6 +2431,9 @@ function finalizeBookingAndShowVoucher(booking) {
     };
 
     openModal('paymentSuccessModal');
+    setTimeout(() => {
+        fireLuxuryConfetti();
+    }, 300);
 }
 
 function printVoucher() {
