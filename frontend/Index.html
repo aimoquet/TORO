@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TORO Hotels & Resorts &bull; India Luxury Collection</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Three.js for 360 Virtual Tour -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/toro_logo.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ========================================================
+         SOPHISTICATED HEADER & NAVIGATION
+         ======================================================== -->
+    <header class="site-header">
+        <div class="header-container">
+            <a class="brand-public" onclick="scrollToSection('hero')">
+                <img src="assets/toro_logo.svg" alt="TORO Crest" class="brand-logo-img">
+                <div class="brand-text-block">
+                    <span class="brand-name">TORO</span>
+                    <span class="brand-caption">HOTELS & RESORTS &bull; INDIA</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul class="public-nav">
+                    <li><a class="nav-link active" onclick="scrollToSection('hero')">Overview</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('destinations-section')">Destinations</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('rooms-showcase')">Suites</a></li>
+                    <li><a class="nav-link" onclick="open360Tour('deluxe')">360° Virtual Tour</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('amenities-section')">Amenities</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-cta-group">
+                <button class="btn-reserve-nav" onclick="openQuickBook()">
+                    Reserve Stay
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================
+         HERO SECTION
+         ======================================================== -->
+    <section id="hero" class="hero-section">
+        <!-- Cinematic Background & Vignette Layers -->
+        <div class="hero-bg-layer" id="heroBgLayer"></div>
+        <div class="hero-overlay-gradient"></div>
+
+        <div class="hero-content">
+            <div class="hero-pill-badge">
+                <span class="pill-dot"></span>
+                <span>TORO LUXURY COLLECTION &bull; INDIA</span>
+            </div>
+
+            <h1 class="hero-title">
+                Sanctuaries of Quiet Wonder <br>
+                <span class="hero-title-italic">& Breathtaking Solitude</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Handcrafted coastal villas, lakefront heritage palaces, and pine chalets with immersive 360° virtual tours and bespoke Indian hospitality.
+            </p>
+            
+            <div class="hero-actions">
+                <button class="btn-hero-primary" onclick="scrollToSection('rooms-showcase')">
+                    Explore Suites
+                </button>
+                <button class="btn-hero-secondary" onclick="open360Tour('deluxe')">
+                    <i class="fa-solid fa-compass" style="margin-right: 6px;"></i> Launch 360° Tour
+                </button>
+            </div>
+
+            <!-- Unique Luxury Proof Points Strip -->
+            <div class="hero-proof-strip">
+                <div class="hero-proof-item">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Interactive 360° Virtual Inspection</span>
+                </div>
+                <div class="proof-divider">&bull;</div>
+                <div class="hero-proof-item">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>Curated Indian Heritage Sanctuaries</span>
+                </div>
+                <div class="proof-divider">&bull;</div>
+                <div class="hero-proof-item">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                    <span>24/7 Dedicated Butler Care</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Badge & Sanctuary Switcher -->
+        <div class="hero-bottom-bar">
+            <div class="hero-location-chip" id="heroLocationChip">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="heroLocationText">TORO Oceanfront Villa &bull; Candolim, Goa</span>
+            </div>
+
+            <div class="hero-backdrop-controls">
+                <span class="backdrop-label">Sanctuary:</span>
+                <button class="btn-view-toggle active" id="btnBgOcean" onclick="switchHeroBackground('ocean')" title="Coastal Villa Sanctuary">Goa Coast</button>
+                <button class="btn-view-toggle" id="btnBgPalace" onclick="switchHeroBackground('palace')" title="Lake Heritage Palace">Udaipur Palace</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         EASY TO UNDERSTAND SEARCH BAR (INDIA DESTINATIONS)
+         ======================================================== -->
+    <div class="search-container-wrap">
+        <div class="search-bar-clean">
+            <!-- 1. Indian State -->
+            <div class="search-block">
+                <span class="search-label">State</span>
+                <select id="searchState" class="search-select" onchange="onStateChange()">
+                    <option value="ALL">All India States</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Delhi NCR">Delhi NCR</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <!-- 2. City / Destination -->
+            <div class="search-block">
+                <span class="search-label">City / Destination</span>
+                <select id="searchCity" class="search-select" onchange="filterRoomsBySearch()">
+                    <option value="ALL">All Destinations</option>
+                </select>
+            </div>
+
+            <!-- 3. Stay Dates -->
+            <div class="search-block">
+                <span class="search-label">Dates</span>
+                <div class="dates-row">
+                    <input type="date" id="searchCheckIn" onchange="onSearchDateChange()">
+                    <span class="dates-sep">&rarr;</span>
+                    <input type="date" id="searchCheckOut" onchange="onSearchDateChange()">
+                </div>
+            </div>
+
+            <!-- 4. Suite Type -->
+            <div class="search-block">
+                <span class="search-label">Accommodation</span>
+                <select id="searchCategory" class="search-select" onchange="filterRoomsBySearch()">
+                    <option value="ALL">All Suites</option>
+                    <option value="DELUXE">Deluxe Suites</option>
+                    <option value="SUITE">Executive Suites</option>
+                    <option value="PRESIDENTIAL">Presidential Penthouse</option>
+                    <option value="SINGLE">Single Executive</option>
+                </select>
+            </div>
+
+            <!-- 5. Search Button -->
+            <button class="btn-search-clean" onclick="executeSearchAndScroll()">
+                <i class="fa-solid fa-magnifying-glass"></i> Check Rates
+            </button>
+        </div>
+    </div>
+
+    <!-- Clean Quick Destination Filter Pills -->
+    <div class="dest-pills-bar">
+        <span class="dest-pills-label">Popular Destinations:</span>
+        <button class="dest-pill active" onclick="quickFilterDestination('ALL', this)">All India</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Goa', this)">Goa Coast</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Mumbai', this)">Mumbai Seafront</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Udaipur', this)">Udaipur Lake</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Jaipur', this)">Jaipur Palaces</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Manali', this)">Manali Pines</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Kerala', this)">Kerala Backwaters</button>
+        <button class="dest-pill" onclick="quickFilterDestination('Rishikesh', this)">Rishikesh Ganges</button>
+    </div>
+
+    <!-- ========================================================
+         DESTINATIONS SHOWCASE SECTION
+         ======================================================== -->
+    <section id="destinations-section" class="section-container" style="padding-top: 10px;">
+        <div class="section-head">
+            <span class="section-tag">DESTINATIONS</span>
+            <h2 class="section-title">Iconic Sanctuaries Across India</h2>
+            <p class="section-subtitle">Discover coastal retreats, lakefront palaces, and high-altitude mountain sanctuaries tailored for peace and privacy.</p>
+        </div>
+
+        <div class="destinations-grid">
+            <div class="dest-card" onclick="quickFilterDestination('Goa')">
+                <img src="assets/hotel_exterior.jpg" alt="Goa Coastline">
+                <div class="dest-card-overlay">
+                    <h4>Goa Coastline</h4>
+                    <p>Candolim & Calangute &bull; Beachfront Villas</p>
+                </div>
+            </div>
+
+            <div class="dest-card" onclick="quickFilterDestination('Mumbai')">
+                <img src="assets/deluxe_suite.jpg" alt="Mumbai Seafront">
+                <div class="dest-card-overlay">
+                    <h4>Mumbai Seafront</h4>
+                    <p>Marine Drive &bull; Ocean Vista Suites</p>
+                </div>
+            </div>
+
+            <div class="dest-card" onclick="quickFilterDestination('Udaipur')">
+                <img src="assets/executive_suite.jpg" alt="Udaipur Lake Palace">
+                <div class="dest-card-overlay">
+                    <h4>Udaipur &bull; Lake Pichola</h4>
+                    <p>Rajasthan &bull; Regal Botanical Palaces</p>
+                </div>
+            </div>
+
+            <div class="dest-card" onclick="quickFilterDestination('Jaipur')">
+                <img src="assets/penthouse_suite.jpg" alt="Jaipur Amber Vista">
+                <div class="dest-card-overlay">
+                    <h4>Jaipur &bull; Amber Vista</h4>
+                    <p>Rajasthan &bull; Penthouse & Jacuzzi Suites</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         SUITES & ROOMS SHOWCASE
+         ======================================================== -->
+    <section id="rooms-showcase" class="section-container">
+        <div class="section-head">
+            <span class="section-tag">ACCOMMODATIONS</span>
+            <h2 class="section-title">Bespoke Rooms & Signature Suites</h2>
+            <p class="section-subtitle">Every suite features custom artisan furnishings, marble baths, premium linens, and virtual 360° inspection.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="room-filter-nav">
+            <button class="filter-tab active" onclick="filterRoomCards('ALL', this)">All Accommodations</button>
+            <button class="filter-tab" onclick="filterRoomCards('DELUXE', this)">Deluxe Suites</button>
+            <button class="filter-tab" onclick="filterRoomCards('SUITE', this)">Executive Suites</button>
+            <button class="filter-tab" onclick="filterRoomCards('PRESIDENTIAL', this)">Presidential Penthouse</button>
+            <button class="filter-tab" onclick="filterRoomCards('SINGLE', this)">Single Executive</button>
+        </div>
+
+        <!-- Room Cards Grid -->
+        <div class="public-rooms-grid" id="publicRoomsGrid">
+            <!-- Dynamically populated via script.js -->
+        </div>
+    </section>
+
+    <!-- ========================================================
+         RESORT AMENITIES & CONCIERGE SERVICES
+         ======================================================== -->
+    <section id="amenities-section" class="section-container">
+        <div class="section-head">
+            <span class="section-tag">SERVICES</span>
+            <h2 class="section-title">Curated Experiences & Amenities</h2>
+            <p class="section-subtitle">Enjoy royal dining, Ayurvedic wellness treatments, and private chauffeur transfers on demand.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <h4>In-Room Fine Dining</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Chef-curated Indian and international cuisine, served with white-glove attention on your private terrace.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹850 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ average</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('In-Room Fine Dining', 850)">Request</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-spa"></i></div>
+                    <h4>Ayurvedic Wellness Spa</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Rejuvenating hot stone massages, herbal aromatherapy, and bespoke organic wellness therapies.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹2,200 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ session</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Ayurvedic Wellness Spa', 2200)">Reserve</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-car-side"></i></div>
+                    <h4>Chauffeur & Airport Fleet</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Punctual airport VIP transfers and private day tours in premium executive Mercedes and BMW vehicles.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹1,500 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ transfer</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Chauffeur Transfer', 1500)">Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-ship"></i></div>
+                    <h4>Sunset Yacht Charter</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Private coastal cruise along the Arabian Sea or backwaters with sommelier wine and canapés.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹3,500 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ charter</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Sunset Yacht Charter', 3500)">Reserve</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h4>24/7 Butler Concierge</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Dedicated personal butler for itinerary planning, pressing service, and instant requests.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹1,200 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ day</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Butler Concierge', 1200)">Request</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-top">
+                    <div class="service-icon"><i class="fa-solid fa-hot-tub-person"></i></div>
+                    <h4>Private Jacuzzi Setup</h4>
+                </div>
+                <div class="service-card-body">
+                    <p>Evening rose petal and aroma bath setup with chilled champagne and fresh tropical fruit basket.</p>
+                    <div class="service-price-order">
+                        <span class="service-price">₹1,800 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ setup</small></span>
+                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Jacuzzi Setup', 1800)">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         FOOTER
+         ======================================================== -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="brand-public" style="margin-bottom: 14px;">
+                    <img src="assets/toro_logo.svg" alt="TORO Crest" class="brand-logo-img">
+                    <div class="brand-text-block">
+                        <span class="brand-name" style="font-size: 18px;">TORO</span>
+                        <span class="brand-caption">HOTELS & RESORTS &bull; INDIA</span>
+                    </div>
+                </div>
+                <p style="font-size: 13.5px; line-height: 1.65; margin-bottom: 18px; color: #94a3b8;">Refined coastal sanctuaries, heritage palaces, and luxury stays across India.</p>
+                <div style="display: flex; gap: 14px;">
+                    <a href="#" style="color:#2dd4bf; font-size:16px;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="color:#2dd4bf; font-size:16px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="color:#2dd4bf; font-size:16px;"><i class="fa-brands fa-tripadvisor"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Accommodations</h4>
+                <ul class="footer-links">
+                    <li><a onclick="open360Tour('deluxe')">Deluxe Ocean Suite</a></li>
+                    <li><a onclick="open360Tour('penthouse')">Presidential Penthouse</a></li>
+                    <li><a onclick="open360Tour('deluxe')">Executive Garden Suite</a></li>
+                    <li><a onclick="scrollToSection('rooms-showcase')">All Suites</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a onclick="scrollToSection('hero')">Overview</a></li>
+                    <li><a onclick="scrollToSection('destinations-section')">Destinations</a></li>
+                    <li><a onclick="open360Tour('deluxe')">360° Virtual Tour</a></li>
+                    <li><a onclick="openQuickBook()">Reservations</a></li>
+                    <li><a onclick="toggleManagementPortal()">Staff Management Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Reservations & Inquiries</h4>
+                <p style="font-size: 13.5px; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right: 8px; color: var(--accent-aqua);"></i> Mumbai &bull; Goa &bull; Udaipur &bull; Manali</p>
+                <p style="font-size: 13.5px; margin-bottom: 8px;"><i class="fa-solid fa-phone" style="margin-right: 8px; color: var(--accent-aqua);"></i> +91 (22) 8900 1200</p>
+                <p style="font-size: 13.5px;"><i class="fa-solid fa-envelope" style="margin-right: 8px; color: var(--accent-aqua);"></i> concierge@toro-hotels.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 TORO Hotels & Resorts India. All Rights Reserved.</span>
+            <span>REST API Connected (Port 8080) &bull; Standalone H2 DB</span>
+        </div>
+    </footer>
+
+    <!-- ========================================================
+         MODAL 1: 360° INTERACTIVE VIRTUAL TOUR VIEWER
+         Clean, distraction-free with intuitive exit
+         ======================================================== -->
+    <div id="modal360" class="modal-360-overlay">
+        <!-- 360 Top Header Bar -->
+        <div class="tour-360-header">
+            <!-- 1. Left Back Button -->
+            <button class="btn-exit-360-prominent" onclick="close360Tour()" title="Exit 360° View (ESC)">
+                <i class="fa-solid fa-arrow-left"></i> <span>Back to Website</span>
+            </button>
+
+            <!-- 2. Room Title & Switcher -->
+            <div class="tour-header-info">
+                <h3 id="tourRoomTitle">Deluxe Ocean Suite 360° Virtual Tour</h3>
+                <p>Drag to look around &bull; Scroll to zoom &bull; Press ESC to leave</p>
+            </div>
+
+            <div class="tour-room-switchers">
+                <button class="tour-switch-btn active" id="btnSwitchDeluxe" onclick="switch360Scene('deluxe')">Deluxe Suite</button>
+                <button class="tour-switch-btn" id="btnSwitchPenthouse" onclick="switch360Scene('penthouse')">Penthouse Jacuzzi</button>
+            </div>
+
+            <!-- 3. Close Button -->
+            <button class="btn-exit-360-close" onclick="close360Tour()" title="Close (ESC)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- 360 Three.js WebGL Container -->
+        <div id="canvas360Container" class="tour-360-canvas-container">
+            <!-- Floating instructions banner with inline exit -->
+            <div class="tour-exit-banner">
+                <span>Drag to explore &bull; Scroll to zoom</span>
+                <button class="btn-inline-leave" onclick="close360Tour()">Exit 360°</button>
+            </div>
+
+            <!-- Floating Room Price & Book Card -->
+            <div class="tour-book-card-float">
+                <div>
+                    <span style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Rate</span>
+                    <div id="tourRoomPrice" style="font-size: 20px; font-weight: 700; color: #2dd4bf;">₹3,500 <small style="font-size: 12px; color: #cbd5e1;">/ night</small></div>
+                </div>
+                <button class="btn-gold" id="btnBookFrom360" onclick="bookFromCurrent360()">
+                    Book Suite
+                </button>
+            </div>
+
+            <!-- Floating Controls Bar -->
+            <div class="tour-controls-bar">
+                <button class="tour-ctrl-btn exit-ctrl" onclick="close360Tour()" title="Exit Tour">
+                    <i class="fa-solid fa-arrow-left"></i> Exit
+                </button>
+                <button class="tour-ctrl-btn" onclick="toggleAutoRotate()" id="btnAutoRotate" title="Toggle Auto-Rotation">
+                    <i class="fa-solid fa-play" id="rotateIcon"></i>
+                </button>
+                <button class="tour-ctrl-btn" onclick="zoom360(-10)" title="Zoom In">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button class="tour-ctrl-btn" onclick="zoom360(10)" title="Zoom Out">
+                    <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+                <button class="tour-ctrl-btn" onclick="reset360View()" title="Reset Camera">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+                <button class="tour-ctrl-btn" onclick="toggleFullscreen360()" title="Toggle Fullscreen">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 2: "THE STUFFS" & ROOM DETAILS INSPECTION MODAL
+         ======================================================== -->
+    <div id="stuffsModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 760px;">
+            <div class="modal-header">
+                <div>
+                    <h3 id="stuffsModalTitle">Suite Inclusions & Amenities</h3>
+                    <span id="stuffsModalSubtitle" style="font-size: 12.5px; color: var(--text-muted);">Everything included in your stay</span>
+                </div>
+                <button class="close-modal" onclick="closeModal('stuffsModal')" title="Close">&times;</button>
+            </div>
+
+            <div class="modal-body" style="padding: 22px 26px;">
+                <!-- Room Hero Image with Price Pill -->
+                <div style="position: relative; height: 240px; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                    <img id="stuffsModalImage" src="assets/deluxe_suite.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 14px; left: 14px; background: rgba(9, 26, 29, 0.9); padding: 8px 16px; border-radius: 8px; color: #fff;">
+                        <span style="font-size: 10.5px; text-transform: uppercase; color: #94a3b8; display: block;">Per Night Rate</span>
+                        <span id="stuffsModalPriceDisplay" style="font-size: 22px; font-weight: 700; color: #2dd4bf;">₹3,500</span> <small style="font-size: 11.5px;">/ night</small>
+                    </div>
+                    <button class="btn-360-card" style="position: absolute; bottom: 14px; right: 14px; background: rgba(9, 26, 29, 0.9); color: #fff;" onclick="launch360FromStuffs()">
+                        <i class="fa-solid fa-compass"></i> View in 360°
+                    </button>
+                </div>
+
+                <!-- Complete Itemized Stuffs / Amenities -->
+                <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 12px; font-family: 'Playfair Display', serif;">
+                    Suite Luxuries & Included Comforts:
+                </h4>
+                <div class="stuffs-category-grid" id="stuffsCategoryGrid">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Live Stay Date & Instant Booking Box -->
+                <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                    <h4 style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 12px; font-family: 'Playfair Display', serif;">
+                        Confirm Your Reservation
+                    </h4>
+                    
+                    <form id="stuffsBookingForm" onsubmit="submitStuffsBooking(event)">
+                        <input type="hidden" id="stuffsRoomId">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Guest Full Name *</label>
+                                <input type="text" id="stuffsGuestName" class="form-control" placeholder="Aarav Sharma" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="stuffsGuestEmail" class="form-control" placeholder="aarav@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="stuffsGuestPhone" class="form-control" placeholder="+91 98765 43210" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Method</label>
+                                <select id="stuffsPayment" class="form-control">
+                                    <option value="PAID">Card / UPI (Prepaid)</option>
+                                    <option value="PENDING">Pay upon Check-in at Hotel</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Check-in Date *</label>
+                                <input type="date" id="stuffsCheckIn" class="form-control" onchange="calculateStuffsTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Check-out Date *</label>
+                                <input type="date" id="stuffsCheckOut" class="form-control" onchange="calculateStuffsTotal()" required>
+                            </div>
+                        </div>
+
+                        <!-- Live Calculated Total -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 18px; border-radius: 8px; margin: 14px 0; border: 1px solid var(--border);">
+                            <div>
+                                <span style="font-size: 12.5px; color: var(--text-muted);">Stay Total:</span>
+                                <div id="stuffsNightsLabel" style="font-size: 12.5px; font-weight: 600; color: var(--primary);">1 night(s) stay</div>
+                            </div>
+                            <div id="stuffsTotalCalculated" style="font-size: 24px; font-weight: 700; color: var(--text-main);">₹3,500</div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal('stuffsModal')">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 3: STAFF & HOTEL MANAGEMENT SYSTEM (DASHBOARD)
+         ======================================================== -->
+    <div id="managementPortalOverlay">
+        <div style="width: 100%; min-height: 100vh; display: flex;">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div>
+                    <div class="brand">
+                        <img src="assets/toro_logo.svg" alt="TORO" style="width: 34px; height: 34px;">
+                        <div class="brand-text">
+                            <h2>TORO Portal</h2>
+                            <span>Management</span>
+                        </div>
+                    </div>
+
+                    <ul class="nav-menu">
+                        <li class="nav-item active" onclick="showDashboardSection('dashboard')" id="dashnav-dashboard">
+                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+                        </li>
+                        <li class="nav-item" onclick="showDashboardSection('rooms')" id="dashnav-rooms">
+                            <i class="fa-solid fa-bed"></i> <span>Rooms</span>
+                        </li>
+                        <li class="nav-item" onclick="showDashboardSection('customers')" id="dashnav-customers">
+                            <i class="fa-solid fa-users"></i> <span>Guests CRM</span>
+                        </li>
+                        <li class="nav-item" onclick="showDashboardSection('bookings')" id="dashnav-bookings">
+                            <i class="fa-solid fa-calendar-check"></i> <span>Reservations</span>
+                        </li>
+                        <li class="nav-item" onclick="showDashboardSection('services')" id="dashnav-services">
+                            <i class="fa-solid fa-bell-concierge"></i> <span>Services</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-footer">
+                    <button class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 12px; font-weight: 600;" onclick="toggleManagementPortal()">
+                        <i class="fa-solid fa-arrow-left"></i> Return to Site
+                    </button>
+                    <div style="font-size: 11.5px; color: #64748b; text-align: center;">Backend: Port 8080 Active</div>
+                </div>
+            </aside>
+
+            <!-- Dashboard Main Area -->
+            <div class="main">
+                <div class="top-bar">
+                    <div>
+                        <h2 id="dashSectionTitle">Staff Management Console</h2>
+                        <p style="font-size: 13px; color: var(--text-muted);">Manage rooms, guests, bookings, and concierge orders</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary" onclick="toggleManagementPortal()">
+                            <i class="fa-solid fa-xmark"></i> Close Portal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1. DASHBOARD OVERVIEW -->
+                <div id="dash-dashboard" class="dash-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header"><h3>Total Rooms</h3><div class="stat-icon purple"><i class="fa-solid fa-door-open"></i></div></div>
+                            <div class="stat-value" id="mgmtTotalRooms">0</div>
+                            <div class="stat-meta"><span id="mgmtAvailBadge">0 Available</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header"><h3>Total Guests</h3><div class="stat-icon blue"><i class="fa-solid fa-user-group"></i></div></div>
+                            <div class="stat-value" id="mgmtTotalGuests">0</div>
+                            <div class="stat-meta"><span>Registered</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header"><h3>Active Stays</h3><div class="stat-icon green"><i class="fa-solid fa-key"></i></div></div>
+                            <div class="stat-value" id="mgmtActiveBookings">0</div>
+                            <div class="stat-meta"><span id="mgmtTotalBookingsCount">0 Total</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header"><h3>Total Revenue</h3><div class="stat-icon amber"><i class="fa-solid fa-indian-rupee-sign"></i></div></div>
+                            <div class="stat-value" id="mgmtTotalRevenue">₹0</div>
+                            <div class="stat-meta"><span style="color: #16a34a; font-weight: 600;">Confirmed</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Bookings Table -->
+                    <div class="content-card">
+                        <div class="card-top">
+                            <h3>Live Reservations Feed</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ref</th>
+                                        <th>Guest</th>
+                                        <th>Room</th>
+                                        <th>Stay Dates</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mgmtRecentBookingsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ROOMS MANAGER -->
+                <div id="dash-rooms" class="dash-section" style="display: none;">
+                    <div class="content-card">
+                        <div class="card-top">
+                            <h3>Room Inventory</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openRoomModal()"><i class="fa-solid fa-plus"></i> Add Room</button>
+                        </div>
+                        <div class="rooms-grid" id="mgmtRoomsGrid"></div>
+                    </div>
+                </div>
+
+                <!-- 3. GUESTS CRM -->
+                <div id="dash-customers" class="dash-section" style="display: none;">
+                    <div class="content-card">
+                        <div class="card-top">
+                            <h3>Guest CRM</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openCustomerModal()"><i class="fa-solid fa-user-plus"></i> Add Guest</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr><th>Guest</th><th>Email</th><th>Phone</th><th>ID Proof</th><th>Location</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="mgmtCustomerTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. RESERVATIONS -->
+                <div id="dash-bookings" class="dash-section" style="display: none;">
+                    <div class="content-card">
+                        <div class="card-top">
+                            <h3>All Reservations</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openBookingModal()"><i class="fa-solid fa-calendar-plus"></i> New Reservation</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr><th>Ref</th><th>Guest</th><th>Room</th><th>Stay Dates</th><th>Total</th><th>Payment</th><th>Status</th><th>Actions</th></tr>
+                                </thead>
+                                <tbody id="mgmtBookingsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. SERVICES -->
+                <div id="dash-services" class="dash-section" style="display: none;">
+                    <div class="content-card">
+                        <div class="card-top">
+                            <h3>Concierge & Room Service Orders</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openServiceModal()"><i class="fa-solid fa-plus"></i> Dispatch Service</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr><th>Order #</th><th>Service</th><th>Room</th><th>Guest</th><th>Cost</th><th>Notes</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="mgmtServicesTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 4: DIRECT RESERVATION MODAL
+         ======================================================== -->
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Reserve Your Stay at TORO</h3>
+                <button class="close-modal" onclick="closeModal('bookingModal')" title="Close">&times;</button>
+            </div>
+            <form id="bookingFormModal" onsubmit="saveBookingSubmit(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Guest Profile *</label>
+                        <select id="modalBookingGuestSelect" class="form-control" onchange="onGuestSelectChange()" required>
+                            <option value="">-- Choose Existing Guest or Register New --</option>
+                        </select>
+                    </div>
+                    <div id="newGuestFields" style="display: none; background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px dashed var(--border);">
+                        <div class="form-group"><label>Full Name *</label><input type="text" id="modalNewGuestName" class="form-control" placeholder="Aarav Sharma"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Email *</label><input type="email" id="modalNewGuestEmail" class="form-control" placeholder="aarav@example.com"></div>
+                            <div class="form-group"><label>Phone *</label><input type="tel" id="modalNewGuestPhone" class="form-control" placeholder="+91 98765 43210"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Suite *</label>
+                        <select id="modalBookingRoomSelect" class="form-control" onchange="calculateBookingTotal()" required>
+                            <option value="">-- Select Room --</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Check-in Date *</label><input type="date" id="modalBookingCheckIn" class="form-control" onchange="calculateBookingTotal()" required></div>
+                        <div class="form-group"><label>Check-out Date *</label><input type="date" id="modalBookingCheckOut" class="form-control" onchange="calculateBookingTotal()" required></div>
+                    </div>
+                    <div style="background: #f0fdfa; border-radius: 8px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #99f6e4;">
+                        <div><span style="font-size: 12.5px; color: var(--primary); font-weight: 600;">Stay Total:</span><div id="bookingStayDuration" style="font-size: 12px; color: var(--text-muted);">1 night(s)</div></div>
+                        <div id="bookingCalculatedTotal" style="font-size: 22px; font-weight: 700; color: var(--primary);">₹0</div>
+                    </div>
+                    <div class="form-group"><label>Payment Method</label><select id="modalBookingPayment" class="form-control"><option value="PAID">Prepaid (Card / UPI)</option><option value="PENDING">Pay at Check-In</option></select></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Room Management Modal -->
+    <div id="roomModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="roomModalTitle">Add Room</h3>
+                <button class="close-modal" onclick="closeModal('roomModal')">&times;</button>
+            </div>
+            <form id="roomForm" onsubmit="saveRoomSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="editRoomId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Room Number *</label>
+                            <input type="text" id="modalRoomNumber" class="form-control" placeholder="204" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Room Type *</label>
+                            <select id="modalRoomType" class="form-control" required>
+                                <option value="SINGLE">Single Room</option>
+                                <option value="DOUBLE">Standard Double</option>
+                                <option value="DELUXE">Deluxe Room</option>
+                                <option value="SUITE">Executive Suite</option>
+                                <option value="PRESIDENTIAL">Presidential Penthouse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price Per Night (₹) *</label>
+                            <input type="number" id="modalRoomPrice" class="form-control" placeholder="3500" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Capacity</label>
+                            <input type="number" id="modalRoomCapacity" class="form-control" value="2" min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Amenities</label>
+                        <input type="text" id="modalRoomAmenities" class="form-control" placeholder="WiFi, AC, Jacuzzi, Balcony">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="modalRoomDesc" class="form-control" rows="2" placeholder="Suite overview..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('roomModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveRoom">Save Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer CRM Modal -->
+    <div id="customerModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="customerModalTitle">Register Guest</h3>
+                <button class="close-modal" onclick="closeModal('customerModal')">&times;</button>
+            </div>
+            <form id="customerFormModal" onsubmit="saveCustomerSubmit(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="editCustomerId">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="modalCustName" class="form-control" placeholder="Priya Patel" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="modalCustEmail" class="form-control" placeholder="priya@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="modalCustPhone" class="form-control" placeholder="+91 98123 45678" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ID Proof (Aadhaar / Passport)</label>
+                            <input type="text" id="modalCustIdProof" class="form-control" placeholder="1234-5678-9012">
+                        </div>
+                        <div class="form-group">
+                            <label>City & State</label>
+                            <input type="text" id="modalCustAddress" class="form-control" placeholder="Mumbai, Maharashtra">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('customerModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Guest</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Service Dispatch Modal -->
+    <div id="serviceModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Dispatch Service Order</h3>
+                <button class="close-modal" onclick="closeModal('serviceModal')">&times;</button>
+            </div>
+            <form id="serviceFormModal" onsubmit="saveServiceSubmit(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Service *</label>
+                        <input type="text" id="modalServiceName" class="form-control" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Room Number *</label>
+                            <input type="text" id="modalServiceRoom" class="form-control" placeholder="102" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Guest Name</label>
+                            <input type="text" id="modalServiceGuest" class="form-control" placeholder="Aarav Sharma">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cost (₹)</label>
+                        <input type="number" id="modalServiceCost" class="form-control" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="modalServiceNotes" class="form-control" rows="2" placeholder="Special instructions..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('serviceModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Dispatch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Core App Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
