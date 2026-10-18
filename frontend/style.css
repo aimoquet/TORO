@@ -411,77 +411,6 @@ body {
     font-size: 12px;
 }
 
-.hero-bottom-bar {
-    position: absolute;
-    bottom: 24px;
-    left: 36px;
-    right: 36px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-.hero-location-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(9, 26, 29, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: #cbd5e1;
-}
-
-.hero-location-chip i {
-    color: #2dd4bf;
-    font-size: 11px;
-}
-
-.hero-backdrop-controls {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(9, 26, 29, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 4px 6px;
-    border-radius: 20px;
-}
-
-.backdrop-label {
-    font-size: 11px;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-left: 8px;
-    margin-right: 4px;
-}
-
-.btn-view-toggle {
-    padding: 4px 12px;
-    border-radius: 14px;
-    font-size: 11.5px;
-    font-weight: 600;
-    background: transparent;
-    color: #cbd5e1;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-view-toggle:hover {
-    color: #ffffff;
-}
-
-.btn-view-toggle.active {
-    background: #0d6e6e;
-    color: #ffffff;
-}
-
 /* ========================================================
    CLEAN, INTUITIVE LUXURY SEARCH BAR
    ======================================================== */
@@ -1864,12 +1793,6 @@ table td {
     }
     .proof-divider {
         display: none;
-    }
-    .hero-bottom-bar {
-        position: static;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 24px;
     }
     .public-rooms-grid {
         grid-template-columns: 1fr;

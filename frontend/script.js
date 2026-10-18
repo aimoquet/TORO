@@ -199,26 +199,7 @@ function scrollToSection(id) {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-function switchHeroBackground(type) {
-    const bg = document.getElementById('heroBgLayer');
-    const locText = document.getElementById('heroLocationText');
-    const btnOcean = document.getElementById('btnBgOcean');
-    const btnPalace = document.getElementById('btnBgPalace');
 
-    if (!bg) return;
-
-    if (type === 'palace') {
-        bg.style.backgroundImage = "url('assets/luxury_hero_palace.jpg')";
-        if (locText) locText.innerHTML = "TORO Royal Lake Palace &bull; Udaipur, Rajasthan";
-        if (btnPalace) btnPalace.classList.add('active');
-        if (btnOcean) btnOcean.classList.remove('active');
-    } else {
-        bg.style.backgroundImage = "url('assets/luxury_resort_ocean.jpg')";
-        if (locText) locText.innerHTML = "TORO Oceanfront Villa &bull; Candolim, Goa";
-        if (btnOcean) btnOcean.classList.add('active');
-        if (btnPalace) btnPalace.classList.remove('active');
-    }
-}
 
 // ========================================================
 // INDIA CITIES & DESTINATIONS FILTER LOGIC
