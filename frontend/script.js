@@ -164,15 +164,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Close modals on click outside
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
-            }
-        });
+    // Sticky header scroll behavior
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('siteHeader');
+        if (header) {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+        }
     });
 });
+
+function toggleMobileMenu() {
+    const drawer = document.getElementById('mobileNavDrawer');
+    if (drawer) {
+        drawer.classList.toggle('active');
+    }
+}
+
+function openConciergeModal() {
+    openModal('conciergeModal');
+}
+
+function handleCircleSubmit(e) {
+    e.preventDefault();
+    const emailInput = document.getElementById('circleEmail');
+    const email = emailInput ? emailInput.value : '';
+    showToast(`Welcome to The TORO Circle. Your private invitation code has been dispatched to ${email}!`);
+    if (emailInput) emailInput.value = '';
+}
 
 function initDefaultDates() {
     const today = new Date().toISOString().split('T')[0];

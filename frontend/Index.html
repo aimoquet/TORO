@@ -22,9 +22,27 @@
     <div id="toastContainer" class="toast-container"></div>
 
     <!-- ========================================================
+         TOP UTILITY STRIP (GLOBAL LUXURY BAR)
+         ======================================================== -->
+    <div class="top-utility-bar">
+        <div class="utility-container">
+            <div class="utility-left">
+                <span class="utility-badge"><i class="fa-solid fa-gem"></i> Best Direct Rate Guarantee</span>
+                <span class="utility-sep">&bull;</span>
+                <span class="utility-item"><i class="fa-solid fa-car"></i> Complimentary Airport VIP Transfer on Direct Suites</span>
+            </div>
+            <div class="utility-right">
+                <a href="tel:+912289001200" class="utility-link"><i class="fa-solid fa-phone"></i> +91 (22) 8900 1200</a>
+                <span class="utility-sep">&bull;</span>
+                <span class="utility-item"><i class="fa-solid fa-earth-asia"></i> EN &bull; INR (₹)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
          SOPHISTICATED HEADER & NAVIGATION
          ======================================================== -->
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
         <div class="header-container">
             <a class="brand-public" onclick="scrollToSection('hero')">
                 <img src="assets/toro_logo.svg" alt="TORO Crest" class="brand-logo-img">
@@ -37,10 +55,12 @@
             <nav>
                 <ul class="public-nav">
                     <li><a class="nav-link active" onclick="scrollToSection('hero')">Overview</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('heritage-section')">Philosophy</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('destinations-section')">Destinations</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('rooms-showcase')">Suites</a></li>
                     <li><a class="nav-link" onclick="open360Tour('deluxe')">360° Virtual Tour</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('amenities-section')">Amenities</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('reviews-section')">Reviews</a></li>
                 </ul>
             </nav>
 
@@ -48,7 +68,26 @@
                 <button class="btn-reserve-nav" onclick="openQuickBook()">
                     Reserve Stay
                 </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" title="Toggle Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div class="mobile-nav-drawer" id="mobileNavDrawer">
+            <ul class="mobile-nav-list">
+                <li><a onclick="scrollToSection('hero'); toggleMobileMenu();">Overview</a></li>
+                <li><a onclick="scrollToSection('heritage-section'); toggleMobileMenu();">Philosophy & Heritage</a></li>
+                <li><a onclick="scrollToSection('destinations-section'); toggleMobileMenu();">Destinations</a></li>
+                <li><a onclick="scrollToSection('rooms-showcase'); toggleMobileMenu();">Suites & Villas</a></li>
+                <li><a onclick="open360Tour('deluxe'); toggleMobileMenu();">360° Virtual Tour</a></li>
+                <li><a onclick="scrollToSection('amenities-section'); toggleMobileMenu();">Curated Amenities</a></li>
+                <li><a onclick="scrollToSection('reviews-section'); toggleMobileMenu();">Guest Testimonials</a></li>
+                <li style="margin-top: 14px;">
+                    <button class="btn-reserve-nav" style="width: 100%; text-align: center;" onclick="openQuickBook(); toggleMobileMenu();">Reserve Stay</button>
+                </li>
+            </ul>
         </div>
     </header>
 
@@ -175,8 +214,87 @@
         <button class="dest-pill" onclick="quickFilterDestination('Jaipur', this)">Jaipur Palaces</button>
         <button class="dest-pill" onclick="quickFilterDestination('Manali', this)">Manali Pines</button>
         <button class="dest-pill" onclick="quickFilterDestination('Kerala', this)">Kerala Backwaters</button>
-        <button class="dest-pill" onclick="quickFilterDestination('Rishikesh', this)">Rishikesh Ganges</button>
     </div>
+
+    <!-- ========================================================
+         PRESS & CRITICS TRUST BAR
+         ======================================================== -->
+    <div class="press-trust-bar">
+        <div class="press-container">
+            <span class="press-label">AS ACCLAIMED BY GLOBAL TRAVEL CRITICS</span>
+            <div class="press-items">
+                <div class="press-item">
+                    <span class="press-publication">Architectural Digest</span>
+                    <span class="press-quote">"A masterclass in modern Indian minimalist sanctuary architecture."</span>
+                </div>
+                <div class="press-item">
+                    <span class="press-publication">Condé Nast Traveler</span>
+                    <span class="press-quote">"Gold List 2026 &bull; The new benchmark in 360° transparent luxury booking."</span>
+                </div>
+                <div class="press-item">
+                    <span class="press-publication">Forbes Travel Guide</span>
+                    <span class="press-quote">"Five-Star Intuitive Hospitality &bull; Unrivaled coastal & palace solitude."</span>
+                </div>
+                <div class="press-item">
+                    <span class="press-publication">Travel + Leisure</span>
+                    <span class="press-quote">"Top 10 Most Exquisite Heritage Retreats in Asia."</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         EDITORIAL PHILOSOPHY & HERITAGE SECTION
+         ======================================================== -->
+    <section id="heritage-section" class="heritage-section">
+        <div class="heritage-container">
+            <div class="heritage-visual">
+                <div class="heritage-image-frame">
+                    <img src="assets/luxury_hero_palace.jpg" alt="TORO Heritage Architecture" class="heritage-img">
+                    <div class="heritage-badge-float">
+                        <i class="fa-solid fa-award"></i>
+                        <div>
+                            <strong>Condé Nast Traveler</strong>
+                            <span>Readers' Choice Award 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="heritage-callout-card">
+                    <p>"An ode to stillness, curated for those who value authentic unhurried beauty."</p>
+                    <span>&mdash; TORO Design Atelier</span>
+                </div>
+            </div>
+
+            <div class="heritage-editorial-copy">
+                <span class="section-tag">OUR PHILOSOPHY</span>
+                <h2 class="heritage-title">Where Ancient Splendor Meets Pure Stillness</h2>
+                <p class="heritage-lead">
+                    Every TORO sanctuary is hand-carved into its landscape &mdash; from the sunlit coastal cliffs of Candolim, Goa to regal floating terraces on Lake Pichola, Udaipur, and high-altitude alpine chalets in the Himalayas.
+                </p>
+                <p class="heritage-body">
+                    We believe true luxury does not shout; it breathes. That is why we provide complete 360° virtual transparency before your arrival, accompanied by Michelin-inspired regional gastronomy, Makrana marble baths, and ancestral Ayurvedic therapies.
+                </p>
+
+                <div class="heritage-pillars">
+                    <div class="pillar-box">
+                        <span class="pillar-number">01</span>
+                        <h4>Spatial Transparency</h4>
+                        <p>Full 360° virtual room inspection before booking. Zero surprises, complete confidence.</p>
+                    </div>
+                    <div class="pillar-box">
+                        <span class="pillar-number">02</span>
+                        <h4>Artisan Heritage</h4>
+                        <p>Handcrafted teakwood furniture, Italian and Makrana marble, and 1000-thread Egyptian linens.</p>
+                    </div>
+                    <div class="pillar-box">
+                        <span class="pillar-number">03</span>
+                        <h4>Intuitive Butler Care</h4>
+                        <p>Silent, anticipatory hospitality that honors your peace and tailors bespoke private itineraries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ========================================================
          DESTINATIONS SHOWCASE SECTION
@@ -245,6 +363,41 @@
         <!-- Room Cards Grid -->
         <div class="public-rooms-grid" id="publicRoomsGrid">
             <!-- Dynamically populated via script.js -->
+        </div>
+    </section>
+
+    <!-- ========================================================
+         IMMERSIVE 360° VR SHOWCASE BANNER
+         ======================================================== -->
+    <section class="section-container" style="padding-top: 10px; padding-bottom: 20px;">
+        <div class="vr-feature-card">
+            <div class="vr-feature-content">
+                <span class="section-tag" style="color: #5eead4;">IMMERSIVE EXPLORATION</span>
+                <h2 class="vr-feature-title">Step Inside in 360° Virtual Reality Before You Arrive</h2>
+                <p class="vr-feature-subtitle">
+                    Eliminate booking hesitation. Inspect our private sun terraces, hydrotherapy jacuzzis, and master bedrooms with true equirectangular 360° depth.
+                </p>
+                <div class="vr-feature-highlights">
+                    <div class="vr-highlight-item"><i class="fa-solid fa-check"></i> <span>Hardware-Accelerated WebGL Engine</span></div>
+                    <div class="vr-highlight-item"><i class="fa-solid fa-check"></i> <span>Compatible with Mobile, Desktop & VR Headsets</span></div>
+                    <div class="vr-highlight-item"><i class="fa-solid fa-check"></i> <span>100% Verified Spatial Accuracy & Inclusions</span></div>
+                </div>
+                <div class="vr-feature-buttons">
+                    <button class="btn-hero-primary" onclick="open360Tour('deluxe')">
+                        <i class="fa-solid fa-compass" style="margin-right: 6px;"></i> Explore Beach Villa (Goa)
+                    </button>
+                    <button class="btn-hero-secondary" onclick="open360Tour('penthouse')">
+                        <i class="fa-solid fa-crown" style="margin-right: 6px;"></i> Explore Penthouse (Jaipur)
+                    </button>
+                </div>
+            </div>
+            <div class="vr-feature-preview" onclick="open360Tour('deluxe')" title="Click to Enter 360° Tour">
+                <img src="assets/deluxe_suite.jpg" alt="360 Tour Preview">
+                <div class="vr-play-button">
+                    <i class="fa-solid fa-rotate"></i>
+                    <span>Launch 360° Tour</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -342,6 +495,85 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         GUEST REVIEWS & TESTIMONIALS SECTION
+         ======================================================== -->
+    <section id="reviews-section" class="section-container">
+        <div class="section-head">
+            <span class="section-tag">GUEST EXPERIENCES</span>
+            <h2 class="section-title">Whispers of Solitude & Wonder</h2>
+            <p class="section-subtitle">Read firsthand impressions from discerning travelers who have made TORO their home across India.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars-row">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">
+                    "The 360° virtual tour convinced us to book the Amber Royal Penthouse. When we arrived in Jaipur, the panoramic terrace and private jacuzzi were 100% true to life. Extraordinary butler service."
+                </p>
+                <div class="guest-profile">
+                    <div class="guest-initials">VK</div>
+                    <div>
+                        <div class="guest-name">Vikram & Sophie Kapoor</div>
+                        <div class="guest-location">London / Mumbai &bull; Verified Stay</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars-row">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">
+                    "As frequent luxury travelers, we usually book through high-end agencies. TORO's direct platform was seamless, and the Candolim beachfront villa gave us complete peace away from crowds."
+                </p>
+                <div class="guest-profile">
+                    <div class="guest-initials">AS</div>
+                    <div>
+                        <div class="guest-name">Dr. Ananya Singhania</div>
+                        <div class="guest-location">Delhi NCR &bull; Verified Stay</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars-row">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-quote">
+                    "Waking up to Lake Pichola in the morning mist, accompanied by freshly prepared Masala Chai on the private terrace. The level of craftsmanship in every room is breathtaking."
+                </p>
+                <div class="guest-profile">
+                    <div class="guest-initials">MW</div>
+                    <div>
+                        <div class="guest-name">Marcus Weber & Family</div>
+                        <div class="guest-location">Zurich, Switzerland &bull; Verified Stay</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         PRIVATE MEMBERS CLUB & NEWSLETTER ("THE TORO CIRCLE")
+         ======================================================== -->
+    <section class="section-container" style="padding-top: 10px; padding-bottom: 60px;">
+        <div class="circle-card">
+            <span class="section-tag" style="color: #5eead4;">PRIVATE INVITATIONS</span>
+            <h2 class="circle-title">Join The TORO Circle</h2>
+            <p class="circle-subtitle">
+                Receive privileged access to private palace openings, seasonal wellness retreats, and Michelin-inspired sommelier tasting dinners across India.
+            </p>
+            <form class="circle-form" onsubmit="handleCircleSubmit(event)">
+                <input type="email" id="circleEmail" class="circle-input" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-reserve-nav" style="padding: 12px 28px;">Request Invitation</button>
+            </form>
+            <span class="circle-notice">Privileged membership &bull; Strictly confidential &bull; No marketing spam</span>
         </div>
     </section>
 
@@ -925,6 +1157,57 @@
                     <button type="submit" class="btn btn-primary">Dispatch</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         FLOATING 24/7 CONCIERGE BUTTON & MODAL
+         ======================================================== -->
+    <button class="floating-concierge-pill" onclick="openConciergeModal()" title="Instant 24/7 Royal Concierge">
+        <i class="fa-solid fa-headset"></i>
+        <span>24/7 Concierge</span>
+    </button>
+
+    <div id="conciergeModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 480px;">
+            <div class="modal-header">
+                <div>
+                    <h3>TORO Royal Concierge</h3>
+                    <span style="font-size: 12px; color: var(--text-muted);">24/7 Bespoke Guest Services & Reservations</span>
+                </div>
+                <button class="close-modal" onclick="closeModal('conciergeModal')">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                    Our dedicated guest experience team is available around the clock to arrange bespoke itineraries, private airport chauffeur transfers, or immediate suite reservations.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                    <a href="tel:+912289001200" class="concierge-contact-card">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <strong>Direct VIP Reservations Line</strong>
+                            <span>+91 (22) 8900 1200 &bull; Immediate Assistance</span>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/919876543210" target="_blank" class="concierge-contact-card">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+                        <div>
+                            <strong>Instant WhatsApp Concierge</strong>
+                            <span>Chat with our private guest liaison</span>
+                        </div>
+                    </a>
+                    <a href="mailto:concierge@toro-hotels.com" class="concierge-contact-card">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <strong>Email Inquiries</strong>
+                            <span>concierge@toro-hotels.com &bull; Replies in 15 mins</span>
+                        </div>
+                    </a>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('conciergeModal'); openQuickBook();">
+                    Proceed to Online Suite Booking
+                </button>
+            </div>
         </div>
     </div>
 
