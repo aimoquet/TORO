@@ -1,30 +1,11 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "buildCommand": "node copy_to_public.js",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/api/:path*",
       "destination": "/api"
-    },
-    {
-      "source": "/assets/:match*",
-      "destination": "/frontend/assets/:match*"
-    },
-    {
-      "source": "/style.css",
-      "destination": "/frontend/style.css"
-    },
-    {
-      "source": "/script.js",
-      "destination": "/frontend/script.js"
-    },
-    {
-      "source": "/",
-      "destination": "/frontend/index.html"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/frontend/:path*"
     }
   ],
   "headers": [

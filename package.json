@@ -4,6 +4,7 @@
   "description": "TORO — Luxury Hotels & Resorts India Collection Platform",
   "main": "frontend_server.js",
   "scripts": {
+    "build": "node copy_to_public.js",
     "start": "node frontend_server.js",
     "dev": "node frontend_server.js",
     "deploy": "npx vercel --prod"
