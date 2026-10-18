@@ -1379,6 +1379,25 @@ body {
     box-shadow: 0 0 0 3px rgba(13, 110, 110, 0.12);
 }
 
+.new-guest-box {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px dashed var(--border);
+}
+
+.booking-total-banner {
+    background: #f0fdfa;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #99f6e4;
+}
+
 .btn {
     padding: 9px 18px;
     border-radius: var(--radius-sm);
@@ -4188,46 +4207,285 @@ body, .site-header, .search-bar-clean, .public-room-card, .tourism-card,
     border-top-color: var(--border);
 }
 
-/* Modals & Forms */
+/* Modals, Payment Gateway, Vouchers & Drawer in Dark Mode */
+[data-theme="dark"] .modal-overlay {
+    background: rgba(4, 12, 14, 0.88) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
 [data-theme="dark"] .modal-box {
-    background: #0b1d21;
-    border: 1px solid rgba(45, 212, 191, 0.25);
-    color: #f1f5f9;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    background: #0b1d21 !important;
+    border: 1px solid rgba(45, 212, 191, 0.25) !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85) !important;
 }
 
 [data-theme="dark"] .modal-header {
-    border-bottom: 1px solid var(--border);
+    background: #071518 !important;
+    border-bottom: 1px solid #18373e !important;
+    color: #f1f5f9 !important;
 }
 
 [data-theme="dark"] .modal-header h3 {
-    color: #f1f5f9;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .modal-body {
+    background: #0b1d21 !important;
+    color: #f1f5f9 !important;
 }
 
 [data-theme="dark"] .modal-footer {
-    border-top: 1px solid var(--border);
+    background: #071518 !important;
+    border-top: 1px solid #18373e !important;
 }
 
+[data-theme="dark"] .close-modal {
+    background: #143239 !important;
+    color: #94a3b8 !important;
+    border: 1px solid #1b3d45 !important;
+}
+
+[data-theme="dark"] .close-modal:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+}
+
+/* Payment Gateway Modal in Dark Mode */
+[data-theme="dark"] .payment-badge-pill {
+    background: rgba(22, 163, 74, 0.2) !important;
+    color: #4ade80 !important;
+    border: 1px solid rgba(74, 222, 128, 0.3) !important;
+}
+
+[data-theme="dark"] .payment-order-summary {
+    background: #0f262c !important;
+    border: 1px solid #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .summary-room-badge {
+    background: rgba(45, 212, 191, 0.15) !important;
+    color: #5eead4 !important;
+}
+
+[data-theme="dark"] #paySummaryTitle {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] #paySummaryDates {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .summary-price-label {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] #paySummaryTotal {
+    color: #2dd4bf !important;
+}
+
+[data-theme="dark"] .summary-taxes-note {
+    color: #4ade80 !important;
+}
+
+[data-theme="dark"] .payment-tabs-nav {
+    background: #071518 !important;
+    border: 1px solid #18373e !important;
+}
+
+[data-theme="dark"] .pay-tab-btn {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .pay-tab-btn:hover {
+    color: #f1f5f9 !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .pay-tab-btn.active {
+    background: #143239 !important;
+    color: #5eead4 !important;
+    border: 1px solid rgba(45, 212, 191, 0.4) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* UPI QR Code Section in Dark Mode */
+[data-theme="dark"] .upi-qr-card {
+    background: #0f262c !important;
+    border: 1px solid #1b3d45 !important;
+}
+
+[data-theme="dark"] .upi-qr-frame {
+    background: #ffffff !important;
+    border: 2px solid var(--gold) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .qr-countdown {
+    color: #fb7185 !important;
+}
+
+[data-theme="dark"] .modal-body h4 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .modal-body p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .upi-details-pane h4 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .upi-details-pane p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .upi-id-badge {
+    background: #071518 !important;
+    border: 1px dashed #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .upi-id-badge span,
+[data-theme="dark"] .upi-id-badge strong {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .btn-copy-upi {
+    background: #143239 !important;
+    border: 1px solid #234c55 !important;
+    color: #5eead4 !important;
+}
+
+[data-theme="dark"] .btn-copy-upi:hover {
+    background: #1a424b !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .upi-chip {
+    background: #143239 !important;
+    color: #94a3b8 !important;
+    border: 1px solid #1b3d45 !important;
+}
+
+[data-theme="dark"] .btn-google-pay {
+    background: #143239 !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #234c55 !important;
+}
+
+[data-theme="dark"] .btn-google-pay:hover {
+    background: #1c444d !important;
+}
+
+/* Form Controls & Buttons in Dark Mode Modals */
 [data-theme="dark"] .form-control {
-    background: #061113;
-    border-color: var(--border);
-    color: #f1f5f9;
+    background: #061113 !important;
+    border-color: #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .form-control option {
+    background: #0b1d21 !important;
+    color: #f1f5f9 !important;
 }
 
 [data-theme="dark"] .form-control:focus {
-    border-color: var(--primary);
-    background: #081619;
+    border-color: var(--primary) !important;
+    background: #081619 !important;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2) !important;
 }
 
 [data-theme="dark"] .btn-secondary {
-    background: #142a2f;
-    color: #e2e8f0;
-    border: 1px solid #1c3c43;
+    background: #142a2f !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #1c3c43 !important;
 }
 
 [data-theme="dark"] .btn-secondary:hover {
-    background: #1c3c43;
-    color: #ffffff;
+    background: #1c3c43 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-text {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .btn-text:hover {
+    color: #2dd4bf !important;
+}
+
+/* Direct Reservation Modal Inclusions */
+[data-theme="dark"] .new-guest-box {
+    background: #071518 !important;
+    border: 1px dashed #1b3d45 !important;
+}
+
+[data-theme="dark"] .booking-total-banner {
+    background: #0f262c !important;
+    border: 1px solid #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
+/* Official Guest Stay Voucher Modal */
+[data-theme="dark"] .voucher-modal-box {
+    background: #0b1d21 !important;
+}
+
+[data-theme="dark"] .voucher-card {
+    background: #0f262c !important;
+    border: 1px solid #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .voucher-top {
+    border-bottom: 1px solid #18373e !important;
+}
+
+[data-theme="dark"] .voucher-brand {
+    color: #5eead4 !important;
+}
+
+[data-theme="dark"] .voucher-id {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .v-label {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .v-val {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .voucher-settlement-bar {
+    background: rgba(20, 184, 166, 0.15) !important;
+    border: 1px solid rgba(45, 212, 191, 0.3) !important;
+    color: #5eead4 !important;
+}
+
+[data-theme="dark"] .voucher-security-code {
+    background: #071518 !important;
+    border: 1px solid #18373e !important;
+    color: #f1f5f9 !important;
+}
+
+/* Digital Key & NFC Modal */
+[data-theme="dark"] .wallet-nfc-pass-card {
+    border-color: rgba(45, 212, 191, 0.4) !important;
+}
+
+[data-theme="dark"] .btn-wallet-google {
+    background: #143239 !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #234c55 !important;
+}
+
+[data-theme="dark"] .btn-wallet-google:hover {
+    background: #1c444d !important;
 }
 
 /* Staff Management Portal (PMS) */
@@ -4292,35 +4550,51 @@ body, .site-header, .search-bar-clean, .public-room-card, .tourism-card,
 }
 
 /* AI Butler & Concierge Drawer */
+[data-theme="dark"] .ai-butler-drawer {
+    background: #0b1d21 !important;
+    border: 1px solid rgba(45, 212, 191, 0.25) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .ai-drawer-body {
+    background: #071518 !important;
+}
+
+[data-theme="dark"] .ai-bubble-bot {
+    background: #0f262c !important;
+    border: 1px solid #1b3d45 !important;
+    color: #f1f5f9 !important;
+}
+
 [data-theme="dark"] .ai-chip {
-    background: #0b1d21;
-    border-color: var(--border);
-    color: #5eead4;
+    background: #0f262c !important;
+    border-color: #1b3d45 !important;
+    color: #5eead4 !important;
 }
 
 [data-theme="dark"] .ai-chip:hover {
-    background: #11282d;
-    border-color: var(--primary);
+    background: #143239 !important;
+    border-color: var(--primary) !important;
 }
 
 [data-theme="dark"] .ai-drawer-footer {
-    background: #081619;
-    border-top-color: var(--border);
+    background: #0b1d21 !important;
+    border-top: 1px solid #18373e !important;
 }
 
 [data-theme="dark"] .ai-chat-input {
-    background: #0b1d21;
-    border-color: var(--border);
-    color: #f1f5f9;
+    background: #071518 !important;
+    border: 1px solid #1b3d45 !important;
+    color: #f1f5f9 !important;
 }
 
 [data-theme="dark"] .concierge-contact-card {
-    background: #081619;
-    border-color: var(--border);
-    color: #f1f5f9;
+    background: #0f262c !important;
+    border-color: #1b3d45 !important;
+    color: #f1f5f9 !important;
 }
 
 [data-theme="dark"] .concierge-contact-card:hover {
-    background: #10262b;
-    border-color: var(--primary);
+    background: #143239 !important;
+    border-color: var(--primary) !important;
 }

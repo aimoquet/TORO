@@ -1219,7 +1219,7 @@
                             <option value="">-- Choose Existing Guest or Register New --</option>
                         </select>
                     </div>
-                    <div id="newGuestFields" style="display: none; background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px dashed var(--border);">
+                    <div id="newGuestFields" class="new-guest-box" style="display: none;">
                         <div class="form-group"><label>Full Name *</label><input type="text" id="modalNewGuestName" class="form-control" placeholder="Aarav Sharma"></div>
                         <div class="form-row">
                             <div class="form-group"><label>Email *</label><input type="email" id="modalNewGuestEmail" class="form-control" placeholder="aarav@example.com"></div>
@@ -1282,7 +1282,7 @@
                         </div>
                     </div>
 
-                    <div style="background: #f0fdfa; border-radius: 8px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #99f6e4;">
+                    <div class="booking-total-banner">
                         <div><span style="font-size: 12.5px; color: var(--primary); font-weight: 600;">Stay Total:</span><div id="bookingStayDuration" style="font-size: 12px; color: var(--text-muted);">1 night(s)</div></div>
                         <div id="bookingCalculatedTotal" style="font-size: 22px; font-weight: 700; color: var(--primary);">₹0</div>
                     </div>
@@ -1660,9 +1660,9 @@
                 </div>
             </div>
             
-            <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid var(--border);">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Back</button>
-                <button type="button" class="btn btn-text" onclick="proceedPayAtDesk()" style="font-size: 13px; color: var(--text-muted);">
+                <button type="button" class="btn btn-text" onclick="proceedPayAtDesk()" style="font-size: 13px;">
                     Pay on Arrival at Resort Front Desk &rarr;
                 </button>
             </div>
@@ -1674,14 +1674,14 @@
          ======================================================== -->
     <div id="paymentSuccessModal" class="modal-overlay">
         <div class="modal-box voucher-modal-box" style="max-width: 580px;">
-            <div class="modal-header" style="background: var(--surface); color: #fff;">
+            <div class="modal-header">
                 <div>
                     <span class="badge-status-float badge-available" style="position: static; margin-bottom: 6px; display: inline-flex;">
                         <i class="fa-solid fa-circle-check"></i> RESERVATION CONFIRMED &bull; PAID
                     </span>
-                    <h3 style="color: #fff; font-size: 19px; margin-top: 4px;">Official Guest Stay Voucher</h3>
+                    <h3 style="font-size: 19px; margin-top: 4px;">Official Guest Stay Voucher</h3>
                 </div>
-                <button class="close-modal" style="color: #fff;" onclick="closeModal('paymentSuccessModal')">&times;</button>
+                <button class="close-modal" onclick="closeModal('paymentSuccessModal')">&times;</button>
             </div>
             
             <div class="modal-body" style="padding: 24px;">
