@@ -17,5 +17,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("SELECT SUM(b.totalAmount) FROM Booking b WHERE b.status <> 'CANCELLED'")
     Double calculateTotalRevenue();
 
+    @Query("SELECT COUNT(DISTINCT b.customer.id) FROM Booking b")
+    Long countDistinctCustomersBooked();
+
     long countByStatusIgnoreCase(String status);
 }

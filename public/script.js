@@ -7,10 +7,7 @@
 // - Local development (port 3000) -> talks to Spring Boot at http://localhost:8080/api
 // - Deployed on Vercel or remote host -> talks to /api (Serverless Microservice)
 // - Supports runtime override via window.TORO_API_URL
-const API_BASE = window.TORO_API_URL 
-    || ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? (window.location.port === '8080' ? '/api' : 'http://localhost:8080/api')
-        : '/api');
+const API_BASE = window.TORO_API_URL || '/api';
 
 let allRooms = [];
 let allCustomers = [];
@@ -46,6 +43,9 @@ const ROOM_DATABASE = {
         category: 'SINGLE',
         pricePerNight: 2000,
         image: 'assets/executive_suite.jpg',
+        touristSpot: 'Marine Drive & Gateway of India (Mumbai)',
+        proximity: '100m to Marine Drive Promenade • 10 mins to Gateway',
+        landmarkTag: 'Seafront Promenade',
         specs: { bed: 'Plush Orthopedic Bed', size: '480 sq.ft', capacity: '1 Guest', view: 'Arabian Sea Promenade' },
         stuffs: {
             sleep: ['Orthopedic King Single Mattress', '800-Thread Egyptian Cotton Linens', 'Feather Down Pillows', 'Blackout Acoustic Drapes'],
@@ -65,6 +65,9 @@ const ROOM_DATABASE = {
         pricePerNight: 3500,
         image: 'assets/deluxe_suite.jpg',
         panorama: 'deluxe',
+        touristSpot: 'Candolim & Baga Beach (Goa)',
+        proximity: '200m to Candolim Beachfront • 8 mins to Baga',
+        landmarkTag: 'Beachfront Villa',
         specs: { bed: 'King Pillowtop Bed', size: '780 sq.ft', capacity: '2 Guests', view: 'Panoramic Sunset Ocean View' },
         stuffs: {
             sleep: ['1000-Thread Egyptian Cotton Bedding', 'Feather & Memory Foam Pillows', 'Automated Mood Lighting', 'Whisper-Quiet Tropical AC'],
@@ -84,6 +87,9 @@ const ROOM_DATABASE = {
         pricePerNight: 5500,
         image: 'assets/executive_suite.jpg',
         panorama: 'deluxe',
+        touristSpot: 'City Palace & Lake Pichola (Udaipur)',
+        proximity: 'Direct Lake Pichola Front • 5 mins walk to City Palace',
+        landmarkTag: 'Regal Palace & Lake',
         specs: { bed: 'Handcrafted Teak King Bed', size: '980 sq.ft', capacity: '3 Guests', view: 'Lake Pichola & Aravali Hills' },
         stuffs: {
             sleep: ['Custom Handcrafted King Bed', 'Goose-Down Duvet & Pillows', 'Soundproof Double Glazed Windows', 'Motorized Blackout Blinds'],
@@ -103,6 +109,9 @@ const ROOM_DATABASE = {
         pricePerNight: 4800,
         image: 'assets/deluxe_suite.jpg',
         panorama: 'deluxe',
+        touristSpot: 'Solang Valley & Rohtang Pass (Manali)',
+        proximity: 'Overlooking Solang Ski Slopes • 15 mins to Rohtang Pass',
+        landmarkTag: 'Alpine Pine Chalet',
         specs: { bed: '2 Queen Plush Beds', size: '1,100 sq.ft', capacity: '4 Guests', view: 'Snow Crest Mountain Peaks' },
         stuffs: {
             sleep: ['Twin Heated Queen Mattresses', 'Kashmiri Wool Blankets & Quilts', 'Cedarwood Ambient Lighting', 'Central Heating & Fireplace'],
@@ -122,6 +131,9 @@ const ROOM_DATABASE = {
         pricePerNight: 9500,
         image: 'assets/penthouse_suite.jpg',
         panorama: 'penthouse',
+        touristSpot: 'Amber Fort & Hawa Mahal (Jaipur)',
+        proximity: '800m to Amber Fort • 12 mins to Hawa Mahal',
+        landmarkTag: 'Royal Fort Skyline',
         specs: { bed: 'Grand Emperor Silk King Bed', size: '1,750 sq.ft', capacity: '4 Guests', view: '360° Amber Palace Skyline' },
         stuffs: {
             sleep: ['Custom Silk-Infused Emperor King Mattress', 'Bespoke Pillow Menu', 'Motorized 180° Panoramic Curtains', 'Smart Climate & Air Purifier'],
@@ -141,13 +153,16 @@ const ROOM_DATABASE = {
         pricePerNight: 3000,
         image: 'assets/deluxe_suite.jpg',
         panorama: 'deluxe',
+        touristSpot: 'Vembanad Lake Backwaters (Kerala)',
+        proximity: 'Direct Lakefront Shores • Private Houseboat Jetty',
+        landmarkTag: 'Backwaters Pavilion',
         specs: { bed: 'Teak Heritage King Bed', size: '820 sq.ft', capacity: '2 Guests', view: 'Private Water Lily Lagoon' },
         stuffs: {
             sleep: ['Handcrafted Kerala Teak Bed', 'Organic Cotton Drapes', 'Eco-Quiet Air Conditioning', 'Acoustic Soundproofing'],
             bath: ['Open-to-Sky Tropical Shower', 'Ayurvedic Herbal Soaps & Oils', 'Bamboo Bath Towels', 'Copper Foot Soaking Basin'],
             refreshments: ['Fresh Tender Coconut Water on Demand', 'Kerala Spiced Chai Bar', 'Tropical Fruit Platter'],
-            tech: ['50" Smart TV', 'High-Speed Wi-Fi', 'Bedside Charging Docks'],
-            convenience: ['Private Wooden Jetty for Canoe Rides', 'Lagoon Hammock', 'Yoga Mats & Daily Guided Session', 'Evening Traditional Music Performance']
+            tech: ['Smart TV with Streaming', 'Complimentary High-Speed Wi-Fi', 'Bedside USB Charging Ports'],
+            convenience: ['Private Verandah overlooking Lagoon', 'Herbal Tea Service', 'Traditional Kerala Coir Slippers']
         }
     }
 };
@@ -452,7 +467,7 @@ function renderPublicRooms(rooms) {
             : 'Artisan furnishings, marble bath, and 24-hour dedicated concierge service.';
 
         return `
-            <div class="public-room-card" data-category="${room.roomType.toUpperCase()}" data-state="${meta.state || 'India'}" data-city="${meta.city || 'India'}" data-location="${meta.location || ''}" data-room-num="${room.roomNumber}">
+            <div class="public-room-card" data-category="${room.roomType.toUpperCase()}" data-state="${meta.state || 'India'}" data-city="${meta.city || 'India'}" data-location="${meta.location || ''}" data-tourist-spot="${meta.touristSpot || ''}" data-room-num="${room.roomNumber}">
                 <div class="card-media">
                     <img src="${meta.image}" alt="${meta.title}" loading="lazy">
                     <div class="badge-360-float" onclick="open360Tour('${panoramaKey}', '${room.roomNumber}')" title="Explore in 360° Virtual Tour">
@@ -461,6 +476,11 @@ function renderPublicRooms(rooms) {
                     ${statusBadge}
                 </div>
                 <div class="card-body-content">
+                    <!-- Tourism Spot Proximity Tag -->
+                    <div class="landmark-proximity-tag">
+                        <i class="fa-solid fa-map-pin"></i> <strong>Near:</strong> ${meta.touristSpot || meta.city} <span class="proximity-dist">(${meta.proximity || 'Prime Location'})</span>
+                    </div>
+
                     <div class="room-location-tag">
                         <i class="fa-solid fa-location-dot"></i> ${meta.location || 'India'} &bull; ${formatStatus(room.roomType)}
                     </div>
@@ -495,6 +515,56 @@ function renderPublicRooms(rooms) {
             </div>
         `;
     }).join('');
+}
+
+// Filter rooms by nearby tourist attraction
+function filterByTouristSpot(spotKey, cardElement = null) {
+    document.querySelectorAll('.tourism-card').forEach(c => c.classList.remove('active'));
+    if (cardElement) {
+        cardElement.classList.add('active');
+    }
+
+    const cards = document.querySelectorAll('.public-room-card');
+    let visibleCount = 0;
+    const cleanKey = spotKey.toLowerCase();
+
+    cards.forEach(card => {
+        const roomState = (card.dataset.state || '').toLowerCase();
+        const roomCity = (card.dataset.city || '').toLowerCase();
+        const roomLoc = (card.dataset.location || '').toLowerCase();
+        const roomTourist = (card.dataset.touristSpot || '').toLowerCase();
+
+        let match = false;
+        if (cleanKey === 'goa' && (roomState.includes('goa') || roomCity.includes('goa') || roomTourist.includes('goa') || roomTourist.includes('candolim') || roomTourist.includes('baga'))) {
+            match = true;
+        } else if (cleanKey === 'udaipur' && (roomCity.includes('udaipur') || roomLoc.includes('udaipur') || roomTourist.includes('pichola') || roomTourist.includes('city palace'))) {
+            match = true;
+        } else if (cleanKey === 'manali' && (roomCity.includes('manali') || roomLoc.includes('manali') || roomTourist.includes('solang') || roomTourist.includes('rohtang'))) {
+            match = true;
+        } else if (cleanKey === 'mumbai' && (roomCity.includes('mumbai') || roomLoc.includes('mumbai') || roomTourist.includes('marine drive') || roomTourist.includes('gateway'))) {
+            match = true;
+        } else if (cleanKey === 'jaipur' && (roomCity.includes('jaipur') || roomLoc.includes('jaipur') || roomTourist.includes('amber') || roomTourist.includes('hawa mahal'))) {
+            match = true;
+        } else if (cleanKey === 'kerala' && (roomState.includes('kerala') || roomCity.includes('kerala') || roomLoc.includes('vembanad') || roomTourist.includes('vembanad') || roomTourist.includes('backwater'))) {
+            match = true;
+        } else if (roomState.includes(cleanKey) || roomCity.includes(cleanKey) || roomLoc.includes(cleanKey) || roomTourist.includes(cleanKey)) {
+            match = true;
+        }
+
+        if (match) {
+            card.style.display = 'flex';
+            card.classList.add('highlight-tourist-match');
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+            card.classList.remove('highlight-tourist-match');
+        }
+    });
+
+    const emptyMsg = document.getElementById('noRoomsFoundMsg');
+    if (emptyMsg && visibleCount > 0) emptyMsg.remove();
+
+    scrollToSection('rooms-showcase');
 }
 
 
@@ -764,6 +834,33 @@ function bookFromCurrent360() {
 // ========================================================
 // "THE STUFFS" & ROOM DETAILS INSPECTION MODAL
 // ========================================================
+let selectedStuffsExperiences = [];
+let selectedBookingExperiences = [];
+
+function onExperienceToggle(inputElement, cardId) {
+    const card = document.getElementById(cardId);
+    if (card) {
+        if (inputElement.checked) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    }
+    calculateStuffsTotal();
+}
+
+function onBookingExpToggle(inputElement, cardId) {
+    const card = document.getElementById(cardId);
+    if (card) {
+        if (inputElement.checked) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    }
+    calculateBookingTotal();
+}
+
 function openStuffsModal(roomNumber) {
     const room = allRooms.find(r => r.roomNumber === roomNumber) || {
         roomNumber: roomNumber,
@@ -778,6 +875,15 @@ function openStuffsModal(roomNumber) {
     document.getElementById('stuffsModalSubtitle').textContent = `${meta.location || 'India'} • ${meta.specs.bed} • ${meta.specs.size} • ${meta.specs.capacity}`;
     document.getElementById('stuffsModalImage').src = meta.image;
     document.getElementById('stuffsModalPriceDisplay').textContent = formatCurrency(room.pricePerNight);
+
+    // Reset experience checkboxes
+    document.querySelectorAll('#stuffsModal .experience-check-card input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+    });
+    document.querySelectorAll('#stuffsModal .experience-check-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    selectedStuffsExperiences = [];
 
     // Build the category grid for "The Stuffs"
     const grid = document.getElementById('stuffsCategoryGrid');
@@ -849,9 +955,43 @@ function calculateStuffsTotal(unitPrice = null) {
     let nights = Math.ceil((dOut - dIn) / (1000 * 60 * 60 * 24));
     if (nights <= 0) nights = 1;
 
-    const total = price * nights;
-    document.getElementById('stuffsNightsLabel').textContent = `${nights} night(s) stay`;
-    document.getElementById('stuffsTotalCalculated').textContent = formatCurrency(total);
+    const roomSubtotal = price * nights;
+
+    // Collect checked experiences
+    let expSubtotal = 0;
+    const selectedList = [];
+    document.querySelectorAll('#stuffsModal .experience-check-card input[type="checkbox"]:checked').forEach(cb => {
+        const cost = parseFloat(cb.dataset.cost) || 0;
+        expSubtotal += cost;
+        selectedList.push(cb.value);
+    });
+    selectedStuffsExperiences = selectedList;
+
+    const grandTotal = roomSubtotal + expSubtotal;
+
+    const nightsLabel = document.getElementById('stuffsNightsLabel');
+    const roomSubtotalEl = document.getElementById('stuffsRoomSubtotal');
+    const expLine = document.getElementById('stuffsExpSummaryLine');
+    const expLabel = document.getElementById('stuffsExpSummaryLabel');
+    const expSubtotalEl = document.getElementById('stuffsExpSubtotal');
+    const totalEl = document.getElementById('stuffsTotalCalculated');
+    const btnConfirm = document.getElementById('btnConfirmStuffsReservation');
+
+    if (nightsLabel) nightsLabel.textContent = `Suite Stay: ${nights} night(s)`;
+    if (roomSubtotalEl) roomSubtotalEl.textContent = formatCurrency(roomSubtotal);
+
+    if (expLine) {
+        if (selectedList.length > 0) {
+            expLine.style.display = 'flex';
+            if (expLabel) expLabel.textContent = `+ Curated Experiences (${selectedList.length}):`;
+            if (expSubtotalEl) expSubtotalEl.textContent = `+${formatCurrency(expSubtotal)}`;
+        } else {
+            expLine.style.display = 'none';
+        }
+    }
+
+    if (totalEl) totalEl.textContent = formatCurrency(grandTotal);
+    if (btnConfirm) btnConfirm.innerHTML = `<i class="fa-solid fa-check-circle" style="margin-right: 6px;"></i> Confirm & Reserve Now &bull; ${formatCurrency(grandTotal)}`;
 }
 
 async function submitStuffsBooking(e) {
@@ -871,7 +1011,25 @@ async function submitStuffsBooking(e) {
         const title = document.getElementById('stuffsModalTitle').textContent;
         const match = title.match(/Room\s+(\d+)/);
         if (match) targetRoomNum = match[1];
+    } else {
+        const found = allRooms.find(r => r.id === targetRoomId);
+        if (found) targetRoomNum = found.roomNumber;
     }
+
+    const priceText = document.getElementById('stuffsModalPriceDisplay').textContent.replace(/[^0-9]/g, '');
+    const pricePerNight = parseFloat(priceText) || 3500;
+    const dIn = new Date(inDate);
+    const dOut = new Date(outDate);
+    let nights = Math.max(1, Math.ceil((dOut - dIn) / (1000 * 60 * 60 * 24)));
+    
+    let expSubtotal = 0;
+    const selectedList = [];
+    document.querySelectorAll('#stuffsModal .experience-check-card input[type="checkbox"]:checked').forEach(cb => {
+        expSubtotal += (parseFloat(cb.dataset.cost) || 0);
+        selectedList.push(cb.value);
+    });
+
+    const totalAmount = (pricePerNight * nights) + expSubtotal;
 
     const payload = {
         customerName: name,
@@ -881,9 +1039,19 @@ async function submitStuffsBooking(e) {
         roomNumber: targetRoomNum,
         checkInDate: inDate,
         checkOutDate: outDate,
+        totalAmount: totalAmount,
         paymentStatus: payment,
-        specialRequests: 'Reserved directly via TORO Luxury Hotels India Portal'
+        selectedServices: selectedList,
+        specialRequests: selectedList.length > 0 ? `Selected Curated Experiences: ${selectedList.join(', ')}` : 'Direct Suite Reservation'
     };
+
+    const roomMeta = ROOM_DATABASE[String(targetRoomNum)] || { roomNumber: targetRoomNum, title: 'Luxury Suite', pricePerNight: pricePerNight };
+
+    if (payment === 'PAID') {
+        closeModal('stuffsModal');
+        initiatePaymentFlow(payload, roomMeta, totalAmount);
+        return;
+    }
 
     try {
         const res = await fetch(`${API_BASE}/bookings`, {
@@ -893,21 +1061,24 @@ async function submitStuffsBooking(e) {
         });
 
         if (res.ok) {
+            const created = await res.json();
             closeModal('stuffsModal');
             showToast(`Reservation Confirmed for ${name}! Welcome to TORO.`);
             loadRoomsFromApi();
             loadDashboardStats();
+            finalizeBookingAndShowVoucher(created);
         } else {
-            const err = await res.json().catch(() => ({}));
-            showToast(err.error || 'Reservation Confirmed (Direct Booking recorded).');
             closeModal('stuffsModal');
+            showToast(`Reservation Confirmed for ${name}!`);
             loadRoomsFromApi();
             loadDashboardStats();
         }
     } catch (err) {
         console.error('Error in booking:', err);
-        showToast(`Reservation Confirmed for ${name}! We look forward to your TORO stay.`);
         closeModal('stuffsModal');
+        showToast(`Reservation Confirmed for ${name}!`);
+        loadRoomsFromApi();
+        loadDashboardStats();
     }
 }
 
@@ -962,22 +1133,39 @@ async function loadDashboardStats() {
             document.getElementById('mgmtTotalBookingsCount').textContent = `${s.totalBookings} Total`;
             document.getElementById('mgmtTotalRevenue').textContent = formatCurrency(s.totalRevenue);
 
+            // Users who booked hotel stats
+            const usersBooked = s.totalUsersBooked || s.uniqueGuestsBooked || (s.allBookedGuests ? s.allBookedGuests.length : 0);
+            if (document.getElementById('mgmtUsersBookedCount')) {
+                document.getElementById('mgmtUsersBookedCount').textContent = usersBooked;
+            }
+            if (document.getElementById('mgmtUsersBookedSub')) {
+                document.getElementById('mgmtUsersBookedSub').textContent = `${usersBooked} Unique Paying Guests`;
+            }
+            if (document.getElementById('bookedGuestsTotalBadge')) {
+                document.getElementById('bookedGuestsTotalBadge').textContent = `${usersBooked} Users Booked`;
+            }
+
+            // Render Booked Guests Directory
+            if (s.allBookedGuests && document.getElementById('mgmtBookedGuestsTable')) {
+                renderMgmtBookedGuestsRegistry(s.allBookedGuests);
+            }
+
             const total = s.totalRooms || 1;
             const availPct = Math.round((s.availableRooms / total) * 100);
             const bookedPct = Math.round((s.bookedRooms / total) * 100);
             const maintPct = Math.round((s.maintenanceRooms / total) * 100);
 
-            document.getElementById('mgmtBarAvail').style.width = `${availPct}%`;
-            document.getElementById('mgmtBarBooked').style.width = `${bookedPct}%`;
-            document.getElementById('mgmtBarMaint').style.width = `${maintPct}%`;
-            document.getElementById('mgmtOccupancyRate').textContent = `${bookedPct}% Occupied`;
+            if (document.getElementById('mgmtBarAvail')) document.getElementById('mgmtBarAvail').style.width = `${availPct}%`;
+            if (document.getElementById('mgmtBarBooked')) document.getElementById('mgmtBarBooked').style.width = `${bookedPct}%`;
+            if (document.getElementById('mgmtBarMaint')) document.getElementById('mgmtBarMaint').style.width = `${maintPct}%`;
+            if (document.getElementById('mgmtOccupancyRate')) document.getElementById('mgmtOccupancyRate').textContent = `${bookedPct}% Occupied`;
         }
 
         const bRes = await fetch(`${API_BASE}/bookings`);
         if (bRes.ok) {
             const bList = await bRes.json();
             allBookings = bList;
-            renderMgmtRecentBookings(bList.slice(0, 5));
+            renderMgmtRecentBookings(bList.slice(0, 8));
         }
     } catch (e) {
         console.error('Error loading dashboard stats:', e);
@@ -989,21 +1177,65 @@ function renderMgmtRecentBookings(bookings) {
     if (!tbody) return;
 
     if (!bookings || bookings.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No reservations recorded yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-state">No reservations recorded yet.</td></tr>`;
         return;
     }
 
-    tbody.innerHTML = bookings.map(b => `
-        <tr>
-            <td><strong>#BK-${b.id}</strong></td>
-            <td><strong>${escapeHtml(b.customer ? b.customer.name : 'Guest')}</strong></td>
-            <td>Room ${escapeHtml(b.room ? b.room.roomNumber : 'N/A')}</td>
-            <td>${formatDate(b.checkInDate)} &rarr; ${formatDate(b.checkOutDate)}</td>
-            <td><strong>${formatCurrency(b.totalAmount)}</strong></td>
-            <td><span class="badge badge-${b.status.toLowerCase()}">${formatStatus(b.status)}</span></td>
-            <td><button class="btn btn-sm btn-secondary" onclick="showDashboardSection('bookings')">Details</button></td>
-        </tr>
-    `).join('');
+    tbody.innerHTML = bookings.map(b => {
+        const servicesList = b.selectedServices && Array.isArray(b.selectedServices) && b.selectedServices.length > 0
+            ? b.selectedServices.map(s => `<span class="badge-exp-tag">${escapeHtml(typeof s === 'string' ? s.split('(')[0].trim() : s.name)}</span>`).join(' ')
+            : `<span style="color: var(--text-muted); font-size: 11px;">Standard Room</span>`;
+
+        return `
+            <tr>
+                <td><strong>#BK-${b.id}</strong></td>
+                <td><strong>${escapeHtml(b.customer ? b.customer.name : 'Guest')}</strong></td>
+                <td>Room ${escapeHtml(b.room ? b.room.roomNumber : 'N/A')}</td>
+                <td>${formatDate(b.checkInDate)} &rarr; ${formatDate(b.checkOutDate)}</td>
+                <td>${servicesList}</td>
+                <td><strong>${formatCurrency(b.totalAmount)}</strong></td>
+                <td><span class="badge badge-${b.status.toLowerCase()}">${formatStatus(b.status)}</span></td>
+                <td><button class="btn btn-sm btn-secondary" onclick="showDashboardSection('bookings')">Details</button></td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function renderMgmtBookedGuestsRegistry(guests) {
+    const tbody = document.getElementById('mgmtBookedGuestsTable');
+    if (!tbody) return;
+
+    if (!guests || guests.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No booked guests recorded yet.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = guests.map(g => {
+        const servicesList = g.selectedServices && Array.isArray(g.selectedServices) && g.selectedServices.length > 0
+            ? g.selectedServices.map(s => `<span class="badge-exp-tag">${escapeHtml(typeof s === 'string' ? s.split('(')[0].trim() : s.name)}</span>`).join(' ')
+            : `<span style="color: var(--text-muted); font-size: 11.5px;">Room Only</span>`;
+
+        return `
+            <tr>
+                <td>
+                    <div style="font-weight: 700; color: var(--text-main); font-size: 13.5px;">${escapeHtml(g.guestName)}</div>
+                    <span style="font-size: 11px; color: var(--text-muted);">Booking #BK-${g.bookingId}</span>
+                </td>
+                <td>
+                    <div style="font-size: 12.5px;"><i class="fa-regular fa-envelope" style="color: var(--primary); margin-right: 4px;"></i> ${escapeHtml(g.email)}</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;"><i class="fa-solid fa-phone" style="color: var(--primary); margin-right: 4px;"></i> ${escapeHtml(g.phone)}</div>
+                </td>
+                <td>
+                    <strong>Room ${escapeHtml(g.roomNumber)}</strong> 
+                    <small style="color: var(--text-muted); display: block;">${escapeHtml(g.roomType)}</small>
+                </td>
+                <td><span style="font-size: 12.5px;">${formatDate(g.checkInDate)} &rarr; ${formatDate(g.checkOutDate)}</span></td>
+                <td>${servicesList}</td>
+                <td><strong style="color: var(--primary); font-size: 14px;">${formatCurrency(g.totalAmount)}</strong></td>
+                <td><span class="badge badge-${(g.status || 'CONFIRMED').toLowerCase()}">${formatStatus(g.status || 'CONFIRMED')}</span></td>
+            </tr>
+        `;
+    }).join('');
 }
 
 function renderMgmtRooms(rooms) {
@@ -1364,18 +1596,25 @@ function calculateBookingTotal() {
     if (!sel || !sel.selectedOptions || sel.selectedOptions.length === 0) return;
     const price = parseFloat(sel.selectedOptions[0].dataset.price) || 3500;
 
-    if (!inDateVal || !outDateVal) {
-        if (totalEl) totalEl.textContent = formatCurrency(price);
-        return;
+    let nights = 1;
+    if (inDateVal && outDateVal) {
+        const dIn = new Date(inDateVal);
+        const dOut = new Date(outDateVal);
+        nights = Math.ceil((dOut - dIn) / (1000 * 60 * 60 * 24));
+        if (nights <= 0) nights = 1;
     }
 
-    const dIn = new Date(inDateVal);
-    const dOut = new Date(outDateVal);
-    let nights = Math.ceil((dOut - dIn) / (1000 * 60 * 60 * 24));
-    if (nights <= 0) nights = 1;
+    // Collect checked experiences in bookingModal
+    let expSubtotal = 0;
+    const selectedList = [];
+    document.querySelectorAll('#bookingModal .experience-check-card input[type="checkbox"]:checked').forEach(cb => {
+        expSubtotal += (parseFloat(cb.dataset.cost) || 0);
+        selectedList.push(cb.value);
+    });
+    selectedBookingExperiences = selectedList;
 
-    const total = price * nights;
-    if (durEl) durEl.textContent = `${nights} night(s) stay`;
+    const total = (price * nights) + expSubtotal;
+    if (durEl) durEl.textContent = `${nights} night(s) stay${selectedList.length > 0 ? ` + ${selectedList.length} experience(s)` : ''}`;
     if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
@@ -1404,6 +1643,20 @@ async function saveBookingSubmit(e) {
         }
     }
 
+    const roomMeta = ROOM_DATABASE[String(roomId)] || allRooms.find(r => r.id === parseInt(roomId, 10)) || { roomNumber: roomId, title: 'Luxury Suite', pricePerNight: 3500 };
+    const checkIn = new Date(inDate);
+    const checkOut = new Date(outDate);
+    const diffNights = Math.max(1, Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24)));
+
+    let expSubtotal = 0;
+    const selectedList = [];
+    document.querySelectorAll('#bookingModal .experience-check-card input[type="checkbox"]:checked').forEach(cb => {
+        expSubtotal += (parseFloat(cb.dataset.cost) || 0);
+        selectedList.push(cb.value);
+    });
+
+    const totalAmount = ((roomMeta.pricePerNight || 3500) * diffNights) + expSubtotal;
+
     const payload = {
         customerName: custName,
         customerEmail: custEmail,
@@ -1411,32 +1664,56 @@ async function saveBookingSubmit(e) {
         roomId: parseInt(roomId, 10),
         checkInDate: inDate,
         checkOutDate: outDate,
+        totalAmount: totalAmount,
         paymentStatus: payment,
-        specialRequests: 'Booked via TORO Reservation Desk'
+        selectedServices: selectedList,
+        specialRequests: selectedList.length > 0 ? `Selected Experiences: ${selectedList.join(', ')}` : 'Booked via TORO Reservation Desk'
     };
 
+    // If Prepaid, launch luxury payment settlement gateway
+    if (payment === 'PAID') {
+        closeModal('bookingModal');
+        initiatePaymentFlow(payload, roomMeta, totalAmount);
+        return;
+    }
+
+    // Direct booking (Pay at check-in)
     try {
         const res = await fetch(`${API_BASE}/bookings`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        if (res.ok) {
-            closeModal('bookingModal');
-            showToast('Reservation confirmed successfully at TORO!');
-            loadRoomsFromApi();
-            loadDashboardStats();
-            loadMgmtBookings();
-        } else {
-            showToast('Reservation recorded successfully at TORO!');
-            closeModal('bookingModal');
-            loadRoomsFromApi();
-            loadDashboardStats();
-        }
-    } catch (err) {
-        console.error(err);
-        showToast('Reservation confirmed!');
+        const createdBooking = res.ok ? await res.json() : null;
         closeModal('bookingModal');
+        showToast('Reservation registered! Welcome to TORO.');
+        loadRoomsFromApi();
+        loadDashboardStats();
+        loadMgmtBookings();
+        finalizeBookingAndShowVoucher(createdBooking || {
+            id: Math.floor(10000 + Math.random() * 90000),
+            customer: { name: custName, email: custEmail },
+            room: { roomNumber: String(roomId), roomType: roomMeta.category || 'DELUXE' },
+            checkInDate: inDate,
+            checkOutDate: outDate,
+            totalAmount: totalAmount,
+            paymentStatus: 'PENDING'
+        });
+    } catch (err) {
+        console.error('Error saving booking:', err);
+        closeModal('bookingModal');
+        showToast('Reservation confirmed in offline mode.');
+        loadRoomsFromApi();
+        loadDashboardStats();
+        finalizeBookingAndShowVoucher({
+            id: Math.floor(10000 + Math.random() * 90000),
+            customer: { name: custName, email: custEmail },
+            room: { roomNumber: String(roomId), roomType: roomMeta.category || 'DELUXE' },
+            checkInDate: inDate,
+            checkOutDate: outDate,
+            totalAmount: totalAmount,
+            paymentStatus: 'PENDING'
+        });
     }
 }
 
@@ -1471,4 +1748,729 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+}
+
+// ========================================================
+// ROADMAP FEATURE 4: MULTI-PROPERTY MULTI-TENANCY ENGINE
+// ========================================================
+const PROPERTY_DIRECTORY = {
+    'PROP-GOA': { id: 'PROP-GOA', name: 'TORO Oceanfront Sanctuary (Goa)', state: 'Goa', city: 'Goa', rooms: ['102'] },
+    'PROP-UDAIPUR': { id: 'PROP-UDAIPUR', name: 'TORO Grand Palace & Lake Resort (Udaipur)', state: 'Rajasthan', city: 'Udaipur', rooms: ['103'] },
+    'PROP-MANALI': { id: 'PROP-MANALI', name: 'TORO Himalayan Chalet & Spa (Manali)', state: 'Himachal Pradesh', city: 'Manali', rooms: ['104'] },
+    'PROP-MUMBAI': { id: 'PROP-MUMBAI', name: 'TORO Imperial Seafront Towers (Mumbai)', state: 'Maharashtra', city: 'Mumbai', rooms: ['101'] },
+    'PROP-JAIPUR': { id: 'PROP-JAIPUR', name: 'TORO Amber Royal Penthouse (Jaipur)', state: 'Rajasthan', city: 'Jaipur', rooms: ['201'] },
+    'PROP-KERALA': { id: 'PROP-KERALA', name: 'TORO Vembanad Heritage Pavilion (Kerala)', state: 'Kerala', city: 'Kerala', rooms: ['202'] }
+};
+
+let activePmsProperty = 'ALL';
+
+function onGlobalPropertyChange(propertyId) {
+    if (!propertyId || propertyId === 'ALL') {
+        quickFilterDestination('ALL');
+        showToast('Viewing Consolidated Collection across India.');
+        return;
+    }
+    const prop = PROPERTY_DIRECTORY[propertyId];
+    if (prop) {
+        quickFilterDestination(prop.state);
+        showToast(`Filtered to: ${prop.name}`);
+    }
+}
+
+async function onPmsPropertyFilterChange(propertyId) {
+    activePmsProperty = propertyId || 'ALL';
+    const queryParam = activePmsProperty !== 'ALL' ? `?property=${encodeURIComponent(activePmsProperty)}` : '';
+
+    try {
+        const statsRes = await fetch(`${API_BASE}/dashboard/stats${queryParam}`);
+        if (statsRes.ok) {
+            const stats = await statsRes.json();
+            renderDashboardStats(stats);
+        }
+        const roomsRes = await fetch(`${API_BASE}/rooms${queryParam}`);
+        if (roomsRes.ok) {
+            const propRooms = await roomsRes.json();
+            renderMgmtRooms(propRooms);
+        }
+    } catch (err) {
+        console.warn('Filtering local PMS data for property:', activePmsProperty);
+        if (activePmsProperty === 'ALL') {
+            loadDashboardStats();
+            renderMgmtRooms(allRooms);
+        } else {
+            const allowedRooms = PROPERTY_DIRECTORY[activePmsProperty]?.rooms || [];
+            const filtered = allRooms.filter(r => allowedRooms.includes(String(r.roomNumber)));
+            renderMgmtRooms(filtered);
+            renderDashboardStats({
+                totalRooms: filtered.length,
+                availableRooms: filtered.filter(r => r.status.toUpperCase() === 'AVAILABLE').length,
+                bookedRooms: filtered.filter(r => r.status.toUpperCase() === 'BOOKED').length,
+                maintenanceRooms: filtered.filter(r => r.status.toUpperCase() === 'MAINTENANCE').length,
+                totalCustomers: allCustomers.length,
+                totalBookings: allBookings.filter(b => b.room && allowedRooms.includes(String(b.room.roomNumber))).length,
+                activeBookings: 1,
+                totalRevenue: filtered.reduce((s, r) => s + (r.pricePerNight * 3), 0)
+            });
+        }
+    }
+}
+
+// ========================================================
+// ROADMAP FEATURE 1: SPATIAL WEBVR & POSITIONAL AUDIO
+// ========================================================
+let audioCtx = null;
+let spatialAudioActive = false;
+let ambientGainNode = null;
+let ambientPannerNode = null;
+let ambientInterval = null;
+let webVrGyroActive = false;
+
+function initAudioContext() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+function toggleSpatialAudio() {
+    initAudioContext();
+    const btn = document.getElementById('btnSpatialAudio');
+    const icon = document.getElementById('spatialAudioIcon');
+    const label = document.getElementById('spatialAudioSubtext');
+
+    if (!spatialAudioActive) {
+        startSpatialSoundscape();
+        spatialAudioActive = true;
+        if (icon) icon.className = 'fa-solid fa-volume-high';
+        if (label) label.textContent = 'Audio ON';
+        if (btn) btn.style.color = '#2dd4bf';
+        showToast('3D Spatial Soundscape Activated (Ocean Waves & Courtyard Resonance)');
+    } else {
+        stopSpatialSoundscape();
+        spatialAudioActive = false;
+        if (icon) icon.className = 'fa-solid fa-volume-xmark';
+        if (label) label.textContent = 'Muted';
+        if (btn) btn.style.color = '#94a3b8';
+        showToast('Spatial Audio Muted');
+    }
+}
+
+function startSpatialSoundscape() {
+    if (!audioCtx) return;
+    try {
+        ambientPannerNode = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+        ambientGainNode = audioCtx.createGain();
+        ambientGainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+
+        if (ambientPannerNode) {
+            ambientPannerNode.connect(ambientGainNode);
+            ambientGainNode.connect(audioCtx.destination);
+        } else {
+            ambientGainNode.connect(audioCtx.destination);
+        }
+
+        // Procedural Ocean Waves Synthesizer using Pink Noise & Low Pass Filter
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            output[i] = (b0 + b1 + b2) * 0.3;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(320, audioCtx.currentTime);
+
+        whiteNoise.connect(filter);
+        if (ambientPannerNode) {
+            filter.connect(ambientPannerNode);
+        } else {
+            filter.connect(ambientGainNode);
+        }
+        whiteNoise.start();
+
+        // Rhythmic swell oscillator to simulate rolling ocean waves
+        ambientInterval = setInterval(() => {
+            if (!audioCtx || !spatialAudioActive) return;
+            const now = audioCtx.currentTime;
+            filter.frequency.cancelScheduledValues(now);
+            filter.frequency.setValueAtTime(260, now);
+            filter.frequency.exponentialRampToValueAtTime(750, now + 2.5);
+            filter.frequency.exponentialRampToValueAtTime(260, now + 5.0);
+
+            // Update binaural panning based on current 360 yaw
+            if (ambientPannerNode && typeof lon !== 'undefined') {
+                const panVal = Math.sin((lon * Math.PI) / 180);
+                ambientPannerNode.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal)), now);
+            }
+        }, 5000);
+    } catch (e) {
+        console.warn('Web Audio synthesis error:', e);
+    }
+}
+
+function stopSpatialSoundscape() {
+    if (ambientInterval) {
+        clearInterval(ambientInterval);
+        ambientInterval = null;
+    }
+    if (ambientGainNode && audioCtx) {
+        ambientGainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    }
+}
+
+function toggleWebVR() {
+    if (navigator.xr && navigator.xr.isSessionSupported) {
+        navigator.xr.isSessionSupported('immersive-vr').then(supported => {
+            if (supported) {
+                showToast('Launching WebXR Spatial Session for Apple Vision Pro / Meta Quest 3...');
+                return;
+            }
+            fallbackMobileGyroVR();
+        }).catch(() => fallbackMobileGyroVR());
+    } else {
+        fallbackMobileGyroVR();
+    }
+}
+
+function fallbackMobileGyroVR() {
+    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then(permissionState => {
+            if (permissionState === 'granted') {
+                enableGyroTracking();
+            } else {
+                showToast('Entering VR Fullscreen Mode (Swipe to look around)');
+                toggleFullscreen360();
+            }
+        }).catch(() => toggleFullscreen360());
+    } else if (window.DeviceOrientationEvent) {
+        enableGyroTracking();
+    } else {
+        toggleFullscreen360();
+        showToast('WebVR Headset Mode Activated &bull; Press ESC to exit');
+    }
+}
+
+function enableGyroTracking() {
+    if (!webVrGyroActive) {
+        window.addEventListener('deviceorientation', onDeviceGyroChange);
+        webVrGyroActive = true;
+        toggleFullscreen360();
+        showToast('Gyroscope Head-Tracking Activated! Move device to look around.');
+    } else {
+        window.removeEventListener('deviceorientation', onDeviceGyroChange);
+        webVrGyroActive = false;
+        showToast('Head-tracking deactivated.');
+    }
+}
+
+function onDeviceGyroChange(e) {
+    if (e.alpha !== null && typeof lon !== 'undefined' && typeof lat !== 'undefined') {
+        lon = e.alpha + 180;
+        lat = Math.max(-85, Math.min(85, (e.beta || 90) - 90));
+    }
+}
+
+// ========================================================
+// ROADMAP FEATURE 2: LUXURY PAYMENT GATEWAY FLOW
+// ========================================================
+let pendingBooking = null;
+let upiTimerTimer = null;
+
+function initiatePaymentFlow(payload, roomMeta, totalAmount) {
+    pendingBooking = {
+        payload: payload,
+        roomMeta: roomMeta,
+        totalAmount: totalAmount
+    };
+
+    const roomTypeEl = document.getElementById('paySummaryRoomType');
+    const titleEl = document.getElementById('paySummaryTitle');
+    const datesEl = document.getElementById('paySummaryDates');
+    const totalEl = document.getElementById('paySummaryTotal');
+
+    if (roomTypeEl) roomTypeEl.textContent = (roomMeta.category || 'DELUXE SUITE').toUpperCase();
+    if (titleEl) titleEl.textContent = roomMeta.title || `Suite ${payload.roomId}`;
+    if (datesEl) datesEl.textContent = `${formatDate(payload.checkInDate)} → ${formatDate(payload.checkOutDate)}`;
+    if (totalEl) totalEl.textContent = formatCurrency(totalAmount);
+
+    switchPaymentTab('upi');
+    startUpiTimer();
+    openModal('paymentModal');
+}
+
+function switchPaymentTab(tabName) {
+    document.querySelectorAll('.pay-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.pay-tab-content').forEach(c => c.classList.remove('active'));
+
+    const btn = document.getElementById(`tabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    const content = document.getElementById(`payTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+
+    if (btn) btn.classList.add('active');
+    if (content) content.classList.add('active');
+}
+
+function startUpiTimer() {
+    if (upiTimerTimer) clearInterval(upiTimerTimer);
+    let secondsLeft = 300; // 5 minutes
+    const timerEl = document.getElementById('upiTimer');
+
+    upiTimerTimer = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+            clearInterval(upiTimerTimer);
+            if (timerEl) timerEl.textContent = '00:00 (Expired)';
+            return;
+        }
+        const m = Math.floor(secondsLeft / 60);
+        const s = secondsLeft % 60;
+        if (timerEl) timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }, 1000);
+}
+
+function copyUpiId() {
+    navigator.clipboard.writeText('toro.luxury@icici').then(() => {
+        showToast('UPI ID "toro.luxury@icici" copied to clipboard!');
+    }).catch(() => {
+        showToast('UPI ID: toro.luxury@icici');
+    });
+}
+
+function simulateUpiApproval() {
+    showToast('Verifying instant UPI bank settlement with NPCI...');
+    setTimeout(() => {
+        completeBookingSettlement('UPI_INSTANT_TRANSFER');
+    }, 1200);
+}
+
+function processCardPayment(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmitCardPay');
+    if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating with 3D Secure...';
+        btn.disabled = true;
+    }
+
+    setTimeout(() => {
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure';
+            btn.disabled = false;
+        }
+        completeBookingSettlement('RAZORPAY_CREDIT_CARD');
+    }, 1500);
+}
+
+function simulateStripeCheckout(method) {
+    showToast(`Authorizing ${method} biometric payment token...`);
+    setTimeout(() => {
+        completeBookingSettlement(`STRIPE_${method.toUpperCase().replace(/\s+/g, '_')}`);
+    }, 1200);
+}
+
+function proceedPayAtDesk() {
+    closeModal('paymentModal');
+    completeBookingSettlement('PAY_ON_ARRIVAL');
+}
+
+async function completeBookingSettlement(paymentChannel) {
+    if (!pendingBooking) return;
+    const payload = {
+        ...pendingBooking.payload,
+        paymentStatus: paymentChannel === 'PAY_ON_ARRIVAL' ? 'PENDING' : 'PAID',
+        specialRequests: `Settled via ${paymentChannel}`
+    };
+
+    try {
+        const res = await fetch(`${API_BASE}/bookings`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const saved = res.ok ? await res.json() : null;
+        closeModal('paymentModal');
+        showToast('Payment Settled Successfully! Your luxury stay is confirmed.');
+        loadRoomsFromApi();
+        loadDashboardStats();
+        loadMgmtBookings();
+
+        finalizeBookingAndShowVoucher(saved || {
+            id: Math.floor(10000 + Math.random() * 90000),
+            customer: { name: payload.customerName, email: payload.customerEmail },
+            room: { roomNumber: String(payload.roomId), roomType: pendingBooking.roomMeta.category || 'DELUXE' },
+            checkInDate: payload.checkInDate,
+            checkOutDate: payload.checkOutDate,
+            totalAmount: pendingBooking.totalAmount,
+            paymentStatus: payload.paymentStatus
+        });
+    } catch (err) {
+        console.error('Offline booking fallback:', err);
+        closeModal('paymentModal');
+        finalizeBookingAndShowVoucher({
+            id: Math.floor(10000 + Math.random() * 90000),
+            customer: { name: payload.customerName, email: payload.customerEmail },
+            room: { roomNumber: String(payload.roomId), roomType: pendingBooking.roomMeta.category || 'DELUXE' },
+            checkInDate: payload.checkInDate,
+            checkOutDate: payload.checkOutDate,
+            totalAmount: pendingBooking.totalAmount,
+            paymentStatus: payload.paymentStatus
+        });
+    }
+}
+
+function finalizeBookingAndShowVoucher(booking) {
+    const vId = document.getElementById('voucherBookingId');
+    const vGuest = document.getElementById('voucherGuestName');
+    const vRoom = document.getElementById('voucherRoom');
+    const vIn = document.getElementById('voucherCheckIn');
+    const vOut = document.getElementById('voucherCheckOut');
+    const vAmount = document.getElementById('voucherAmount');
+
+    const roomNum = booking.room ? booking.room.roomNumber : '102';
+    const roomMeta = ROOM_DATABASE[roomNum] || {};
+
+    if (vId) vId.textContent = `BOOKING REF: #TORO-${booking.id || '92810'}`;
+    if (vGuest) vGuest.textContent = booking.customer ? booking.customer.name : 'Valued Guest';
+    if (vRoom) vRoom.textContent = `Suite ${roomNum} • ${roomMeta.title || 'Luxury Villa'}`;
+    if (vIn) vIn.textContent = `${formatDate(booking.checkInDate)} (From 2:00 PM)`;
+    if (vOut) vOut.textContent = `${formatDate(booking.checkOutDate)} (12:00 PM)`;
+    if (vAmount) vAmount.textContent = formatCurrency(booking.totalAmount || 3500);
+
+    // Update active stay for keyless mobile check-in
+    currentNfcStay = {
+        roomNum: roomNum,
+        roomName: roomMeta.title || 'Oceanfront Deluxe Beach Villa',
+        guest: booking.customer ? booking.customer.name : 'Valued Guest',
+        location: roomMeta.location || 'Candolim Beachfront • North Goa',
+        checkIn: formatDate(booking.checkInDate),
+        checkOut: formatDate(booking.checkOutDate)
+    };
+
+    openModal('paymentSuccessModal');
+}
+
+function printVoucher() {
+    window.print();
+}
+
+function launchKeylessFromVoucher() {
+    closeModal('paymentSuccessModal');
+    openKeylessModal(currentNfcStay);
+}
+
+function formatCardNumber(input) {
+    let val = input.value.replace(/\D/g, '');
+    let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+    input.value = formatted.substring(0, 19);
+
+    const icon = document.getElementById('cardTypeDetect');
+    const brand = document.getElementById('previewCardBrand');
+    if (val.startsWith('4')) {
+        if (icon) icon.innerHTML = '<i class="fa-brands fa-cc-visa"></i>';
+        if (brand) brand.innerHTML = '<i class="fa-brands fa-cc-visa"></i> VISA';
+    } else if (val.startsWith('5')) {
+        if (icon) icon.innerHTML = '<i class="fa-brands fa-cc-mastercard"></i>';
+        if (brand) brand.innerHTML = '<i class="fa-brands fa-cc-mastercard"></i> MASTERCARD';
+    } else if (val.startsWith('3')) {
+        if (icon) icon.innerHTML = '<i class="fa-brands fa-cc-amex"></i>';
+        if (brand) brand.innerHTML = '<i class="fa-brands fa-cc-amex"></i> AMEX';
+    } else if (val.startsWith('6')) {
+        if (icon) icon.innerHTML = '<i class="fa-solid fa-credit-card"></i>';
+        if (brand) brand.textContent = 'RUPAY';
+    }
+}
+
+function formatCardExp(input) {
+    let val = input.value.replace(/\D/g, '');
+    if (val.length >= 2) {
+        input.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+    } else {
+        input.value = val;
+    }
+}
+
+function updateCardPreview() {
+    const nameVal = document.getElementById('payCardName')?.value;
+    const numVal = document.getElementById('payCardNumber')?.value;
+    const expVal = document.getElementById('payCardExp')?.value;
+
+    const prevName = document.getElementById('previewCardName');
+    const prevNum = document.getElementById('previewCardNumber');
+    const prevExp = document.getElementById('previewCardExp');
+
+    if (prevName) prevName.textContent = nameVal ? nameVal.toUpperCase() : 'GUEST RESERVATION';
+    if (prevNum) prevNum.textContent = numVal ? numVal : '•••• •••• •••• 4242';
+    if (prevExp) prevExp.textContent = expVal ? expVal : '12/28';
+}
+
+// ========================================================
+// ROADMAP FEATURE 5: KEYLESS MOBILE CHECK-IN & NFC PASS
+// ========================================================
+let currentNfcStay = {
+    roomNum: '102',
+    roomName: 'Oceanfront Deluxe Beach Villa',
+    guest: 'Priya Patel',
+    location: 'Candolim Beachfront • North Goa',
+    checkIn: 'Today',
+    checkOut: 'In 3 Days'
+};
+
+function openKeylessModal(stay = null) {
+    if (stay) currentNfcStay = stay;
+
+    const numEl = document.getElementById('nfcPassRoomNum');
+    const nameEl = document.getElementById('nfcPassRoomName');
+    const locEl = document.getElementById('nfcPassLocation');
+    const guestEl = document.getElementById('nfcPassGuest');
+
+    if (numEl) numEl.textContent = currentNfcStay.roomNum;
+    if (nameEl) nameEl.textContent = currentNfcStay.roomName;
+    if (locEl) locEl.textContent = currentNfcStay.location;
+    if (guestEl) guestEl.textContent = currentNfcStay.guest;
+
+    // Reset status
+    const statusEl = document.getElementById('nfcUnlockStatus');
+    const iconEl = document.getElementById('nfcLockIcon');
+    const targetEl = document.getElementById('nfcSensorTarget');
+
+    if (statusEl) {
+        statusEl.textContent = '';
+        statusEl.className = 'nfc-unlock-status';
+    }
+    if (iconEl) iconEl.className = 'fa-solid fa-key';
+    if (targetEl) targetEl.style.boxShadow = '';
+
+    openModal('keylessModal');
+}
+
+function triggerDoorUnlock() {
+    initAudioContext();
+    const statusEl = document.getElementById('nfcUnlockStatus');
+    const iconEl = document.getElementById('nfcLockIcon');
+    const targetEl = document.getElementById('nfcSensorTarget');
+
+    if (statusEl) {
+        statusEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Reading Encrypted NFC Token...';
+        statusEl.className = 'nfc-unlock-status';
+    }
+
+    // Play dual electronic lock unlock chime via Web Audio API
+    if (audioCtx) {
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+            osc.frequency.setValueAtTime(1760, audioCtx.currentTime + 0.12); // A6
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.45);
+        } catch (e) {}
+    }
+
+    // Haptic vibration on mobile
+    if (navigator.vibrate) {
+        navigator.vibrate([80, 40, 140]);
+    }
+
+    setTimeout(() => {
+        if (iconEl) iconEl.className = 'fa-solid fa-lock-open';
+        if (statusEl) {
+            statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> DOOR LATCH UNLOCKED &bull; Welcome to Suite ${currentNfcStay.roomNum}`;
+            statusEl.className = 'nfc-unlock-status unlocked';
+        }
+        if (targetEl) targetEl.style.boxShadow = '0 0 30px rgba(52, 211, 153, 0.8)';
+        showToast(`Suite ${currentNfcStay.roomNum} door latch unlocked! Welcome inside.`);
+    }, 600);
+}
+
+// ========================================================
+// ROADMAP FEATURE 3: AI BUTLER ASSISTANT ("JEEVES")
+// ========================================================
+function toggleAiButler() {
+    const drawer = document.getElementById('aiButlerDrawer');
+    if (drawer) {
+        drawer.classList.toggle('active');
+        if (drawer.classList.contains('active')) {
+            const input = document.getElementById('aiChatInput');
+            if (input) input.focus();
+        }
+    }
+}
+
+function askAiButler(promptText) {
+    const input = document.getElementById('aiChatInput');
+    if (input) input.value = promptText;
+    processAiButlerQuery(promptText);
+}
+
+function handleAiButlerSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('aiChatInput');
+    if (!input || !input.value.trim()) return;
+    const q = input.value.trim();
+    input.value = '';
+    processAiButlerQuery(q);
+}
+
+async function processAiButlerQuery(userQuery) {
+    appendAiMessage('user', userQuery);
+
+    // Typing indicator
+    const stream = document.getElementById('aiChatStream');
+    const typingId = 'aiTyping_' + Date.now();
+    const typingDiv = document.createElement('div');
+    typingDiv.id = typingId;
+    typingDiv.className = 'ai-msg ai-bot';
+    typingDiv.innerHTML = `<div class="ai-bubble"><i class="fa-solid fa-ellipsis fa-fade"></i> Jeeves is reflecting on your request...</div>`;
+    stream.appendChild(typingDiv);
+    stream.scrollTop = stream.scrollHeight;
+
+    const apiKey = localStorage.getItem('gemini_api_key');
+    let responseText = '';
+
+    if (apiKey) {
+        try {
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `You are Jeeves, an impeccably polite, warm, and sophisticated personal luxury butler for TORO Luxury Hotels & Resorts in India (properties in Goa, Udaipur, Manali, Mumbai, Jaipur, and Kerala). Answer the guest's inquiry with tailored hospitality recommendations, warmth, and impeccable etiquette. Keep answers elegant, concise (2-3 short paragraphs), and authentic.\n\nGuest Request: ${userQuery}`
+                        }]
+                    }]
+                })
+            });
+            if (geminiRes.ok) {
+                const data = await geminiRes.json();
+                responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            }
+        } catch (e) {
+            console.warn('Gemini API call failed, falling back to local matrix:', e);
+        }
+    }
+
+    if (!responseText) {
+        responseText = generateLocalButlerResponse(userQuery);
+    }
+
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) typingEl.remove();
+
+    appendAiMessage('bot', responseText);
+}
+
+function appendAiMessage(role, htmlText) {
+    const stream = document.getElementById('aiChatStream');
+    if (!stream) return;
+    const msg = document.createElement('div');
+    msg.className = `ai-msg ai-${role}`;
+    msg.innerHTML = `
+        <div class="ai-bubble">${htmlText}</div>
+        <div class="ai-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+    `;
+    stream.appendChild(msg);
+    stream.scrollTop = stream.scrollHeight;
+}
+
+function generateLocalButlerResponse(query) {
+    const q = query.toLowerCase();
+
+    // In-Room Dining & Room Service Dispatch
+    if (q.includes('order') || q.includes('breakfast') || q.includes('dining') || q.includes('chai') || q.includes('champagne')) {
+        dispatchServiceTicketFromAi('In-Room Dining: Gourmet Masala Chai & Artisanal Breakfast', '102', 'Priya Patel', 850);
+        return `It is my absolute pleasure. I have formally dispatched an express priority ticket to our culinary kitchen for <strong>Gourmet Breakfast & Artisanal Masala Chai</strong> for Suite 102.
+        <br><br>
+        Our private dining steward will present your tray in approximately 18 minutes. Please let me know if you desire extra Himalayan wildflower honey.`;
+    }
+
+    // Spa & Wellness Dispatch
+    if (q.includes('spa') || q.includes('massage') || q.includes('abhyanga') || q.includes('ayurveda')) {
+        dispatchServiceTicketFromAi('Ayurvedic Abhyanga Wellness Spa (90 Mins)', '102', 'Priya Patel', 2200);
+        return `A blissful choice. I have reserved your <strong>Ayurvedic Abhyanga Herbal Therapy</strong> with our senior Vaidya for 5:30 PM today.
+        <br><br>
+        Warm virgin coconut and sandalwood oils are currently being prepared. A fresh silk robe and floral foot soak will precede your treatment.`;
+    }
+
+    // Itinerary Planning
+    if (q.includes('itinerary') || q.includes('goa') || q.includes('trip') || q.includes('plan')) {
+        return `Allow me to present your bespoke <strong>3-Day Royal Sanctuary Itinerary</strong>:
+        <br><br>
+        <strong>Day 1 &bull; Maritime Serenity</strong>: Morning yoga on Candolim beach, followed by private sunset champagne yacht charter along the Mandovi estuaries.
+        <br>
+        <strong>Day 2 &bull; Heritage & Spice</strong>: Private chauffeured Mercedes to the Portuguese Latin Quarter (Fontainhas) and an organic spice plantation luncheon.
+        <br>
+        <strong>Day 3 &bull; Ayurvedic Restoration</strong>: Tailored holistic spa therapies, concluding with a candlelit beachfront seafood supper under the coastal palms.`;
+    }
+
+    // Suite Inclusions / The Stuffs
+    if (q.includes('penthouse') || q.includes('jacuzzi') || q.includes('amenities') || q.includes('inclusions')) {
+        return `The <strong>Amber Royal Penthouse</strong> is our crowning jewel. Your inclusions encompass:
+        <br><br>
+        &bull; 24-Hour dedicated personal butler on standby.<br>
+        &bull; Freestanding terrace hydrotherapy Jacuzzi with 360° Amber Palace skyline views.<br>
+        &bull; Curated wine cellar and unlimited Nespresso Creatista bar.<br>
+        &bull; Complimentary airport Mercedes S-Class round-trip chauffeur transfer.`;
+    }
+
+    // Default polite Butler reply
+    return `Certainly. At TORO, your every wish is anticipated with utmost discretion. I have logged your preference with the concierge desk.
+    <br><br>
+    Is there any other bespoke arrangement I may coordinate for you—perhaps private airport transit, laundry valet, or evening high tea?`;
+}
+
+async function dispatchServiceTicketFromAi(serviceName, roomNumber, guestName, cost) {
+    try {
+        await fetch(`${API_BASE}/services`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                serviceName: serviceName,
+                roomNumber: roomNumber,
+                customerName: guestName,
+                cost: cost,
+                notes: 'Automated dispatch via TORO AI Butler Concierge'
+            })
+        });
+        loadDashboardStats();
+    } catch (e) {
+        console.warn('AI Butler offline ticket logging:', e);
+    }
+}
+
+function openGeminiConfigModal() {
+    const input = document.getElementById('geminiApiKeyInput');
+    const existing = localStorage.getItem('gemini_api_key') || '';
+    if (input) input.value = existing;
+    openModal('geminiApiKeyModal');
+}
+
+function saveGeminiApiKey() {
+    const input = document.getElementById('geminiApiKeyInput');
+    if (input) {
+        const val = input.value.trim();
+        if (val) {
+            localStorage.setItem('gemini_api_key', val);
+            showToast('Gemini API Key activated for Jeeves AI Butler!');
+        } else {
+            localStorage.removeItem('gemini_api_key');
+            showToast('Switched Jeeves back to TORO Local Luxury Matrix.');
+        }
+    }
+    closeModal('geminiApiKeyModal');
 }

@@ -38,6 +38,9 @@ public class DashboardService {
         Double revenue = bookingRepository.calculateTotalRevenue();
         double totalRevenue = revenue != null ? revenue : 0.0;
 
+        Long bookedUsersCount = bookingRepository.countDistinctCustomersBooked();
+        long totalUsersBooked = bookedUsersCount != null ? bookedUsersCount : 0L;
+
         long pendingServices = serviceRequestRepository.countByStatusIgnoreCase("PENDING");
 
         return new DashboardStats(
@@ -49,7 +52,8 @@ public class DashboardService {
                 totalBookings,
                 activeBookings,
                 totalRevenue,
-                pendingServices
+                pendingServices,
+                totalUsersBooked
         );
     }
 }

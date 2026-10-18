@@ -10,11 +10,13 @@ public class DashboardStats {
     private long activeBookings;
     private double totalRevenue;
     private long pendingServices;
+    private long totalUsersBooked;
+    private long uniqueGuestsBooked;
 
     public DashboardStats() {
     }
 
-    public DashboardStats(long totalRooms, long availableRooms, long bookedRooms, long maintenanceRooms, long totalCustomers, long totalBookings, long activeBookings, double totalRevenue, long pendingServices) {
+    public DashboardStats(long totalRooms, long availableRooms, long bookedRooms, long maintenanceRooms, long totalCustomers, long totalBookings, long activeBookings, double totalRevenue, long pendingServices, long totalUsersBooked) {
         this.totalRooms = totalRooms;
         this.availableRooms = availableRooms;
         this.bookedRooms = bookedRooms;
@@ -24,6 +26,12 @@ public class DashboardStats {
         this.activeBookings = activeBookings;
         this.totalRevenue = totalRevenue;
         this.pendingServices = pendingServices;
+        this.totalUsersBooked = totalUsersBooked;
+        this.uniqueGuestsBooked = totalUsersBooked;
+    }
+
+    public DashboardStats(long totalRooms, long availableRooms, long bookedRooms, long maintenanceRooms, long totalCustomers, long totalBookings, long activeBookings, double totalRevenue, long pendingServices) {
+        this(totalRooms, availableRooms, bookedRooms, maintenanceRooms, totalCustomers, totalBookings, activeBookings, totalRevenue, pendingServices, 0);
     }
 
     public long getTotalRooms() {
@@ -96,5 +104,22 @@ public class DashboardStats {
 
     public void setPendingServices(long pendingServices) {
         this.pendingServices = pendingServices;
+    }
+
+    public long getTotalUsersBooked() {
+        return totalUsersBooked;
+    }
+
+    public void setTotalUsersBooked(long totalUsersBooked) {
+        this.totalUsersBooked = totalUsersBooked;
+        this.uniqueGuestsBooked = totalUsersBooked;
+    }
+
+    public long getUniqueGuestsBooked() {
+        return uniqueGuestsBooked;
+    }
+
+    public void setUniqueGuestsBooked(long uniqueGuestsBooked) {
+        this.uniqueGuestsBooked = uniqueGuestsBooked;
     }
 }

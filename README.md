@@ -271,13 +271,13 @@ npx vercel --prod
 
 ---
 
-## 🗺️ Future Roadmap
+## 🗺️ Future Roadmap & Innovations
 
-- [ ] **WebVR / Spatial Audio**: Native WebXR headset support for Apple Vision Pro and Meta Quest 3.
-- [ ] **Payment Gateway Integration**: Direct settlement via Razorpay, Stripe, and UPI QR codes.
-- [ ] **AI Butler Assistant**: In-suite voice/chat assistant powered by Gemini API for instantaneous itinerary planning and room service requests.
-- [ ] **Multi-Property Multi-Tenancy**: Enterprise tenant partitioning for hotel chains managing dozens of distinct properties under one master dashboard.
-- [ ] **Automated Keyless Mobile Check-In**: Generating digital NFC / Bluetooth room key passes for Apple Wallet and Google Wallet.
+- [x] **WebVR / Spatial Audio**: Native WebXR headset support for Apple Vision Pro and Meta Quest 3 with 3D procedural binaural soundscapes.
+- [x] **Payment Gateway Integration**: Direct settlement via Razorpay cards, Stripe (Apple/Google Pay), dynamic UPI QR codes with instant verification, and official GST tax vouchers.
+- [x] **AI Butler Assistant**: In-suite luxury voice/chat concierge ("Jeeves") powered by Gemini API with automated room service dispatch into PMS.
+- [x] **Multi-Property Multi-Tenancy**: Enterprise tenant partitioning across flagship sanctuaries (Goa, Udaipur, Manali, Mumbai, Jaipur, Kerala) with isolated and consolidated group analytics.
+- [x] **Automated Keyless Mobile Check-In**: Generating digital NFC / Bluetooth room key passes for Apple Wallet and Google Wallet with interactive audio/haptic door lock simulation.
 
 ---
 

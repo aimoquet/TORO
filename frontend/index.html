@@ -29,9 +29,24 @@
             <div class="utility-left">
                 <span class="utility-badge"><i class="fa-solid fa-gem"></i> Best Direct Rate Guarantee</span>
                 <span class="utility-sep">&bull;</span>
-                <span class="utility-item"><i class="fa-solid fa-car"></i> Complimentary Airport VIP Transfer on Direct Suites</span>
+                <div class="utility-property-pill">
+                    <i class="fa-solid fa-hotel" style="color: var(--gold);"></i>
+                    <select id="globalPropertySelect" onchange="onGlobalPropertyChange(this.value)" title="Switch TORO Sanctuary Property">
+                        <option value="ALL">All TORO Properties (India)</option>
+                        <option value="PROP-GOA">Goa &bull; Oceanfront Beach Sanctuary</option>
+                        <option value="PROP-UDAIPUR">Udaipur &bull; Lake Pichola Grand Palace</option>
+                        <option value="PROP-MANALI">Manali &bull; Himalayan Pine Chalet</option>
+                        <option value="PROP-MUMBAI">Mumbai &bull; Imperial Marine Drive</option>
+                        <option value="PROP-JAIPUR">Jaipur &bull; Amber Royal Penthouse</option>
+                        <option value="PROP-KERALA">Kerala &bull; Vembanad Heritage Pavilion</option>
+                    </select>
+                </div>
             </div>
             <div class="utility-right">
+                <a class="utility-link" onclick="openKeylessModal()"><i class="fa-solid fa-mobile-screen"></i> Digital NFC Key</a>
+                <span class="utility-sep">&bull;</span>
+                <a class="utility-link" onclick="toggleAiButler()"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold);"></i> AI Butler</a>
+                <span class="utility-sep">&bull;</span>
                 <a href="tel:+912289001200" class="utility-link"><i class="fa-solid fa-phone"></i> +91 (22) 8900 1200</a>
                 <span class="utility-sep">&bull;</span>
                 <span class="utility-item"><i class="fa-solid fa-earth-asia"></i> EN &bull; INR (₹)</span>
@@ -57,14 +72,17 @@
                     <li><a class="nav-link active" onclick="scrollToSection('hero')">Overview</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('heritage-section')">Philosophy</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('destinations-section')">Destinations</a></li>
+                    <li><a class="nav-link" onclick="scrollToSection('tourism-spots-section')">Tourist Spots</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('rooms-showcase')">Suites</a></li>
                     <li><a class="nav-link" onclick="open360Tour('deluxe')">360° Virtual Tour</a></li>
-                    <li><a class="nav-link" onclick="scrollToSection('amenities-section')">Amenities</a></li>
                     <li><a class="nav-link" onclick="scrollToSection('reviews-section')">Reviews</a></li>
                 </ul>
             </nav>
 
             <div class="header-cta-group">
+                <button class="btn-keyless-nav" onclick="openKeylessModal()" title="Digital Key & Mobile Check-In">
+                    <i class="fa-solid fa-key"></i> <span>Mobile Key</span>
+                </button>
                 <button class="btn-reserve-nav" onclick="openQuickBook()">
                     Reserve Stay
                 </button>
@@ -80,9 +98,9 @@
                 <li><a onclick="scrollToSection('hero'); toggleMobileMenu();">Overview</a></li>
                 <li><a onclick="scrollToSection('heritage-section'); toggleMobileMenu();">Philosophy & Heritage</a></li>
                 <li><a onclick="scrollToSection('destinations-section'); toggleMobileMenu();">Destinations</a></li>
+                <li><a onclick="scrollToSection('tourism-spots-section'); toggleMobileMenu();">Near Tourist Spots</a></li>
                 <li><a onclick="scrollToSection('rooms-showcase'); toggleMobileMenu();">Suites & Villas</a></li>
                 <li><a onclick="open360Tour('deluxe'); toggleMobileMenu();">360° Virtual Tour</a></li>
-                <li><a onclick="scrollToSection('amenities-section'); toggleMobileMenu();">Curated Amenities</a></li>
                 <li><a onclick="scrollToSection('reviews-section'); toggleMobileMenu();">Guest Testimonials</a></li>
                 <li style="margin-top: 14px;">
                     <button class="btn-reserve-nav" style="width: 100%; text-align: center;" onclick="openQuickBook(); toggleMobileMenu();">Reserve Stay</button>
@@ -342,6 +360,118 @@
     </section>
 
     <!-- ========================================================
+         TOURIST ATTRACTIONS & LANDMARKS DISCOVERY SECTION
+         ======================================================== -->
+    <section id="tourism-spots-section" class="tourism-section">
+        <div class="section-container">
+            <div class="section-head">
+                <span class="section-tag"><i class="fa-solid fa-map-location-dot"></i> TOURIST ATTRACTIONS</span>
+                <h2 class="section-title">Book Hotels Near Iconic Tourism Spots</h2>
+                <p class="section-subtitle">Pick a famous Indian destination below to discover suites positioned right next to iconic beaches, palaces, and scenic valleys.</p>
+            </div>
+
+            <!-- Tourist Spots Selection Cards -->
+            <div class="tourism-grid">
+                <div class="tourism-card active" onclick="filterByTouristSpot('Goa', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/hotel_exterior.jpg" alt="Candolim & Baga Beach">
+                        <span class="tourism-badge"><i class="fa-solid fa-umbrella-beach"></i> Beachfront</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>Candolim & Baga Beach</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> North Goa</span>
+                        <p class="tourism-proximity">📍 200m from Candolim &bull; 8 mins to Baga</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Villa 102</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card" onclick="filterByTouristSpot('Udaipur', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/luxury_hero_palace.jpg" alt="City Palace & Lake Pichola">
+                        <span class="tourism-badge"><i class="fa-solid fa-monument"></i> Regal Palace</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>City Palace & Lake Pichola</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> Udaipur, Rajasthan</span>
+                        <p class="tourism-proximity">📍 Direct Lakefront &bull; 5 mins to City Palace</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Suite 103</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card" onclick="filterByTouristSpot('Manali', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/deluxe_suite.jpg" alt="Solang Valley & Rohtang Pass">
+                        <span class="tourism-badge"><i class="fa-solid fa-mountain-sun"></i> Alpine Valley</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>Solang Valley & Rohtang</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> Manali, Himachal</span>
+                        <p class="tourism-proximity">📍 Solang Valley Slopes &bull; 15 mins to Rohtang</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Chalet 104</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card" onclick="filterByTouristSpot('Mumbai', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/executive_suite.jpg" alt="Marine Drive & Gateway of India">
+                        <span class="tourism-badge"><i class="fa-solid fa-water"></i> Seafront</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>Marine Drive & Gateway</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> South Mumbai</span>
+                        <p class="tourism-proximity">📍 100m to Marine Drive &bull; 10 mins to Gateway</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Suite 101</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card" onclick="filterByTouristSpot('Jaipur', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/penthouse_suite.jpg" alt="Amber Fort & Hawa Mahal">
+                        <span class="tourism-badge"><i class="fa-solid fa-chess-rook"></i> Royal Fort</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>Amber Fort & Hawa Mahal</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> Jaipur, Rajasthan</span>
+                        <p class="tourism-proximity">📍 800m to Amber Fort &bull; 12 mins to Hawa Mahal</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Penthouse 201</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card" onclick="filterByTouristSpot('Kerala', this)">
+                    <div class="tourism-card-img">
+                        <img src="assets/hotel_exterior.jpg" alt="Vembanad Lake Backwaters">
+                        <span class="tourism-badge"><i class="fa-solid fa-ship"></i> Backwaters</span>
+                    </div>
+                    <div class="tourism-card-body">
+                        <h4>Vembanad Lake Backwaters</h4>
+                        <span class="tourism-location"><i class="fa-solid fa-location-dot"></i> Alleppey, Kerala</span>
+                        <p class="tourism-proximity">📍 Direct Shores &bull; Private Houseboat Jetty</p>
+                        <div class="tourism-card-footer">
+                            <span class="tourism-suite-hint">Near Villa 202</span>
+                            <span class="tourism-cta">View Stays &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
          SUITES & ROOMS SHOWCASE
          ======================================================== -->
     <section id="rooms-showcase" class="section-container">
@@ -396,103 +526,6 @@
                 <div class="vr-play-button">
                     <i class="fa-solid fa-rotate"></i>
                     <span>Launch 360° Tour</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================================
-         RESORT AMENITIES & CONCIERGE SERVICES
-         ======================================================== -->
-    <section id="amenities-section" class="section-container">
-        <div class="section-head">
-            <span class="section-tag">SERVICES</span>
-            <h2 class="section-title">Curated Experiences & Amenities</h2>
-            <p class="section-subtitle">Enjoy royal dining, Ayurvedic wellness treatments, and private chauffeur transfers on demand.</p>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-utensils"></i></div>
-                    <h4>In-Room Fine Dining</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Chef-curated Indian and international cuisine, served with white-glove attention on your private terrace.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹850 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ average</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('In-Room Fine Dining', 850)">Request</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-spa"></i></div>
-                    <h4>Ayurvedic Wellness Spa</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Rejuvenating hot stone massages, herbal aromatherapy, and bespoke organic wellness therapies.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹2,200 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ session</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Ayurvedic Wellness Spa', 2200)">Reserve</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-car-side"></i></div>
-                    <h4>Chauffeur & Airport Fleet</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Punctual airport VIP transfers and private day tours in premium executive Mercedes and BMW vehicles.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹1,500 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ transfer</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Chauffeur Transfer', 1500)">Book</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-ship"></i></div>
-                    <h4>Sunset Yacht Charter</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Private coastal cruise along the Arabian Sea or backwaters with sommelier wine and canapés.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹3,500 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ charter</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Sunset Yacht Charter', 3500)">Reserve</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-bell-concierge"></i></div>
-                    <h4>24/7 Butler Concierge</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Dedicated personal butler for itinerary planning, pressing service, and instant requests.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹1,200 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ day</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Butler Concierge', 1200)">Request</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-card-top">
-                    <div class="service-icon"><i class="fa-solid fa-hot-tub-person"></i></div>
-                    <h4>Private Jacuzzi Setup</h4>
-                </div>
-                <div class="service-card-body">
-                    <p>Evening rose petal and aroma bath setup with chilled champagne and fresh tropical fruit basket.</p>
-                    <div class="service-price-order">
-                        <span class="service-price">₹1,800 <small style="font-size: 11px; color: var(--text-muted); font-weight: 500;">/ setup</small></span>
-                        <button class="btn btn-secondary btn-sm" onclick="openPublicServiceOrder('Jacuzzi Setup', 1800)">Order</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -701,6 +734,14 @@
                 <button class="tour-ctrl-btn" onclick="toggleFullscreen360()" title="Toggle Fullscreen">
                     <i class="fa-solid fa-expand"></i>
                 </button>
+                <button class="tour-ctrl-btn" onclick="toggleSpatialAudio()" id="btnSpatialAudio" title="Toggle 3D Spatial Audio Soundscape">
+                    <i class="fa-solid fa-volume-high" id="spatialAudioIcon"></i>
+                    <span class="ctrl-subtext" id="spatialAudioSubtext">Audio ON</span>
+                </button>
+                <button class="tour-ctrl-btn vr-btn-highlight" onclick="toggleWebVR()" id="btnWebVR" title="Enter WebVR (Apple Vision Pro & Meta Quest)">
+                    <i class="fa-solid fa-vr-cardboard"></i>
+                    <span class="ctrl-subtext">WebVR</span>
+                </button>
             </div>
         </div>
     </div>
@@ -739,62 +780,178 @@
                     <!-- Populated dynamically -->
                 </div>
 
-                <!-- Live Stay Date & Instant Booking Box -->
-                <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 10px; padding: 20px; margin-top: 20px;">
-                    <h4 style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 12px; font-family: 'Playfair Display', serif;">
-                        Confirm Your Reservation
-                    </h4>
+                <!-- Friendly Non-Tech 3-Step Reservation Wizard with Curated Experiences -->
+                <div class="booking-wizard-container">
+                    <div class="wizard-header">
+                        <h4 style="font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 4px; font-family: 'Playfair Display', serif;">
+                            <i class="fa-solid fa-calendar-check" style="margin-right: 6px; color: var(--gold);"></i> Complete Room Reservation
+                        </h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Easy 3-step booking with instant reservation confirmation.</p>
+                    </div>
                     
                     <form id="stuffsBookingForm" onsubmit="submitStuffsBooking(event)">
                         <input type="hidden" id="stuffsRoomId">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Guest Full Name *</label>
-                                <input type="text" id="stuffsGuestName" class="form-control" placeholder="Aarav Sharma" required>
+
+                        <!-- STEP 1: Dates -->
+                        <div class="wizard-step-box">
+                            <div class="wizard-step-title">
+                                <span class="step-num">1</span>
+                                <div>
+                                    <h5>Choose Your Stay Dates</h5>
+                                    <small>Select arrival and departure date</small>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Email Address *</label>
-                                <input type="email" id="stuffsGuestEmail" class="form-control" placeholder="aarav@example.com" required>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fa-regular fa-calendar" style="color: var(--primary);"></i> Check-in Date *</label>
+                                    <input type="date" id="stuffsCheckIn" class="form-control" onchange="calculateStuffsTotal()" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa-regular fa-calendar-check" style="color: var(--primary);"></i> Check-out Date *</label>
+                                    <input type="date" id="stuffsCheckOut" class="form-control" onchange="calculateStuffsTotal()" required>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Phone Number *</label>
-                                <input type="tel" id="stuffsGuestPhone" class="form-control" placeholder="+91 98765 43210" required>
+                        <!-- STEP 2: CURATED EXPERIENCES & AMENITIES ADD-ONS (Moved from homepage) -->
+                        <div class="wizard-step-box">
+                            <div class="wizard-step-title">
+                                <span class="step-num">2</span>
+                                <div>
+                                    <h5>Enhance Your Stay (Optional Curated Experiences)</h5>
+                                    <small>Tap any service to add it to your room reservation</small>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Payment Method</label>
-                                <select id="stuffsPayment" class="form-control">
-                                    <option value="PAID">Card / UPI (Prepaid)</option>
-                                    <option value="PENDING">Pay upon Check-in at Hotel</option>
-                                </select>
+
+                            <div class="experiences-selection-grid">
+                                <!-- 1. Dining -->
+                                <label class="experience-check-card" id="expCardDining">
+                                    <input type="checkbox" value="In-Room Fine Dining (₹850)" data-cost="850" onchange="onExperienceToggle(this, 'expCardDining')">
+                                    <div class="exp-icon"><i class="fa-solid fa-utensils"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">In-Room Fine Dining</div>
+                                        <p class="exp-desc">Chef-curated Indian & global cuisine served on your terrace.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹850</div>
+                                </label>
+
+                                <!-- 2. Spa -->
+                                <label class="experience-check-card" id="expCardSpa">
+                                    <input type="checkbox" value="Ayurvedic Wellness Spa (₹2,200)" data-cost="2200" onchange="onExperienceToggle(this, 'expCardSpa')">
+                                    <div class="exp-icon"><i class="fa-solid fa-spa"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">Ayurvedic Wellness Spa</div>
+                                        <p class="exp-desc">Hot stone massages & herbal aromatherapy wellness therapy.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹2,200</div>
+                                </label>
+
+                                <!-- 3. Chauffeur -->
+                                <label class="experience-check-card" id="expCardChauffeur">
+                                    <input type="checkbox" value="Chauffeur & Airport Fleet (₹1,500)" data-cost="1500" onchange="onExperienceToggle(this, 'expCardChauffeur')">
+                                    <div class="exp-icon"><i class="fa-solid fa-car-side"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">Chauffeur & Airport Fleet</div>
+                                        <p class="exp-desc">VIP airport transfers and sightseeing in executive BMW/Mercedes.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹1,500</div>
+                                </label>
+
+                                <!-- 4. Yacht -->
+                                <label class="experience-check-card" id="expCardYacht">
+                                    <input type="checkbox" value="Sunset Yacht Charter (₹3,500)" data-cost="3500" onchange="onExperienceToggle(this, 'expCardYacht')">
+                                    <div class="exp-icon"><i class="fa-solid fa-ship"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">Sunset Yacht Charter</div>
+                                        <p class="exp-desc">Private coastal/backwater cruise with sommelier wine & canapés.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹3,500</div>
+                                </label>
+
+                                <!-- 5. Butler -->
+                                <label class="experience-check-card" id="expCardButler">
+                                    <input type="checkbox" value="24/7 Butler Concierge (₹1,200)" data-cost="1200" onchange="onExperienceToggle(this, 'expCardButler')">
+                                    <div class="exp-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">24/7 Butler Concierge</div>
+                                        <p class="exp-desc">Dedicated personal butler for bespoke requests & packing service.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹1,200</div>
+                                </label>
+
+                                <!-- 6. Jacuzzi -->
+                                <label class="experience-check-card" id="expCardJacuzzi">
+                                    <input type="checkbox" value="Private Jacuzzi Setup (₹1,800)" data-cost="1800" onchange="onExperienceToggle(this, 'expCardJacuzzi')">
+                                    <div class="exp-icon"><i class="fa-solid fa-hot-tub-person"></i></div>
+                                    <div class="exp-info">
+                                        <div class="exp-name">Private Jacuzzi Setup</div>
+                                        <p class="exp-desc">Rose petal bath with chilled champagne & fresh fruit platter.</p>
+                                    </div>
+                                    <div class="exp-price-tag">+₹1,800</div>
+                                </label>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Check-in Date *</label>
-                                <input type="date" id="stuffsCheckIn" class="form-control" onchange="calculateStuffsTotal()" required>
+                        <!-- STEP 3: Guest Details & Total -->
+                        <div class="wizard-step-box">
+                            <div class="wizard-step-title">
+                                <span class="step-num">3</span>
+                                <div>
+                                    <h5>Guest Details & Payment</h5>
+                                    <small>Zero hassle • Simple contact details</small>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Check-out Date *</label>
-                                <input type="date" id="stuffsCheckOut" class="form-control" onchange="calculateStuffsTotal()" required>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fa-regular fa-user" style="color: var(--primary);"></i> Your Full Name *</label>
+                                    <input type="text" id="stuffsGuestName" class="form-control" placeholder="e.g. Aarav Sharma" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa-regular fa-envelope" style="color: var(--primary);"></i> Email Address *</label>
+                                    <input type="email" id="stuffsGuestEmail" class="form-control" placeholder="e.g. aarav@example.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fa-solid fa-phone" style="color: var(--primary);"></i> Mobile Number *</label>
+                                    <input type="tel" id="stuffsGuestPhone" class="form-control" placeholder="+91 98765 43210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa-solid fa-wallet" style="color: var(--primary);"></i> Payment Preference</label>
+                                    <select id="stuffsPayment" class="form-control">
+                                        <option value="PAID">Instant Prepaid (Card / UPI / NetBanking)</option>
+                                        <option value="PENDING">Pay on Arrival at Hotel Reception</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Live Calculated Total -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 18px; border-radius: 8px; margin: 14px 0; border: 1px solid var(--border);">
-                            <div>
-                                <span style="font-size: 12.5px; color: var(--text-muted);">Stay Total:</span>
-                                <div id="stuffsNightsLabel" style="font-size: 12.5px; font-weight: 600; color: var(--primary);">1 night(s) stay</div>
+                        <!-- Dynamic Live Price Breakdown -->
+                        <div class="live-booking-summary-card">
+                            <div class="summary-line">
+                                <span id="stuffsNightsLabel" style="color: var(--text-muted); font-size: 13px;">Suite Stay: 1 night</span>
+                                <span id="stuffsRoomSubtotal" style="font-weight: 600; color: var(--text-main);">₹3,500</span>
                             </div>
-                            <div id="stuffsTotalCalculated" style="font-size: 24px; font-weight: 700; color: var(--text-main);">₹3,500</div>
+                            <div class="summary-line" id="stuffsExpSummaryLine" style="display: none;">
+                                <span id="stuffsExpSummaryLabel" style="color: var(--primary); font-size: 13px;">+ Selected Experiences (0):</span>
+                                <span id="stuffsExpSubtotal" style="font-weight: 600; color: var(--primary);">+₹0</span>
+                            </div>
+                            <div class="summary-total-line">
+                                <div>
+                                    <span style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); display: block;">Total Stay Payable:</span>
+                                    <small style="font-size: 11px; color: #16a34a; font-weight: 600;">✓ All Taxes & Inclusions Included</small>
+                                </div>
+                                <div id="stuffsTotalCalculated" style="font-size: 26px; font-weight: 700; color: var(--primary);">₹3,500</div>
+                            </div>
                         </div>
 
-                        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                            <button type="button" class="btn btn-secondary" onclick="closeModal('stuffsModal')">Close</button>
-                            <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+                        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal('stuffsModal')">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="btnConfirmStuffsReservation" style="padding: 12px 28px; font-size: 15px; font-weight: 600;">
+                                <i class="fa-solid fa-check-circle" style="margin-right: 6px;"></i> Confirm & Reserve Now
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -852,7 +1009,19 @@
                         <h2 id="dashSectionTitle">Staff Management Console</h2>
                         <p style="font-size: 13px; color: var(--text-muted);">Manage rooms, guests, bookings, and concierge orders</p>
                     </div>
-                    <div>
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <div class="pms-tenant-filter-box">
+                            <i class="fa-solid fa-hotel" style="color: var(--primary);"></i>
+                            <select id="pmsPropertyFilter" onchange="onPmsPropertyFilterChange(this.value)" title="Filter by Hotel Property Tenant">
+                                <option value="ALL">Consolidated Group Portfolio (All Properties)</option>
+                                <option value="PROP-GOA">Goa &bull; Oceanfront Sanctuary</option>
+                                <option value="PROP-UDAIPUR">Udaipur &bull; Grand Palace & Lake Resort</option>
+                                <option value="PROP-MANALI">Manali &bull; Himalayan Chalet & Spa</option>
+                                <option value="PROP-MUMBAI">Mumbai &bull; Imperial Seafront Towers</option>
+                                <option value="PROP-JAIPUR">Jaipur &bull; Amber Royal Penthouse</option>
+                                <option value="PROP-KERALA">Kerala &bull; Vembanad Heritage Pavilion</option>
+                            </select>
+                        </div>
                         <button class="btn btn-secondary" onclick="toggleManagementPortal()">
                             <i class="fa-solid fa-xmark"></i> Close Portal
                         </button>
@@ -861,16 +1030,21 @@
 
                 <!-- 1. DASHBOARD OVERVIEW -->
                 <div id="dash-dashboard" class="dash-section active">
-                    <div class="stats-grid">
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
                         <div class="stat-card">
                             <div class="stat-header"><h3>Total Rooms</h3><div class="stat-icon purple"><i class="fa-solid fa-door-open"></i></div></div>
                             <div class="stat-value" id="mgmtTotalRooms">0</div>
                             <div class="stat-meta"><span id="mgmtAvailBadge">0 Available</span></div>
                         </div>
+                        <div class="stat-card" style="border-left: 3px solid #0284c7;">
+                            <div class="stat-header"><h3>Users Booked Hotel</h3><div class="stat-icon blue" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-users-viewfinder"></i></div></div>
+                            <div class="stat-value" id="mgmtUsersBookedCount">0</div>
+                            <div class="stat-meta"><span id="mgmtUsersBookedSub">0 Unique Guests Booked</span></div>
+                        </div>
                         <div class="stat-card">
-                            <div class="stat-header"><h3>Total Guests</h3><div class="stat-icon blue"><i class="fa-solid fa-user-group"></i></div></div>
+                            <div class="stat-header"><h3>Total Registered</h3><div class="stat-icon blue"><i class="fa-solid fa-user-group"></i></div></div>
                             <div class="stat-value" id="mgmtTotalGuests">0</div>
-                            <div class="stat-meta"><span>Registered</span></div>
+                            <div class="stat-meta"><span>CRM Profiles</span></div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-header"><h3>Active Stays</h3><div class="stat-icon green"><i class="fa-solid fa-key"></i></div></div>
@@ -884,7 +1058,7 @@
                         </div>
                     </div>
 
-                    <!-- Recent Bookings Table -->
+                    <!-- Recent Bookings Table with Add-On Experiences -->
                     <div class="content-card">
                         <div class="card-top">
                             <h3>Live Reservations Feed</h3>
@@ -897,12 +1071,40 @@
                                         <th>Guest</th>
                                         <th>Room</th>
                                         <th>Stay Dates</th>
+                                        <th>Add-On Experiences</th>
                                         <th>Total</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="mgmtRecentBookingsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Booked Guests Directory (Who Booked) -->
+                    <div class="content-card" style="margin-top: 24px;">
+                        <div class="card-top">
+                            <div>
+                                <h3>Booked Guests Directory (Users Who Booked Hotel)</h3>
+                                <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Comprehensive list of unique customers who reserved stays and their selected amenities</p>
+                            </div>
+                            <span class="badge-status-float badge-available" id="bookedGuestsTotalBadge" style="position: static;">0 Users Booked</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Guest Name</th>
+                                        <th>Contact Email & Phone</th>
+                                        <th>Room Reserved</th>
+                                        <th>Check-in & Check-out</th>
+                                        <th>Add-On Services</th>
+                                        <th>Total Amount</th>
+                                        <th>Booking Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mgmtBookedGuestsTable"></tbody>
                             </table>
                         </div>
                     </div>
@@ -1010,6 +1212,52 @@
                         <div class="form-group"><label>Check-in Date *</label><input type="date" id="modalBookingCheckIn" class="form-control" onchange="calculateBookingTotal()" required></div>
                         <div class="form-group"><label>Check-out Date *</label><input type="date" id="modalBookingCheckOut" class="form-control" onchange="calculateBookingTotal()" required></div>
                     </div>
+
+                    <!-- Curated Experiences Add-Ons in General Booking Modal -->
+                    <div style="margin: 14px 0;">
+                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; display: block;">
+                            <i class="fa-solid fa-sparkles" style="color: var(--gold);"></i> Enhance Your Stay (Optional Curated Experiences)
+                        </label>
+                        <div class="experiences-selection-grid compact">
+                            <label class="experience-check-card" id="bkExpDining">
+                                <input type="checkbox" value="In-Room Fine Dining (₹850)" data-cost="850" onchange="onBookingExpToggle(this, 'bkExpDining')">
+                                <div class="exp-icon"><i class="fa-solid fa-utensils"></i></div>
+                                <div class="exp-info"><div class="exp-name">In-Room Dining</div></div>
+                                <div class="exp-price-tag">+₹850</div>
+                            </label>
+                            <label class="experience-check-card" id="bkExpSpa">
+                                <input type="checkbox" value="Ayurvedic Wellness Spa (₹2,200)" data-cost="2200" onchange="onBookingExpToggle(this, 'bkExpSpa')">
+                                <div class="exp-icon"><i class="fa-solid fa-spa"></i></div>
+                                <div class="exp-info"><div class="exp-name">Ayurvedic Spa</div></div>
+                                <div class="exp-price-tag">+₹2,200</div>
+                            </label>
+                            <label class="experience-check-card" id="bkExpChauffeur">
+                                <input type="checkbox" value="Chauffeur Transfer (₹1,500)" data-cost="1500" onchange="onBookingExpToggle(this, 'bkExpChauffeur')">
+                                <div class="exp-icon"><i class="fa-solid fa-car-side"></i></div>
+                                <div class="exp-info"><div class="exp-name">VIP Chauffeur</div></div>
+                                <div class="exp-price-tag">+₹1,500</div>
+                            </label>
+                            <label class="experience-check-card" id="bkExpYacht">
+                                <input type="checkbox" value="Sunset Yacht Charter (₹3,500)" data-cost="3500" onchange="onBookingExpToggle(this, 'bkExpYacht')">
+                                <div class="exp-icon"><i class="fa-solid fa-ship"></i></div>
+                                <div class="exp-info"><div class="exp-name">Sunset Yacht</div></div>
+                                <div class="exp-price-tag">+₹3,500</div>
+                            </label>
+                            <label class="experience-check-card" id="bkExpButler">
+                                <input type="checkbox" value="Butler Concierge (₹1,200)" data-cost="1200" onchange="onBookingExpToggle(this, 'bkExpButler')">
+                                <div class="exp-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                                <div class="exp-info"><div class="exp-name">24/7 Butler</div></div>
+                                <div class="exp-price-tag">+₹1,200</div>
+                            </label>
+                            <label class="experience-check-card" id="bkExpJacuzzi">
+                                <input type="checkbox" value="Private Jacuzzi Setup (₹1,800)" data-cost="1800" onchange="onBookingExpToggle(this, 'bkExpJacuzzi')">
+                                <div class="exp-icon"><i class="fa-solid fa-hot-tub-person"></i></div>
+                                <div class="exp-info"><div class="exp-name">Private Jacuzzi</div></div>
+                                <div class="exp-price-tag">+₹1,800</div>
+                            </label>
+                        </div>
+                    </div>
+
                     <div style="background: #f0fdfa; border-radius: 8px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #99f6e4;">
                         <div><span style="font-size: 12.5px; color: var(--primary); font-weight: 600;">Stay Total:</span><div id="bookingStayDuration" style="font-size: 12px; color: var(--text-muted);">1 night(s)</div></div>
                         <div id="bookingCalculatedTotal" style="font-size: 22px; font-weight: 700; color: var(--primary);">₹0</div>
@@ -1207,6 +1455,416 @@
                 <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('conciergeModal'); openQuickBook();">
                     Proceed to Online Suite Booking
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         LUXURY PAYMENT GATEWAY (UPI QR, RAZORPAY & STRIPE)
+         ======================================================== -->
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-box payment-gateway-modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <div>
+                    <div class="payment-badge-pill"><i class="fa-solid fa-shield-halved"></i> 256-Bit SSL Encrypted Settlement</div>
+                    <h3 style="margin-top: 6px;">TORO Luxury Direct Settlement</h3>
+                </div>
+                <button class="close-modal" onclick="closeModal('paymentModal')">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="padding: 20px 24px;">
+                <!-- Reservation Summary Card -->
+                <div class="payment-order-summary">
+                    <div class="summary-left">
+                        <span class="summary-room-badge" id="paySummaryRoomType">DELUXE SUITE</span>
+                        <h4 id="paySummaryTitle" style="font-family: 'Playfair Display', serif; font-size: 18px; margin: 4px 0;">Oceanfront Beach Villa</h4>
+                        <div id="paySummaryDates" class="summary-meta">Check-in: Today &bull; 1 Night</div>
+                    </div>
+                    <div class="summary-right" style="text-align: right;">
+                        <div class="summary-price-label" style="font-size: 11px; color: #64748b; text-transform: uppercase;">Net Payable Amount</div>
+                        <div class="summary-total-price" id="paySummaryTotal" style="font-size: 24px; font-weight: 700; color: var(--primary);">₹3,500</div>
+                        <div class="summary-taxes-note" style="font-size: 11px; color: #16a34a;"><i class="fa-solid fa-circle-check"></i> Inclusive of 18% Luxury GST</div>
+                    </div>
+                </div>
+
+                <!-- Payment Method Tabs -->
+                <div class="payment-tabs-nav">
+                    <button class="pay-tab-btn active" id="tabBtnUpi" onclick="switchPaymentTab('upi')">
+                        <i class="fa-solid fa-qrcode"></i> Instant UPI QR
+                    </button>
+                    <button class="pay-tab-btn" id="tabBtnCard" onclick="switchPaymentTab('card')">
+                        <i class="fa-regular fa-credit-card"></i> Razorpay / Card
+                    </button>
+                    <button class="pay-tab-btn" id="tabBtnStripe" onclick="switchPaymentTab('stripe')">
+                        <i class="fa-brands fa-apple-pay"></i> Apple / Stripe
+                    </button>
+                </div>
+
+                <!-- Tab 1: UPI Dynamic QR Code -->
+                <div id="payTabUpi" class="pay-tab-content active">
+                    <div class="upi-qr-card">
+                        <div class="upi-qr-wrapper">
+                            <div id="upiQrCodeContainer" class="upi-qr-frame">
+                                <svg id="upiQrSvg" viewBox="0 0 200 200" width="160" height="160">
+                                    <rect width="200" height="200" fill="#ffffff" rx="10"/>
+                                    <rect x="20" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
+                                    <rect x="28" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
+                                    <rect x="34" y="34" width="12" height="12" fill="#091a1d"/>
+                                    
+                                    <rect x="140" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
+                                    <rect x="148" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
+                                    <rect x="154" y="34" width="12" height="12" fill="#091a1d"/>
+                                    
+                                    <rect x="20" y="140" width="40" height="40" fill="#091a1d" rx="4"/>
+                                    <rect x="28" y="148" width="24" height="24" fill="#ffffff" rx="2"/>
+                                    <rect x="34" y="154" width="12" height="12" fill="#091a1d"/>
+                                    
+                                    <rect x="75" y="25" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="100" y="25" width="14" height="14" fill="#c5a880"/>
+                                    <rect x="75" y="50" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="100" y="50" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="25" y="75" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="50" y="75" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="75" y="75" width="50" height="50" fill="#091a1d" rx="4"/>
+                                    <rect x="85" y="85" width="30" height="30" fill="#c5a880" rx="3"/>
+                                    <rect x="140" y="75" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="165" y="75" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="25" y="100" width="14" height="14" fill="#c5a880"/>
+                                    <rect x="50" y="100" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="140" y="100" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="165" y="100" width="14" height="14" fill="#c5a880"/>
+                                    <rect x="75" y="135" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="100" y="135" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="75" y="160" width="14" height="14" fill="#c5a880"/>
+                                    <rect x="100" y="160" width="14" height="14" fill="#091a1d"/>
+                                    <rect x="135" y="135" width="40" height="40" fill="#091a1d" rx="4"/>
+                                    <rect x="145" y="145" width="20" height="20" fill="#ffffff" rx="2"/>
+                                    <rect x="150" y="150" width="10" height="10" fill="#091a1d"/>
+                                </svg>
+                                <div class="qr-center-logo">
+                                    <img src="assets/toro_logo.svg" alt="TORO" width="22">
+                                </div>
+                            </div>
+                            <div class="qr-countdown">
+                                <i class="fa-regular fa-clock"></i> Expires in: <span id="upiTimer">04:59</span>
+                            </div>
+                        </div>
+                        <div class="upi-details-pane">
+                            <h4 style="font-size: 15px; margin-bottom: 4px;">Scan with any UPI App</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Instant zero-fee direct reservation settlement</p>
+                            <div class="upi-id-badge">
+                                <span>UPI ID: <strong>toro.luxury@icici</strong></span>
+                                <button type="button" class="btn-copy-upi" onclick="copyUpiId()"><i class="fa-regular fa-copy"></i> Copy</button>
+                            </div>
+                            <div class="upi-supported-icons">
+                                <span class="upi-chip">GPay</span>
+                                <span class="upi-chip">PhonePe</span>
+                                <span class="upi-chip">Paytm</span>
+                                <span class="upi-chip">BHIM</span>
+                                <span class="upi-chip">CRED</span>
+                            </div>
+                            <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 14px; justify-content: center;" onclick="simulateUpiApproval()">
+                                <i class="fa-solid fa-circle-check"></i> I Have Completed the UPI Transfer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Razorpay Credit / Debit Card -->
+                <div id="payTabCard" class="pay-tab-content">
+                    <div class="luxury-credit-card-preview">
+                        <div class="card-brand-logo" id="previewCardBrand"><i class="fa-brands fa-cc-visa"></i> VISA</div>
+                        <div class="card-chip-gold"></div>
+                        <div class="card-preview-number" id="previewCardNumber">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</div>
+                        <div class="card-preview-bottom">
+                            <div>
+                                <span class="card-label">CARDHOLDER</span>
+                                <span class="card-val" id="previewCardName">GUEST RESERVATION</span>
+                            </div>
+                            <div>
+                                <span class="card-label">EXPIRES</span>
+                                <span class="card-val" id="previewCardExp">12/28</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="cardPaymentForm" onsubmit="processCardPayment(event)">
+                        <div class="form-group">
+                            <label>Cardholder Name *</label>
+                            <input type="text" id="payCardName" class="form-control" placeholder="Aarav Sharma" oninput="updateCardPreview()" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Number *</label>
+                            <div style="position: relative;">
+                                <input type="text" id="payCardNumber" class="form-control" placeholder="4532 8920 1234 5678" maxlength="19" oninput="formatCardNumber(this); updateCardPreview()" required>
+                                <span class="card-type-icon" id="cardTypeDetect"><i class="fa-solid fa-credit-card"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry Date *</label>
+                                <input type="text" id="payCardExp" class="form-control" placeholder="MM/YY" maxlength="5" oninput="formatCardExp(this); updateCardPreview()" required>
+                            </div>
+                            <div class="form-group">
+                                <label>CVV / CVC *</label>
+                                <input type="password" id="payCardCvv" class="form-control" placeholder="&bull;&bull;&bull;" maxlength="4" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;" id="btnSubmitCardPay">
+                            <i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tab 3: Stripe / Global Apple Pay -->
+                <div id="payTabStripe" class="pay-tab-content">
+                    <div style="text-align: center; padding: 20px 0;">
+                        <i class="fa-brands fa-stripe" style="font-size: 54px; color: #6366f1; margin-bottom: 12px; display: block;"></i>
+                        <h4 style="font-size: 17px; margin-bottom: 6px;">International Instant Settlement</h4>
+                        <p style="font-size: 13.5px; color: var(--text-muted); max-width: 380px; margin: 0 auto 20px;">
+                            Pay in your home currency (USD, EUR, GBP, AED, SGD) with zero international transaction fees.
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto;">
+                            <button type="button" class="btn-apple-pay" onclick="simulateStripeCheckout('Apple Pay')">
+                                <i class="fa-brands fa-apple"></i> Pay with Apple Pay
+                            </button>
+                            <button type="button" class="btn-google-pay" onclick="simulateStripeCheckout('Google Pay')">
+                                <i class="fa-brands fa-google"></i> Pay with Google Pay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid var(--border);">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Back</button>
+                <button type="button" class="btn btn-text" onclick="proceedPayAtDesk()" style="font-size: 13px; color: var(--text-muted);">
+                    Pay on Arrival at Resort Front Desk &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         CONFIRMATION & OFFICIAL LUXURY TAX INVOICE VOUCHER
+         ======================================================== -->
+    <div id="paymentSuccessModal" class="modal-overlay">
+        <div class="modal-box voucher-modal-box" style="max-width: 580px;">
+            <div class="modal-header" style="background: var(--surface); color: #fff;">
+                <div>
+                    <span class="badge-status-float badge-available" style="position: static; margin-bottom: 6px; display: inline-flex;">
+                        <i class="fa-solid fa-circle-check"></i> RESERVATION CONFIRMED &bull; PAID
+                    </span>
+                    <h3 style="color: #fff; font-size: 19px; margin-top: 4px;">Official Guest Stay Voucher</h3>
+                </div>
+                <button class="close-modal" style="color: #fff;" onclick="closeModal('paymentSuccessModal')">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="padding: 24px;">
+                <div class="voucher-card" id="printableVoucher">
+                    <div class="voucher-top">
+                        <img src="assets/toro_logo.svg" alt="TORO" width="36">
+                        <div>
+                            <div class="voucher-brand">TORO HOTELS & RESORTS &bull; INDIA</div>
+                            <div class="voucher-id" id="voucherBookingId">BOOKING REF: #TORO-92810</div>
+                        </div>
+                    </div>
+                    
+                    <div class="voucher-grid">
+                        <div>
+                            <span class="v-label">PRIMARY GUEST</span>
+                            <span class="v-val" id="voucherGuestName">Priya Patel</span>
+                        </div>
+                        <div>
+                            <span class="v-label">SUITE ASSIGNED</span>
+                            <span class="v-val" id="voucherRoom">Suite 102 &bull; Oceanfront Villa</span>
+                        </div>
+                        <div>
+                            <span class="v-label">CHECK-IN</span>
+                            <span class="v-val" id="voucherCheckIn">Today (From 2:00 PM)</span>
+                        </div>
+                        <div>
+                            <span class="v-label">CHECK-OUT</span>
+                            <span class="v-val" id="voucherCheckOut">In 3 Days (12:00 PM)</span>
+                        </div>
+                    </div>
+
+                    <div class="voucher-settlement-bar">
+                        <span>Total Paid (incl. Luxury GST):</span>
+                        <strong id="voucherAmount">₹10,500</strong>
+                    </div>
+
+                    <div class="voucher-security-code">
+                        <div class="v-qr-stamp">
+                            <i class="fa-solid fa-qrcode" style="font-size: 38px; color: var(--primary);"></i>
+                        </div>
+                        <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.4;">
+                            Encrypted Digital Stay Pass &bull; Scan at resort concierge, wellness spa, or valet chauffeur terminal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="voucher-actions-row">
+                    <button type="button" class="btn btn-secondary" onclick="printVoucher()"><i class="fa-solid fa-print"></i> Print Invoice</button>
+                    <button type="button" class="btn btn-primary" onclick="launchKeylessFromVoucher()"><i class="fa-solid fa-mobile-screen"></i> Activate Digital NFC Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         KEYLESS MOBILE CHECK-IN & DIGITAL NFC WALLET PASS
+         ======================================================== -->
+    <div id="keylessModal" class="modal-overlay">
+        <div class="modal-box keyless-modal-box" style="max-width: 480px;">
+            <div class="modal-header">
+                <div>
+                    <span class="badge-nfc-active"><i class="fa-solid fa-signal"></i> NFC BLUETOOTH KEYLESS ACCESS</span>
+                    <h3 style="margin-top: 6px;">TORO Digital Mobile Key</h3>
+                </div>
+                <button class="close-modal" onclick="closeModal('keylessModal')">&times;</button>
+            </div>
+
+            <div class="modal-body" style="padding: 24px;">
+                <!-- Apple / Google Wallet Style Digital Pass -->
+                <div class="wallet-nfc-pass-card">
+                    <div class="pass-header">
+                        <div class="pass-brand-lockup">
+                            <img src="assets/toro_logo.svg" alt="TORO" width="28">
+                            <span>TORO RESORTS</span>
+                        </div>
+                        <span class="pass-tag">VIP GUEST</span>
+                    </div>
+
+                    <div class="pass-room-hero">
+                        <div class="pass-room-num" id="nfcPassRoomNum">102</div>
+                        <div class="pass-room-name" id="nfcPassRoomName">Oceanfront Deluxe Beach Villa</div>
+                        <div class="pass-location" id="nfcPassLocation">Candolim Beachfront &bull; North Goa</div>
+                    </div>
+
+                    <div class="pass-meta-strip">
+                        <div>
+                            <span class="p-meta-lbl">GUEST</span>
+                            <span class="p-meta-txt" id="nfcPassGuest">Aarav Sharma</span>
+                        </div>
+                        <div>
+                            <span class="p-meta-lbl">STATUS</span>
+                            <span class="p-meta-txt" style="color: #34d399;">DIGITAL KEY ACTIVE</span>
+                        </div>
+                    </div>
+
+                    <!-- Ultrasonic NFC Wave Ripple Animation Container -->
+                    <div class="nfc-sensor-target" id="nfcSensorTarget" onclick="triggerDoorUnlock()">
+                        <div class="nfc-ripple-ring ring-1"></div>
+                        <div class="nfc-ripple-ring ring-2"></div>
+                        <div class="nfc-ripple-ring ring-3"></div>
+                        <div class="nfc-icon-center" id="nfcIconCenter">
+                            <i class="fa-solid fa-key" id="nfcLockIcon"></i>
+                        </div>
+                    </div>
+
+                    <div class="nfc-prompt-label" id="nfcPromptLabel">
+                        Tap Pass or Hold Near Door Reader to Unlock
+                    </div>
+                    <div class="nfc-unlock-status" id="nfcUnlockStatus"></div>
+                </div>
+
+                <div class="wallet-buttons-row">
+                    <button type="button" class="btn-wallet-apple" onclick="showToast('TORO Mobile Room Key added to Apple Wallet!')">
+                        <i class="fa-brands fa-apple"></i> Add to Apple Wallet
+                    </button>
+                    <button type="button" class="btn-wallet-google" onclick="showToast('TORO Mobile Room Key added to Google Wallet!')">
+                        <i class="fa-brands fa-google"></i> Save to Google Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         AI BUTLER ASSISTANT ("JEEVES" • POWERED BY GEMINI API)
+         ======================================================== -->
+    <div class="floating-ai-butler-badge" id="aiButlerWidget" onclick="toggleAiButler()" title="TORO AI Luxury Butler Concierge">
+        <div class="ai-sparkle-dot"></div>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>AI Butler</span>
+    </div>
+
+    <!-- AI Butler Drawer Overlay -->
+    <div id="aiButlerDrawer" class="ai-butler-drawer">
+        <div class="ai-drawer-header">
+            <div class="ai-header-left">
+                <div class="ai-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span class="ai-status-indicator"></span>
+                </div>
+                <div>
+                    <div class="ai-name">Jeeves &bull; TORO AI Butler</div>
+                    <div class="ai-sub">In-Suite Luxury Concierge &bull; Gemini Intelligence</div>
+                </div>
+            </div>
+            <div class="ai-header-actions">
+                <button type="button" class="ai-config-btn" onclick="openGeminiConfigModal()" title="Configure Gemini API Key">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <button type="button" class="ai-close-btn" onclick="toggleAiButler()" title="Close Butler">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="ai-drawer-body" id="aiChatStream">
+            <div class="ai-msg ai-bot">
+                <div class="ai-bubble">
+                    Namaste & Welcome to TORO. I am <strong>Jeeves</strong>, your dedicated digital luxury butler.
+                    <br><br>
+                    How may I assist your stay today? I can curate bespoke regional itineraries, order in-room dining, book spa treatments, or adjust your suite preferences.
+                </div>
+                <div class="ai-time">Just now</div>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="ai-quick-chips">
+                <button type="button" class="ai-chip" onclick="askAiButler('Curate a 3-day romantic luxury itinerary in Goa')">🏖️ 3-Day Goa Itinerary</button>
+                <button type="button" class="ai-chip" onclick="askAiButler('Order Gourmet Masala Chai & Breakfast to Suite 102')">☕ Order Breakfast (Room 102)</button>
+                <button type="button" class="ai-chip" onclick="askAiButler('Book an Ayurvedic Abhyanga Spa Session')">💆 Book Ayurvedic Spa</button>
+                <button type="button" class="ai-chip" onclick="askAiButler('What are the complimentary inclusions for the Royal Penthouse?')">💎 Penthouse Inclusions</button>
+            </div>
+        </div>
+
+        <form class="ai-drawer-footer" onsubmit="handleAiButlerSubmit(event)">
+            <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Ask Jeeves anything (e.g. 'Order towels to 103')..." autocomplete="off">
+            <button type="submit" class="ai-send-btn" title="Send Request">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Gemini API Key Configuration Modal -->
+    <div id="geminiApiKeyModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 440px;">
+            <div class="modal-header">
+                <div>
+                    <h3>Gemini AI Configuration</h3>
+                    <span style="font-size: 12px; color: var(--text-muted);">Power Jeeves with Google Gemini API</span>
+                </div>
+                <button class="close-modal" onclick="closeModal('geminiApiKeyModal')">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+                    Enter your Google Gemini API key to activate real-time generative intelligence for Jeeves. If no key is entered, Jeeves operates using TORO's built-in luxury hospitality matrix.
+                </p>
+                <div class="form-group">
+                    <label>Gemini API Key</label>
+                    <input type="password" id="geminiApiKeyInput" class="form-control" placeholder="AIzaSy...">
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-top: 6px;">
+                    Key is securely stored in your browser's local storage and never transmitted to third parties.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('geminiApiKeyModal')">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveGeminiApiKey()">Save Configuration</button>
             </div>
         </div>
     </div>

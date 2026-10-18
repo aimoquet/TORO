@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const apiHandler = require('./api/index.js');
 
 const PORT = 3000;
 const DIR = path.join(__dirname, 'frontend');
@@ -16,6 +17,11 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
+  // Delegate /api/* to serverless REST API handler
+  if (req.url.startsWith('/api')) {
+    return apiHandler(req, res);
+  }
+
   let file = (req.url === '/' || req.url === '') ? 'index.html' : req.url.split('?')[0];
   let filePath = path.join(DIR, file);
   if (!fs.existsSync(filePath)) {
