@@ -259,8 +259,6 @@ node frontend_server.js
 * The frontend server will start immediately at:  
   👉 **`http://localhost:3000`**
 
-### Step 4: Open in Your Browser
-Visit **[http://localhost:3000](http://localhost:3000)** in Google Chrome, Microsoft Edge, Safari, or Firefox to experience the live website, 360° virtual tours, and staff management portal.
 
 ---
 
