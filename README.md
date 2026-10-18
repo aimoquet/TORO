@@ -5,12 +5,18 @@
   # TORO — Luxury Hotels & Resorts
   ### India Collection • Next-Generation Hospitality Platform
 
-  [![Java](https://img.shields.io/badge/Java-17%20%7C%2021%20%7C%2025-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
-  [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
-  [![Three.js](https://img.shields.io/badge/Three.js-360%C2%B0_WebGL-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
-  [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-  [![REST API](https://img.shields.io/badge/REST_API-Enterprise-0d6e6e?style=for-the-badge)](http://localhost:8080/api)
-  [![License](https://img.shields.io/badge/License-MIT-teal?style=for-the-badge)](LICENSE)
+  <p align="center">
+    <a href="https://skillicons.dev">
+      <img src="https://skillicons.dev/icons?i=java,spring,threejs,js,html,css,maven&theme=dark" alt="Tech Stack: Java, Spring Boot, Three.js, JavaScript, HTML5, CSS3, Maven" />
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-0d6e6e.svg?style=flat-square" alt="MIT License" /></a>
+    <a href="http://localhost:8080/api"><img src="https://img.shields.io/badge/REST_API-Spring_Boot_3.x-6DB33F.svg?style=flat-square" alt="Spring Boot 3.x REST API" /></a>
+    <a href="#-guest-experience-customer-facing-portal"><img src="https://img.shields.io/badge/360°_Virtual_Tour-WebGL_Three.js-111111.svg?style=flat-square" alt="360° Virtual Tour" /></a>
+    <a href="https://dev.java/"><img src="https://img.shields.io/badge/Java-17_%7C_21_%7C_25-ED8B00.svg?style=flat-square" alt="Java LTS" /></a>
+  </p>
 
   <p align="center">
     <strong>A full-stack, enterprise-grade luxury hospitality booking and property management system (PMS) featuring photorealistic 360° WebGL virtual tours, dynamic state/destination inventory filtering across India, transparent luxury inclusions, and high-performance Spring Boot microservices.</strong>
@@ -125,15 +131,17 @@ graph TD
     JPA --> H2
 ```
 
-| Layer | Technology | Purpose & Rationale |
-| :--- | :--- | :--- |
-| **Frontend Core** | HTML5, Vanilla CSS3, ES6+ JS | Zero third-party bundle bloat, ultra-low TTFB, instant paint, full styling autonomy. |
-| **3D Graphics** | Three.js (r128 WebGL) | High-performance 60 FPS equirectangular panoramic rendering with hardware acceleration. |
-| **Typography** | Playfair Display & Plus Jakarta Sans | Classical editorial luxury serif paired with a crisp, geometric sans-serif for readability. |
-| **Backend Framework**| Java 17/21/25 & Spring Boot 3.x | Enterprise reliability, dependency injection, robust transactional integrity, and rapid REST endpoints. |
-| **Persistence** | Spring Data JPA / Hibernate | High-productivity Object-Relational Mapping (ORM) with clean repository abstractions. |
-| **Database** | Embedded H2 Database | Zero-configuration, file-backed persistence (`./hotel_data/hotel_db`), zero external DB installation required. |
-| **Serving** | Node.js Static Server | Lightweight dev server supporting MIME types, video/360 streaming, and clean static routing. |
+| Layer | Technology | Logo | Purpose & Rationale |
+| :--- | :--- | :---: | :--- |
+| **Backend Core** | Java 17 / 21 / 25 | <a href="https://dev.java/"><img src="https://skillicons.dev/icons?i=java" width="30" height="30" alt="Java"/></a> | Enterprise reliability, LTS performance, strong type safety. |
+| **REST API** | Spring Boot 3.x | <a href="https://spring.io/projects/spring-boot"><img src="https://skillicons.dev/icons?i=spring" width="30" height="30" alt="Spring Boot"/></a> | Production-ready microservices, automated DI, transactional integrity. |
+| **Spatial 3D Graphics** | Three.js (r128 WebGL) | <a href="https://threejs.org/"><img src="https://skillicons.dev/icons?i=threejs" width="30" height="30" alt="Three.js"/></a> | Hardware-accelerated 60 FPS equirectangular 360° virtual suite tours. |
+| **Client Scripting** | JavaScript ES6+ | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="30" height="30" alt="JavaScript"/></a> | Modern modular vanilla architecture with zero runtime dependency bloat. |
+| **Markup & Styling** | Semantic HTML5 & CSS3 | <img src="https://skillicons.dev/icons?i=html,css" height="30" alt="HTML5 & CSS3"/> | Custom luxury glassmorphism, responsive editorial grid, zero framework bloat. |
+| **Build & Tooling** | Apache Maven | <a href="https://maven.apache.org/"><img src="https://skillicons.dev/icons?i=maven" width="30" height="30" alt="Maven"/></a> | Declarative build lifecycle and deterministic dependency management. |
+| **Typography** | Playfair Display & Plus Jakarta Sans | 🔤 | Classical editorial luxury serif paired with a crisp, geometric sans-serif. |
+| **Persistence** | Spring Data JPA / Hibernate | 🗄️ | High-productivity Object-Relational Mapping (ORM) with clean repository abstractions. |
+| **Database** | Embedded H2 Engine | 💾 | Zero-configuration, file-backed persistence (`./hotel_data/hotel_db`), zero external DB required. |
 
 ---
 
