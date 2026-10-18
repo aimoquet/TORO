@@ -2828,6 +2828,94 @@ table td {
     color: #334155;
 }
 
+/* Payment Celebration & Success State inside Payment Modal */
+.payment-celebration-container {
+    text-align: center;
+    padding: 10px 0 16px;
+    animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.payment-success-icon-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 10px 28px rgba(16, 185, 129, 0.35);
+    margin-bottom: 14px;
+    animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 18px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.payment-receipt-box {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 18px auto;
+    max-width: 480px;
+    text-align: left;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border-light);
+    font-size: 13px;
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.receipt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.receipt-val {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.receipt-val.price-highlight {
+    color: var(--primary);
+    font-size: 16px;
+    font-weight: 700;
+}
+
 /* Luxury Credit Card Preview */
 .luxury-credit-card-preview {
     background: linear-gradient(135deg, #091a1d 0%, #1a3a40 50%, #0d262a 100%);
@@ -4379,6 +4467,27 @@ body, .site-header, .search-bar-clean, .public-room-card, .tourism-card,
 
 [data-theme="dark"] .btn-google-pay:hover {
     background: #1c444d !important;
+}
+
+[data-theme="dark"] .payment-receipt-box {
+    background: #071518 !important;
+    border-color: #18373e !important;
+}
+
+[data-theme="dark"] .receipt-row {
+    border-bottom-color: #143239 !important;
+}
+
+[data-theme="dark"] .receipt-label {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .receipt-val {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .receipt-val.price-highlight {
+    color: #2dd4bf !important;
 }
 
 /* Form Controls & Buttons in Dark Mode Modals */

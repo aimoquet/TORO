@@ -1461,170 +1461,222 @@
             </div>
             
             <div class="modal-body" style="padding: 20px 24px;">
-                <!-- Reservation Summary Card -->
-                <div class="payment-order-summary">
-                    <div class="summary-left">
-                        <span class="summary-room-badge" id="paySummaryRoomType">DELUXE SUITE</span>
-                        <h4 id="paySummaryTitle" style="font-family: 'Playfair Display', serif; font-size: 18px; margin: 4px 0;">Oceanfront Beach Villa</h4>
-                        <div id="paySummaryDates" class="summary-meta">Check-in: Today &bull; 1 Night</div>
+                <div id="paymentFormView">
+                    <!-- Reservation Summary Card -->
+                    <div class="payment-order-summary">
+                        <div class="summary-left">
+                            <span class="summary-room-badge" id="paySummaryRoomType">DELUXE SUITE</span>
+                            <h4 id="paySummaryTitle" style="font-family: 'Playfair Display', serif; font-size: 18px; margin: 4px 0;">Oceanfront Beach Villa</h4>
+                            <div id="paySummaryDates" class="summary-meta">Check-in: Today &bull; 1 Night</div>
+                        </div>
+                        <div class="summary-right" style="text-align: right;">
+                            <div class="summary-price-label" style="font-size: 11px; color: #64748b; text-transform: uppercase;">Net Payable Amount</div>
+                            <div class="summary-total-price" id="paySummaryTotal" style="font-size: 24px; font-weight: 700; color: var(--primary);">₹3,500</div>
+                            <div class="summary-taxes-note" style="font-size: 11px; color: #16a34a;"><i class="fa-solid fa-circle-check"></i> Inclusive of 18% Luxury GST</div>
+                        </div>
                     </div>
-                    <div class="summary-right" style="text-align: right;">
-                        <div class="summary-price-label" style="font-size: 11px; color: #64748b; text-transform: uppercase;">Net Payable Amount</div>
-                        <div class="summary-total-price" id="paySummaryTotal" style="font-size: 24px; font-weight: 700; color: var(--primary);">₹3,500</div>
-                        <div class="summary-taxes-note" style="font-size: 11px; color: #16a34a;"><i class="fa-solid fa-circle-check"></i> Inclusive of 18% Luxury GST</div>
+
+                    <!-- Payment Method Tabs -->
+                    <div class="payment-tabs-nav">
+                        <button class="pay-tab-btn active" id="tabBtnUpi" onclick="switchPaymentTab('upi')">
+                            <i class="fa-solid fa-qrcode"></i> Instant UPI QR
+                        </button>
+                        <button class="pay-tab-btn" id="tabBtnCard" onclick="switchPaymentTab('card')">
+                            <i class="fa-regular fa-credit-card"></i> Razorpay / Card
+                        </button>
+                        <button class="pay-tab-btn" id="tabBtnStripe" onclick="switchPaymentTab('stripe')">
+                            <i class="fa-brands fa-apple-pay"></i> Apple / Stripe
+                        </button>
                     </div>
-                </div>
 
-                <!-- Payment Method Tabs -->
-                <div class="payment-tabs-nav">
-                    <button class="pay-tab-btn active" id="tabBtnUpi" onclick="switchPaymentTab('upi')">
-                        <i class="fa-solid fa-qrcode"></i> Instant UPI QR
-                    </button>
-                    <button class="pay-tab-btn" id="tabBtnCard" onclick="switchPaymentTab('card')">
-                        <i class="fa-regular fa-credit-card"></i> Razorpay / Card
-                    </button>
-                    <button class="pay-tab-btn" id="tabBtnStripe" onclick="switchPaymentTab('stripe')">
-                        <i class="fa-brands fa-apple-pay"></i> Apple / Stripe
-                    </button>
-                </div>
-
-                <!-- Tab 1: UPI Dynamic QR Code -->
-                <div id="payTabUpi" class="pay-tab-content active">
-                    <div class="upi-qr-card">
-                        <div class="upi-qr-wrapper">
-                            <div id="upiQrCodeContainer" class="upi-qr-frame">
-                                <svg id="upiQrSvg" viewBox="0 0 200 200" width="160" height="160">
-                                    <rect width="200" height="200" fill="#ffffff" rx="10"/>
-                                    <rect x="20" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
-                                    <rect x="28" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
-                                    <rect x="34" y="34" width="12" height="12" fill="#091a1d"/>
-                                    
-                                    <rect x="140" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
-                                    <rect x="148" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
-                                    <rect x="154" y="34" width="12" height="12" fill="#091a1d"/>
-                                    
-                                    <rect x="20" y="140" width="40" height="40" fill="#091a1d" rx="4"/>
-                                    <rect x="28" y="148" width="24" height="24" fill="#ffffff" rx="2"/>
-                                    <rect x="34" y="154" width="12" height="12" fill="#091a1d"/>
-                                    
-                                    <rect x="75" y="25" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="100" y="25" width="14" height="14" fill="#c5a880"/>
-                                    <rect x="75" y="50" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="100" y="50" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="25" y="75" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="50" y="75" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="75" y="75" width="50" height="50" fill="#091a1d" rx="4"/>
-                                    <rect x="85" y="85" width="30" height="30" fill="#c5a880" rx="3"/>
-                                    <rect x="140" y="75" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="165" y="75" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="25" y="100" width="14" height="14" fill="#c5a880"/>
-                                    <rect x="50" y="100" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="140" y="100" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="165" y="100" width="14" height="14" fill="#c5a880"/>
-                                    <rect x="75" y="135" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="100" y="135" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="75" y="160" width="14" height="14" fill="#c5a880"/>
-                                    <rect x="100" y="160" width="14" height="14" fill="#091a1d"/>
-                                    <rect x="135" y="135" width="40" height="40" fill="#091a1d" rx="4"/>
-                                    <rect x="145" y="145" width="20" height="20" fill="#ffffff" rx="2"/>
-                                    <rect x="150" y="150" width="10" height="10" fill="#091a1d"/>
-                                </svg>
-                                <div class="qr-center-logo">
-                                    <img src="assets/toro_logo.svg" alt="TORO" width="22">
+                    <!-- Tab 1: UPI Dynamic QR Code -->
+                    <div id="payTabUpi" class="pay-tab-content active">
+                        <div class="upi-qr-card">
+                            <div class="upi-qr-wrapper">
+                                <div id="upiQrCodeContainer" class="upi-qr-frame">
+                                    <svg id="upiQrSvg" viewBox="0 0 200 200" width="160" height="160">
+                                        <rect width="200" height="200" fill="#ffffff" rx="10"/>
+                                        <rect x="20" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
+                                        <rect x="28" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
+                                        <rect x="34" y="34" width="12" height="12" fill="#091a1d"/>
+                                        
+                                        <rect x="140" y="20" width="40" height="40" fill="#091a1d" rx="4"/>
+                                        <rect x="148" y="28" width="24" height="24" fill="#ffffff" rx="2"/>
+                                        <rect x="154" y="34" width="12" height="12" fill="#091a1d"/>
+                                        
+                                        <rect x="20" y="140" width="40" height="40" fill="#091a1d" rx="4"/>
+                                        <rect x="28" y="148" width="24" height="24" fill="#ffffff" rx="2"/>
+                                        <rect x="34" y="154" width="12" height="12" fill="#091a1d"/>
+                                        
+                                        <rect x="75" y="25" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="100" y="25" width="14" height="14" fill="#c5a880"/>
+                                        <rect x="75" y="50" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="100" y="50" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="25" y="75" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="50" y="75" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="75" y="75" width="50" height="50" fill="#091a1d" rx="4"/>
+                                        <rect x="85" y="85" width="30" height="30" fill="#c5a880" rx="3"/>
+                                        <rect x="140" y="75" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="165" y="75" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="25" y="100" width="14" height="14" fill="#c5a880"/>
+                                        <rect x="50" y="100" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="140" y="100" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="165" y="100" width="14" height="14" fill="#c5a880"/>
+                                        <rect x="75" y="135" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="100" y="135" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="75" y="160" width="14" height="14" fill="#c5a880"/>
+                                        <rect x="100" y="160" width="14" height="14" fill="#091a1d"/>
+                                        <rect x="135" y="135" width="40" height="40" fill="#091a1d" rx="4"/>
+                                        <rect x="145" y="145" width="20" height="20" fill="#ffffff" rx="2"/>
+                                        <rect x="150" y="150" width="10" height="10" fill="#091a1d"/>
+                                    </svg>
+                                    <div class="qr-center-logo">
+                                        <img src="assets/toro_logo.svg" alt="TORO" width="22">
+                                    </div>
+                                </div>
+                                <div class="qr-countdown">
+                                    <i class="fa-regular fa-clock"></i> Expires in: <span id="upiTimer">04:59</span>
                                 </div>
                             </div>
-                            <div class="qr-countdown">
-                                <i class="fa-regular fa-clock"></i> Expires in: <span id="upiTimer">04:59</span>
+                            <div class="upi-details-pane">
+                                <h4 style="font-size: 15px; margin-bottom: 4px;">Scan with any UPI App</h4>
+                                <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Instant zero-fee direct reservation settlement</p>
+                                <div class="upi-id-badge">
+                                    <span>UPI ID: <strong>toro.luxury@icici</strong></span>
+                                    <button type="button" class="btn-copy-upi" onclick="copyUpiId()"><i class="fa-regular fa-copy"></i> Copy</button>
+                                </div>
+                                <div class="upi-supported-icons">
+                                    <span class="upi-chip">GPay</span>
+                                    <span class="upi-chip">PhonePe</span>
+                                    <span class="upi-chip">Paytm</span>
+                                    <span class="upi-chip">BHIM</span>
+                                    <span class="upi-chip">CRED</span>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btnSubmitUpi" style="width: 100%; margin-top: 14px; justify-content: center;" onclick="simulateUpiApproval()">
+                                    <i class="fa-solid fa-circle-check"></i> I Have Completed the UPI Transfer
+                                </button>
                             </div>
                         </div>
-                        <div class="upi-details-pane">
-                            <h4 style="font-size: 15px; margin-bottom: 4px;">Scan with any UPI App</h4>
-                            <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Instant zero-fee direct reservation settlement</p>
-                            <div class="upi-id-badge">
-                                <span>UPI ID: <strong>toro.luxury@icici</strong></span>
-                                <button type="button" class="btn-copy-upi" onclick="copyUpiId()"><i class="fa-regular fa-copy"></i> Copy</button>
+                    </div>
+
+                    <!-- Tab 2: Razorpay Credit / Debit Card -->
+                    <div id="payTabCard" class="pay-tab-content">
+                        <div class="luxury-credit-card-preview">
+                            <div class="card-brand-logo" id="previewCardBrand"><i class="fa-brands fa-cc-visa"></i> VISA</div>
+                            <div class="card-chip-gold"></div>
+                            <div class="card-preview-number" id="previewCardNumber">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</div>
+                            <div class="card-preview-bottom">
+                                <div>
+                                    <span class="card-label">CARDHOLDER</span>
+                                    <span class="card-val" id="previewCardName">GUEST RESERVATION</span>
+                                </div>
+                                <div>
+                                    <span class="card-label">EXPIRES</span>
+                                    <span class="card-val" id="previewCardExp">12/28</span>
+                                </div>
                             </div>
-                            <div class="upi-supported-icons">
-                                <span class="upi-chip">GPay</span>
-                                <span class="upi-chip">PhonePe</span>
-                                <span class="upi-chip">Paytm</span>
-                                <span class="upi-chip">BHIM</span>
-                                <span class="upi-chip">CRED</span>
+                        </div>
+
+                        <form id="cardPaymentForm" onsubmit="processCardPayment(event)">
+                            <div class="form-group">
+                                <label>Cardholder Name *</label>
+                                <input type="text" id="payCardName" class="form-control" placeholder="Aarav Sharma" oninput="updateCardPreview()" required>
                             </div>
-                            <button type="button" class="btn btn-primary" id="btnSubmitUpi" style="width: 100%; margin-top: 14px; justify-content: center;" onclick="simulateUpiApproval()">
-                                <i class="fa-solid fa-circle-check"></i> I Have Completed the UPI Transfer
+                            <div class="form-group">
+                                <label>Card Number *</label>
+                                <div style="position: relative;">
+                                    <input type="text" id="payCardNumber" class="form-control" placeholder="4532 8920 1234 5678" maxlength="19" oninput="formatCardNumber(this); updateCardPreview()" required>
+                                    <span class="card-type-icon" id="cardTypeDetect"><i class="fa-solid fa-credit-card"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date *</label>
+                                    <input type="text" id="payCardExp" class="form-control" placeholder="MM/YY" maxlength="5" oninput="formatCardExp(this); updateCardPreview()" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV / CVC *</label>
+                                    <input type="password" id="payCardCvv" class="form-control" placeholder="&bull;&bull;&bull;" maxlength="4" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;" id="btnSubmitCardPay">
+                                <i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure
                             </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab 3: Stripe / Global Apple Pay -->
+                    <div id="payTabStripe" class="pay-tab-content">
+                        <div style="text-align: center; padding: 20px 0;">
+                            <i class="fa-brands fa-stripe" style="font-size: 54px; color: #6366f1; margin-bottom: 12px; display: block;"></i>
+                            <h4 style="font-size: 17px; margin-bottom: 6px;">International Instant Settlement</h4>
+                            <p style="font-size: 13.5px; color: var(--text-muted); max-width: 380px; margin: 0 auto 20px;">
+                                Pay in your home currency (USD, EUR, GBP, AED, SGD) with zero international transaction fees.
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto;">
+                                <button type="button" class="btn-apple-pay" id="btnApplePay" onclick="simulateStripeCheckout('Apple Pay')">
+                                    <i class="fa-brands fa-apple"></i> Pay with Apple Pay
+                                </button>
+                                <button type="button" class="btn-google-pay" id="btnGooglePay" onclick="simulateStripeCheckout('Google Pay')">
+                                    <i class="fa-brands fa-google"></i> Pay with Google Pay
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab 2: Razorpay Credit / Debit Card -->
-                <div id="payTabCard" class="pay-tab-content">
-                    <div class="luxury-credit-card-preview">
-                        <div class="card-brand-logo" id="previewCardBrand"><i class="fa-brands fa-cc-visa"></i> VISA</div>
-                        <div class="card-chip-gold"></div>
-                        <div class="card-preview-number" id="previewCardNumber">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</div>
-                        <div class="card-preview-bottom">
-                            <div>
-                                <span class="card-label">CARDHOLDER</span>
-                                <span class="card-val" id="previewCardName">GUEST RESERVATION</span>
-                            </div>
-                            <div>
-                                <span class="card-label">EXPIRES</span>
-                                <span class="card-val" id="previewCardExp">12/28</span>
-                            </div>
-                        </div>
+                <!-- Dedicated In-Modal Payment Success & Confetti Celebration View -->
+                <div id="paymentSuccessView" class="payment-celebration-container" style="display: none;">
+                    <div class="payment-success-icon-ring">
+                        <i class="fa-solid fa-check"></i>
                     </div>
-
-                    <form id="cardPaymentForm" onsubmit="processCardPayment(event)">
-                        <div class="form-group">
-                            <label>Cardholder Name *</label>
-                            <input type="text" id="payCardName" class="form-control" placeholder="Aarav Sharma" oninput="updateCardPreview()" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Card Number *</label>
-                            <div style="position: relative;">
-                                <input type="text" id="payCardNumber" class="form-control" placeholder="4532 8920 1234 5678" maxlength="19" oninput="formatCardNumber(this); updateCardPreview()" required>
-                                <span class="card-type-icon" id="cardTypeDetect"><i class="fa-solid fa-credit-card"></i></span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Expiry Date *</label>
-                                <input type="text" id="payCardExp" class="form-control" placeholder="MM/YY" maxlength="5" oninput="formatCardExp(this); updateCardPreview()" required>
-                            </div>
-                            <div class="form-group">
-                                <label>CVV / CVC *</label>
-                                <input type="password" id="payCardCvv" class="form-control" placeholder="&bull;&bull;&bull;" maxlength="4" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;" id="btnSubmitCardPay">
-                            <i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Tab 3: Stripe / Global Apple Pay -->
-                <div id="payTabStripe" class="pay-tab-content">
-                    <div style="text-align: center; padding: 20px 0;">
-                        <i class="fa-brands fa-stripe" style="font-size: 54px; color: #6366f1; margin-bottom: 12px; display: block;"></i>
-                        <h4 style="font-size: 17px; margin-bottom: 6px;">International Instant Settlement</h4>
-                        <p style="font-size: 13.5px; color: var(--text-muted); max-width: 380px; margin: 0 auto 20px;">
-                            Pay in your home currency (USD, EUR, GBP, AED, SGD) with zero international transaction fees.
+                    <div>
+                        <span class="badge-status-float badge-available" style="position: static; margin-bottom: 8px; display: inline-flex; font-size: 11.5px;">
+                            <i class="fa-solid fa-shield-halved"></i> 256-BIT SSL PAYMENT ACCEPTED & SETTLED
+                        </span>
+                        <h3 style="font-size: 24px; font-family: 'Playfair Display', serif; margin: 8px 0 6px;">
+                            Payment Settled Successfully!
+                        </h3>
+                        <p style="font-size: 13.5px; color: var(--text-muted); max-width: 440px; margin: 0 auto 16px;">
+                            Your luxury reservation settlement is verified with instant zero-fee confirmation.
                         </p>
-                        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto;">
-                            <button type="button" class="btn-apple-pay" id="btnApplePay" onclick="simulateStripeCheckout('Apple Pay')">
-                                <i class="fa-brands fa-apple"></i> Pay with Apple Pay
-                            </button>
-                            <button type="button" class="btn-google-pay" id="btnGooglePay" onclick="simulateStripeCheckout('Google Pay')">
-                                <i class="fa-brands fa-google"></i> Pay with Google Pay
-                            </button>
+                    </div>
+
+                    <div class="payment-receipt-box">
+                        <div class="receipt-row">
+                            <span class="receipt-label">Payment Method</span>
+                            <span class="receipt-val" id="paySuccessMethod">Instant UPI Direct Transfer</span>
                         </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Transaction Reference</span>
+                            <span class="receipt-val" id="paySuccessTxnId" style="font-family: monospace; letter-spacing: 0.5px;">#TORO-PAY-98214</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Total Settled</span>
+                            <span class="receipt-val price-highlight" id="paySuccessAmount">₹5,500</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Suite Assigned</span>
+                            <span class="receipt-val" id="paySuccessSuite">Regal Lake Pichola Suite</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span class="receipt-label">Reservation Dates</span>
+                            <span class="receipt-val" id="paySuccessDates">Today → Tomorrow (1 Night)</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="fireLuxuryConfetti()">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold);"></i> Throw Confetti 🎉
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="proceedToVoucherFromPayment()">
+                            <i class="fa-solid fa-file-invoice"></i> View Official Stay Voucher &rarr;
+                        </button>
                     </div>
                 </div>
             </div>
             
-            <div class="modal-footer">
+            <div class="modal-footer" id="paymentModalFooter">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Back</button>
                 <button type="button" class="btn btn-text" onclick="proceedPayAtDesk()" style="font-size: 13px;">
                     Pay on Arrival at Resort Front Desk &rarr;

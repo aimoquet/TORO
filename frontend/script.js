@@ -2070,6 +2070,14 @@ function initiatePaymentFlow(payload, roomMeta, totalAmount) {
     if (datesEl) datesEl.textContent = `${formatDate(payload.checkInDate)} → ${formatDate(payload.checkOutDate)}`;
     if (totalEl) totalEl.textContent = formatCurrency(totalAmount);
 
+    // Reset payment views inside modal
+    const formView = document.getElementById('paymentFormView');
+    const successView = document.getElementById('paymentSuccessView');
+    const footerEl = document.getElementById('paymentModalFooter');
+    if (formView) formView.style.display = 'block';
+    if (successView) successView.style.display = 'none';
+    if (footerEl) footerEl.style.display = 'flex';
+
     switchPaymentTab('upi');
     startUpiTimer();
     openModal('paymentModal');
@@ -2113,43 +2121,46 @@ function copyUpiId() {
 }
 
 // ========================================================
-// LUXURY CELEBRATION CONFETTI ENGINE
+// LUXURY CELEBRATION CONFETTI ENGINE (HIGH Z-INDEX)
 // ========================================================
 function fireLuxuryConfetti() {
     const luxuryColors = ['#c5a880', '#2dd4bf', '#10b981', '#f59e0b', '#ec4899', '#ffffff', '#6366f1'];
 
-    // 1. If external canvas-confetti library is available
+    // 1. If external canvas-confetti library is available (ensure zIndex is higher than modal overlay)
     if (typeof window.confetti === 'function') {
-        // Center burst
+        // Center burst directly over the modal
         window.confetti({
-            particleCount: 85,
-            spread: 75,
-            origin: { y: 0.6 },
+            particleCount: 110,
+            spread: 85,
+            origin: { y: 0.5 },
             colors: luxuryColors,
-            ticks: 240,
+            ticks: 260,
             gravity: 1.05,
-            scalar: 1.15
+            scalar: 1.25,
+            zIndex: 9999999
         });
         // Left cannon burst
         setTimeout(() => {
             window.confetti({
-                particleCount: 50,
+                particleCount: 65,
                 angle: 60,
-                spread: 60,
-                origin: { x: 0.05, y: 0.65 },
-                colors: luxuryColors
+                spread: 70,
+                origin: { x: 0.1, y: 0.6 },
+                colors: luxuryColors,
+                zIndex: 9999999
             });
-        }, 180);
+        }, 160);
         // Right cannon burst
         setTimeout(() => {
             window.confetti({
-                particleCount: 50,
+                particleCount: 65,
                 angle: 120,
-                spread: 60,
-                origin: { x: 0.95, y: 0.65 },
-                colors: luxuryColors
+                spread: 70,
+                origin: { x: 0.9, y: 0.6 },
+                colors: luxuryColors,
+                zIndex: 9999999
             });
-        }, 320);
+        }, 300);
         return;
     }
 
@@ -2168,7 +2179,7 @@ function runNativeCanvasConfetti(colors) {
         canvas.style.width = '100vw';
         canvas.style.height = '100vh';
         canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '999999';
+        canvas.style.zIndex = '9999999';
         document.body.appendChild(canvas);
     }
 
@@ -2177,20 +2188,20 @@ function runNativeCanvasConfetti(colors) {
     const height = (canvas.height = window.innerHeight);
 
     const particles = [];
-    const total = 140;
+    const total = 150;
 
     for (let i = 0; i < total; i++) {
         particles.push({
-            x: width * 0.5 + (Math.random() - 0.5) * (width * 0.4),
-            y: height * 0.45 + (Math.random() - 0.5) * 80,
-            vx: (Math.random() - 0.5) * 16,
-            vy: -Math.random() * 14 - 4,
-            size: Math.random() * 8 + 5,
+            x: width * 0.5 + (Math.random() - 0.5) * (width * 0.5),
+            y: height * 0.45 + (Math.random() - 0.5) * 100,
+            vx: (Math.random() - 0.5) * 18,
+            vy: -Math.random() * 15 - 5,
+            size: Math.random() * 9 + 5,
             color: colors[Math.floor(Math.random() * colors.length)],
             rotation: Math.random() * 360,
-            rotSpeed: (Math.random() - 0.5) * 10,
+            rotSpeed: (Math.random() - 0.5) * 12,
             opacity: 1,
-            shape: Math.random() > 0.3 ? 'rect' : 'circle'
+            shape: Math.random() > 0.35 ? 'rect' : 'circle'
         });
     }
 
@@ -2209,7 +2220,7 @@ function runNativeCanvasConfetti(colors) {
             p.vx *= 0.985; // drag
             p.rotation += p.rotSpeed;
 
-            if (elapsed > 1800) {
+            if (elapsed > 2000) {
                 p.opacity -= 0.02;
             }
 
@@ -2225,14 +2236,14 @@ function runNativeCanvasConfetti(colors) {
                     ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.7);
                 } else {
                     ctx.beginPath();
-                    ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2);
+                    ctx.arc(0, 0, p.size * 0.45, 0, Math.PI * 2);
                     ctx.fill();
                 }
                 ctx.restore();
             }
         });
 
-        if (activeCount > 0 && elapsed < 4000) {
+        if (activeCount > 0 && elapsed < 4500) {
             animationFrame = requestAnimationFrame(render);
         } else {
             ctx.clearRect(0, 0, width, height);
@@ -2261,9 +2272,6 @@ function simulateUpiApproval() {
             btn.style.background = '#10b981';
             btn.style.borderColor = '#059669';
         }
-        fireLuxuryConfetti();
-        showToast('✓ UPI Payment Accepted! Direct reservation settlement confirmed.');
-
         setTimeout(() => {
             if (btn) {
                 btn.disabled = false;
@@ -2272,8 +2280,8 @@ function simulateUpiApproval() {
                 btn.style.borderColor = '';
             }
             completeBookingSettlement('UPI_INSTANT_TRANSFER');
-        }, 900);
-    }, 700);
+        }, 500);
+    }, 600);
 }
 
 function processCardPayment(e) {
@@ -2290,9 +2298,6 @@ function processCardPayment(e) {
             btn.style.background = '#10b981';
             btn.style.borderColor = '#059669';
         }
-        fireLuxuryConfetti();
-        showToast('✓ Razorpay 3D Secure Card Payment Accepted!');
-
         setTimeout(() => {
             if (btn) {
                 btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Pay via Razorpay Secure';
@@ -2301,8 +2306,8 @@ function processCardPayment(e) {
                 btn.style.borderColor = '';
             }
             completeBookingSettlement('RAZORPAY_CREDIT_CARD');
-        }, 900);
-    }, 800);
+        }, 500);
+    }, 700);
 }
 
 function simulateStripeCheckout(method) {
@@ -2320,9 +2325,6 @@ function simulateStripeCheckout(method) {
             btn.style.borderColor = '#059669';
             btn.style.color = '#ffffff';
         }
-        fireLuxuryConfetti();
-        showToast(`✓ ${method} Payment Accepted & Settled!`);
-
         setTimeout(() => {
             if (btn) {
                 btn.disabled = false;
@@ -2332,14 +2334,16 @@ function simulateStripeCheckout(method) {
                 btn.style.color = '';
             }
             completeBookingSettlement(`STRIPE_${method.toUpperCase().replace(/\s+/g, '_')}`);
-        }, 900);
-    }, 700);
+        }, 500);
+    }, 600);
 }
 
 function proceedPayAtDesk() {
     closeModal('paymentModal');
     completeBookingSettlement('PAY_ON_ARRIVAL');
 }
+
+let currentConfirmedBooking = null;
 
 async function completeBookingSettlement(paymentChannel) {
     if (!pendingBooking) {
@@ -2365,40 +2369,77 @@ async function completeBookingSettlement(paymentChannel) {
         specialRequests: `Settled via ${paymentChannel}`
     };
 
+    let saved = null;
     try {
         const res = await fetch(`${API_BASE}/bookings`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        const saved = res.ok ? await res.json() : null;
-        closeModal('paymentModal');
-        showToast('Payment Settled Successfully! Your luxury stay is confirmed.');
-        loadRoomsFromApi();
-        loadDashboardStats();
-        loadMgmtBookings();
-
-        finalizeBookingAndShowVoucher(saved || {
-            id: Math.floor(10000 + Math.random() * 90000),
-            customer: { name: payload.customerName, email: payload.customerEmail },
-            room: { roomNumber: String(payload.roomId), roomType: pendingBooking.roomMeta.category || 'DELUXE' },
-            checkInDate: payload.checkInDate,
-            checkOutDate: payload.checkOutDate,
-            totalAmount: pendingBooking.totalAmount,
-            paymentStatus: payload.paymentStatus
-        });
+        saved = res.ok ? await res.json() : null;
     } catch (err) {
         console.error('Offline booking fallback:', err);
+    }
+
+    currentConfirmedBooking = saved || {
+        id: Math.floor(10000 + Math.random() * 90000),
+        customer: { name: payload.customerName, email: payload.customerEmail },
+        room: { roomNumber: String(payload.roomId), roomType: pendingBooking.roomMeta.category || 'DELUXE' },
+        checkInDate: payload.checkInDate,
+        checkOutDate: payload.checkOutDate,
+        totalAmount: pendingBooking.totalAmount,
+        paymentStatus: payload.paymentStatus
+    };
+
+    loadRoomsFromApi();
+    loadDashboardStats();
+    loadMgmtBookings();
+
+    if (paymentChannel === 'PAY_ON_ARRIVAL') {
         closeModal('paymentModal');
-        finalizeBookingAndShowVoucher({
-            id: Math.floor(10000 + Math.random() * 90000),
-            customer: { name: payload.customerName, email: payload.customerEmail },
-            room: { roomNumber: String(payload.roomId), roomType: pendingBooking.roomMeta.category || 'DELUXE' },
-            checkInDate: payload.checkInDate,
-            checkOutDate: payload.checkOutDate,
-            totalAmount: pendingBooking.totalAmount,
-            paymentStatus: payload.paymentStatus
-        });
+        showToast('Reservation registered! Pay upon arrival at resort front desk.');
+        finalizeBookingAndShowVoucher(currentConfirmedBooking);
+        return;
+    }
+
+    // SHOW IN-PAYMENT-MODAL SUCCESS & THROW CONFETTI DIRECTLY ON PAYMENT PAGE!
+    const formView = document.getElementById('paymentFormView');
+    const successView = document.getElementById('paymentSuccessView');
+    const footerEl = document.getElementById('paymentModalFooter');
+
+    if (formView) formView.style.display = 'none';
+    if (successView) successView.style.display = 'block';
+    if (footerEl) footerEl.style.display = 'none';
+
+    // Populate receipt values
+    const mEl = document.getElementById('paySuccessMethod');
+    const txEl = document.getElementById('paySuccessTxnId');
+    const amtEl = document.getElementById('paySuccessAmount');
+    const suiteEl = document.getElementById('paySuccessSuite');
+    const datesEl = document.getElementById('paySuccessDates');
+
+    const methodNames = {
+        'UPI_INSTANT_TRANSFER': 'Instant UPI Direct Settlement (NPCI)',
+        'RAZORPAY_CREDIT_CARD': 'Razorpay 3D Secure Card Settlement',
+        'STRIPE_APPLE_PAY': 'Apple Pay Biometric Token Settlement',
+        'STRIPE_GOOGLE_PAY': 'Google Pay Biometric Token Settlement'
+    };
+
+    if (mEl) mEl.textContent = methodNames[paymentChannel] || paymentChannel;
+    if (txEl) txEl.textContent = `#TORO-PAY-${Math.floor(100000 + Math.random() * 900000)}`;
+    if (amtEl) amtEl.textContent = formatCurrency(pendingBooking.totalAmount || 5500);
+    if (suiteEl) suiteEl.textContent = pendingBooking.roomMeta.title || `Suite ${pendingBooking.payload.roomId}`;
+    if (datesEl) datesEl.textContent = `${formatDate(pendingBooking.payload.checkInDate)} → ${formatDate(pendingBooking.payload.checkOutDate)}`;
+
+    // Throw confetti directly onto the payment page!
+    fireLuxuryConfetti();
+    showToast('✓ Payment Settled Successfully! Your luxury stay is confirmed.');
+}
+
+function proceedToVoucherFromPayment() {
+    closeModal('paymentModal');
+    if (currentConfirmedBooking) {
+        finalizeBookingAndShowVoucher(currentConfirmedBooking);
     }
 }
 
