@@ -220,44 +220,9 @@ Hotel Management System/
 
 ---
 
-## 🚀 Developer Quickstart
 
-### Prerequisites
-* **Java Development Kit (JDK)**: Version 17, 21, or 25 installed.
-* **Node.js**: Version 18.x or newer (for the local frontend static server).
-* **Git**: Installed and configured.
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/aimoquet/TORO.git
-cd TORO
-```
 
-### Step 2: Start the Spring Boot Backend
-Navigate to the `hotel-management` folder and run the Maven wrapper:
-
-**Windows (PowerShell / Command Prompt):**
-```powershell
-cd hotel-management
-.\mvnw.cmd spring-boot:run
-```
-
-**macOS / Linux:**
-```bash
-cd hotel-management
-chmod +x mvnw
-./mvnw spring-boot:run
-```
-* The backend will compile, initialize database tables, seed default luxury suites, and listen at:  
-  👉 **`http://localhost:8080`**
-
-### Step 3: Start the Frontend Application
-Open a second terminal window in the root directory:
-```bash
-node frontend_server.js
-```
-* The frontend server will start immediately at:  
-  👉 **`http://localhost:3000`**
 
 
 ---
