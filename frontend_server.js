@@ -16,8 +16,11 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-  let file = req.url === '/' ? 'Index.html' : req.url.split('?')[0];
+  let file = (req.url === '/' || req.url === '') ? 'index.html' : req.url.split('?')[0];
   let filePath = path.join(DIR, file);
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(DIR, 'index.html');
+  }
   if (!fs.existsSync(filePath)) {
     filePath = path.join(DIR, 'Index.html');
   }

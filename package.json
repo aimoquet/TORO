@@ -1,0 +1,24 @@
+{
+  "name": "toro-luxury-hotels",
+  "version": "1.0.0",
+  "description": "TORO — Luxury Hotels & Resorts India Collection Platform",
+  "main": "frontend_server.js",
+  "scripts": {
+    "start": "node frontend_server.js",
+    "dev": "node frontend_server.js",
+    "deploy": "npx vercel --prod"
+  },
+  "keywords": [
+    "hotel-management",
+    "pms",
+    "threejs",
+    "webgl",
+    "luxury-hospitality",
+    "vercel"
+  ],
+  "author": "aimoquet",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

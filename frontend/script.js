@@ -3,9 +3,14 @@
 // Core Application Logic & 360° Virtual Tour Engine
 // ========================================================
 
-const API_BASE = (window.location.origin && window.location.origin.includes(':8080')) 
-    ? '/api' 
-    : 'http://localhost:8080/api';
+// Dynamic API Endpoint:
+// - Local development (port 3000) -> talks to Spring Boot at http://localhost:8080/api
+// - Deployed on Vercel or remote host -> talks to /api (Serverless Microservice)
+// - Supports runtime override via window.TORO_API_URL
+const API_BASE = window.TORO_API_URL 
+    || ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? (window.location.port === '8080' ? '/api' : 'http://localhost:8080/api')
+        : '/api');
 
 let allRooms = [];
 let allCustomers = [];

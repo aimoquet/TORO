@@ -264,6 +264,50 @@ Visit **[http://localhost:3000](http://localhost:3000)** in Google Chrome, Micro
 
 ---
 
+## 🌐 Deploying to Vercel
+
+TORO comes with native Vercel configuration (`vercel.json` + `api/index.js`), allowing you to deploy the entire luxury booking engine, WebGL 360° virtual tours, and PMS management dashboard to Vercel in seconds with **zero configuration and zero hosting cost**.
+
+### Method 1: Deploy with Vercel Web Dashboard (Recommended)
+
+1. **Push your code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "feat: configure Vercel deployment and serverless API"
+   git push origin main
+   ```
+2. Open **[vercel.com](https://vercel.com)** and log in with your GitHub account.
+3. Click **"Add New..."** → **"Project"**.
+4. Select your **`TORO`** repository from the list and click **"Import"**.
+5. Leave all build settings at their defaults:
+   - **Framework Preset**: *Other*
+   - **Root Directory**: `./` *(leave empty)*
+   - **Build Command**: *(leave empty)*
+   - **Output Directory**: *(leave empty)*
+6. Click **"Deploy"**. Vercel will build and assign your project a live production URL (e.g., `https://toro-luxury-hotels.vercel.app`).
+
+### Method 2: Deploy with Vercel CLI
+
+In your terminal from the project root directory:
+
+```bash
+# 1. Login to Vercel
+npx vercel login
+
+# 2. Deploy to production
+npx vercel --prod
+```
+
+### ⚙️ Architecture on Vercel: Dual-Mode Execution
+
+* **Autonomous Serverless Mode (Default)**: Out of the box, Vercel runs the Node.js serverless functions in `api/index.js` with full seed data for rooms, bookings, customer profiles, and concierge requests. No external server or database is required!
+* **Hybrid Mode with Live Spring Boot (Optional)**: If you host the Java Spring Boot backend (`hotel-management`) on a Java host (e.g., [Render](https://render.com), [Railway](https://railway.app), or [Fly.io](https://fly.io)), simply add an Environment Variable in your Vercel Project Settings:
+  - **Key**: `BACKEND_URL`
+  - **Value**: `https://your-spring-boot-backend.onrender.com`
+  The Vercel API will seamlessly forward all incoming `/api/*` traffic to your production Spring Boot service.
+
+---
+
 ## 🗺️ Future Roadmap
 
 - [ ] **WebVR / Spatial Audio**: Native WebXR headset support for Apple Vision Pro and Meta Quest 3.
