@@ -40,6 +40,36 @@
     --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ========================================================
+   SOPHISTICATED MIDNIGHT OBSIDIAN DARK THEME VARIABLES
+   ======================================================== */
+[data-theme="dark"] {
+    --primary: #14b8a6;
+    --primary-hover: #2dd4bf;
+    --primary-light: rgba(20, 184, 166, 0.16);
+    --primary-text: #5eead4;
+    
+    --accent-teal: #2dd4bf;
+    --accent-aqua: #5eead4;
+    
+    --gold: #eab308;
+    --gold-light: rgba(234, 179, 8, 0.16);
+    
+    /* Elegant Dark Canvas & Obsidian Surfaces */
+    --bg-main: #061113;
+    --card-bg: #0b1d21;
+    --card-bg-elevated: #11282d;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-light: #64748b;
+    
+    --border: #18373e;
+    --border-light: #12282d;
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.45);
+    --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.7);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -172,7 +202,56 @@ body {
 .header-cta-group {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+}
+
+/* ========================================================
+   LUXURY DARK / LIGHT MODE TOGGLE CONTROLS
+   ======================================================== */
+.theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fcd34d;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(94, 234, 212, 0.6);
+    transform: rotate(18deg) scale(1.08);
+    box-shadow: 0 0 16px rgba(252, 211, 77, 0.35);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.94);
+}
+
+.utility-theme-link {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-size: inherit;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.utility-theme-link:hover {
+    color: #ffffff;
 }
 
 .link-staff-portal {
@@ -3748,3 +3827,500 @@ table td {
     margin: 2px 3px 2px 0;
     white-space: nowrap;
 }
+
+/* ========================================================
+   COMPREHENSIVE LUXURY DARK THEME COMPONENT OVERRIDES
+   ======================================================== */
+/* Global Smooth Theme Transition */
+body, .site-header, .search-bar-clean, .public-room-card, .tourism-card, 
+.service-card, .testimonial-card, .modal-box, .stat-card, .content-card,
+.press-trust-bar, .heritage-section, .pillar-box, .experience-check-card,
+.stuff-category-card, .wizard-step-box, .live-booking-summary-card,
+.form-control, table th, table td {
+    transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+[data-theme="dark"] body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* Search Bar */
+[data-theme="dark"] .search-bar-clean {
+    background: #0b1d21;
+    border-color: var(--border);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .search-block {
+    border-right-color: var(--border-light);
+}
+
+[data-theme="dark"] .search-select,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .dates-row input[type="date"] {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .search-select option {
+    background: #0b1d21;
+    color: #f1f5f9;
+}
+
+/* Destination Pills & Filter Tabs */
+[data-theme="dark"] .dest-pill {
+    background: #0b1d21;
+    border-color: var(--border);
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .dest-pill:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+[data-theme="dark"] .dest-pill.active {
+    background: var(--primary);
+    color: #061113;
+    border-color: var(--primary);
+    font-weight: 700;
+}
+
+[data-theme="dark"] .filter-tab {
+    background: #0b1d21;
+    border-color: var(--border);
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .filter-tab:hover {
+    color: #f1f5f9;
+    border-color: var(--primary);
+}
+
+[data-theme="dark"] .filter-tab.active {
+    background: var(--primary);
+    color: #061113;
+    border-color: var(--primary);
+    font-weight: 700;
+}
+
+/* Press & Critics Trust Bar */
+[data-theme="dark"] .press-trust-bar {
+    background: #081619;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .press-publication {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .press-quote {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .press-item {
+    border-right-color: var(--border-light);
+}
+
+/* Philosophy & Heritage Section */
+[data-theme="dark"] .heritage-section {
+    background: #071417;
+    border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .heritage-title,
+[data-theme="dark"] .heritage-lead {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .heritage-body {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .heritage-callout-card {
+    background: #0d2227;
+    border-color: var(--border);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .heritage-callout-card p {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .pillar-box {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .pillar-box h4 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .pillar-box p {
+    color: #94a3b8;
+}
+
+/* Tourist Spots Section */
+[data-theme="dark"] .tourism-section {
+    background: linear-gradient(180deg, #061113 0%, #0a181c 100%);
+    border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .tourism-card {
+    background: #0b1d21;
+    border-color: var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .tourism-card-body h4 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .tourism-location {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .tourism-proximity {
+    background: rgba(20, 184, 166, 0.12);
+    border-color: rgba(45, 212, 191, 0.25);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .tourism-card-footer {
+    border-top-color: var(--border-light);
+}
+
+[data-theme="dark"] .tourism-suite-hint {
+    color: #94a3b8;
+}
+
+/* Room Cards Showcase */
+[data-theme="dark"] .public-room-card {
+    background: #0b1d21;
+    border-color: var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .public-room-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+}
+
+[data-theme="dark"] .room-card-title {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .room-specs-line {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .room-highlight-text {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .price-container .price-amount {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .card-price-row {
+    border-top-color: var(--border-light);
+}
+
+[data-theme="dark"] .btn-360-card {
+    border-color: var(--border);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .btn-360-card:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+[data-theme="dark"] .landmark-proximity-tag {
+    background: rgba(20, 184, 166, 0.12);
+    border-color: rgba(45, 212, 191, 0.25);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .proximity-dist {
+    color: #2dd4bf;
+}
+
+[data-theme="dark"] .badge-available {
+    background: rgba(22, 101, 52, 0.3);
+    color: #86efac;
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
+[data-theme="dark"] .badge-booked {
+    background: rgba(153, 27, 27, 0.3);
+    color: #fca5a5;
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
+/* Service Cards & Curated Amenities */
+[data-theme="dark"] .service-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .service-card-top h4 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .service-card-body p {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .service-price {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .service-price-order {
+    border-top-color: var(--border-light);
+}
+
+/* Guest Testimonials */
+[data-theme="dark"] .testimonial-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .testimonial-quote {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .guest-name {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .guest-profile {
+    border-top-color: var(--border-light);
+}
+
+/* Stuffs Details & Inclusions Grid */
+[data-theme="dark"] .stuff-category-card {
+    background: #081619;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .stuff-cat-header {
+    color: #5eead4;
+}
+
+[data-theme="dark"] .stuff-cat-list {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .stuff-cat-list li {
+    color: #cbd5e1;
+}
+
+/* 3-Step Reservation Wizard & Experiences Selection */
+[data-theme="dark"] .booking-wizard-container {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .wizard-header {
+    border-bottom-color: var(--border-light);
+}
+
+[data-theme="dark"] .wizard-step-box {
+    background: #081619;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .wizard-step-box:focus-within {
+    background: #0b1e22;
+    border-color: var(--primary);
+}
+
+[data-theme="dark"] .wizard-step-title h5 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .wizard-step-title small {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .experience-check-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .experience-check-card:hover {
+    background: #10262b;
+    border-color: #2dd4bf;
+}
+
+[data-theme="dark"] .experience-check-card.selected {
+    background: rgba(20, 184, 166, 0.16);
+    border-color: #2dd4bf;
+    box-shadow: 0 0 0 1.5px #2dd4bf, 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .exp-name {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .exp-desc {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .exp-icon {
+    background: rgba(20, 184, 166, 0.2);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .exp-price-tag {
+    background: rgba(20, 184, 166, 0.25);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .live-booking-summary-card {
+    background: #081619;
+    border-color: var(--border);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .summary-total-line {
+    border-top-color: var(--border);
+}
+
+/* Modals & Forms */
+[data-theme="dark"] .modal-box {
+    background: #0b1d21;
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    color: #f1f5f9;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom: 1px solid var(--border);
+}
+
+[data-theme="dark"] .modal-header h3 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top: 1px solid var(--border);
+}
+
+[data-theme="dark"] .form-control {
+    background: #061113;
+    border-color: var(--border);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .form-control:focus {
+    border-color: var(--primary);
+    background: #081619;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: #142a2f;
+    color: #e2e8f0;
+    border: 1px solid #1c3c43;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #1c3c43;
+    color: #ffffff;
+}
+
+/* Staff Management Portal (PMS) */
+[data-theme="dark"] .main {
+    background: #061113;
+}
+
+[data-theme="dark"] .top-bar h2 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .stat-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .stat-value {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .content-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .card-top h3 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] table th {
+    background: #071518;
+    color: #94a3b8;
+    border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] table td {
+    color: #e2e8f0;
+    border-bottom-color: var(--border-light);
+}
+
+[data-theme="dark"] table tr:hover td {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+[data-theme="dark"] .room-card {
+    background: #0b1d21;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .room-card-header h3 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .room-card-footer {
+    border-top-color: var(--border-light);
+}
+
+[data-theme="dark"] .badge-exp-tag {
+    background: rgba(20, 184, 166, 0.16);
+    color: #5eead4;
+    border-color: rgba(45, 212, 191, 0.3);
+}
+
+/* AI Butler & Concierge Drawer */
+[data-theme="dark"] .ai-chip {
+    background: #0b1d21;
+    border-color: var(--border);
+    color: #5eead4;
+}
+
+[data-theme="dark"] .ai-chip:hover {
+    background: #11282d;
+    border-color: var(--primary);
+}
+
+[data-theme="dark"] .ai-drawer-footer {
+    background: #081619;
+    border-top-color: var(--border);
+}
+
+[data-theme="dark"] .ai-chat-input {
+    background: #0b1d21;
+    border-color: var(--border);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .concierge-contact-card {
+    background: #081619;
+    border-color: var(--border);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .concierge-contact-card:hover {
+    background: #10262b;
+    border-color: var(--primary);
+}

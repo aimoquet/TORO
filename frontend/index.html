@@ -15,6 +15,17 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/toro_logo.svg">
     <link rel="stylesheet" href="style.css">
+    <!-- Immediate Theme Application (Anti-FOUT) -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem('toro_theme');
+            if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -46,6 +57,10 @@
                 <a class="utility-link" onclick="openKeylessModal()"><i class="fa-solid fa-mobile-screen"></i> Digital NFC Key</a>
                 <span class="utility-sep">&bull;</span>
                 <a class="utility-link" onclick="toggleAiButler()"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold);"></i> AI Butler</a>
+                <span class="utility-sep">&bull;</span>
+                <a class="utility-link" onclick="toggleTheme()" id="utilityThemeBtn" title="Toggle Theme (Dark / Light Mode)" style="cursor: pointer;">
+                    <i class="fa-solid fa-moon" id="utilityThemeIcon" style="color: #fcd34d;"></i> <span id="utilityThemeText">Dark Mode</span>
+                </a>
                 <span class="utility-sep">&bull;</span>
                 <a href="tel:+912289001200" class="utility-link"><i class="fa-solid fa-phone"></i> +91 (22) 8900 1200</a>
                 <span class="utility-sep">&bull;</span>
@@ -80,6 +95,9 @@
             </nav>
 
             <div class="header-cta-group">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch to Dark Mode" aria-label="Toggle Dark / Light Mode">
+                    <i class="fa-solid fa-moon" id="themeToggleIcon"></i>
+                </button>
                 <button class="btn-keyless-nav" onclick="openKeylessModal()" title="Digital Key & Mobile Check-In">
                     <i class="fa-solid fa-key"></i> <span>Mobile Key</span>
                 </button>
@@ -102,6 +120,12 @@
                 <li><a onclick="scrollToSection('rooms-showcase'); toggleMobileMenu();">Suites & Villas</a></li>
                 <li><a onclick="open360Tour('deluxe'); toggleMobileMenu();">360° Virtual Tour</a></li>
                 <li><a onclick="scrollToSection('reviews-section'); toggleMobileMenu();">Guest Testimonials</a></li>
+                <li style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 10px; margin-top: 6px;">
+                    <a onclick="toggleTheme(); toggleMobileMenu();" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span><i class="fa-solid fa-moon" id="mobileThemeIcon" style="color: #fcd34d; margin-right: 8px;"></i> Mode</span>
+                        <span class="badge" style="background: rgba(255,255,255,0.1); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px;" id="mobileThemeText">Dark Mode</span>
+                    </a>
+                </li>
                 <li style="margin-top: 14px;">
                     <button class="btn-reserve-nav" style="width: 100%; text-align: center;" onclick="openQuickBook(); toggleMobileMenu();">Reserve Stay</button>
                 </li>

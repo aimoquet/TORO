@@ -168,9 +168,73 @@ const ROOM_DATABASE = {
 };
 
 // ========================================================
+// THEME SWITCHER (DARK / LIGHT MODE)
+// ========================================================
+function initTheme() {
+    const savedTheme = localStorage.getItem('toro_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    applyTheme(currentTheme, false);
+
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('toro_theme')) {
+                applyTheme(e.matches ? 'dark' : 'light', false);
+            }
+        });
+    }
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'light';
+    const nextTheme = current === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+}
+
+function applyTheme(theme, showNotification = false) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('toro_theme', theme);
+
+    const isDark = (theme === 'dark');
+
+    // Header round toggle button
+    const headerToggleBtn = document.getElementById('themeToggleBtn');
+    if (headerToggleBtn) {
+        headerToggleBtn.innerHTML = isDark 
+            ? '<i class="fa-solid fa-sun" style="color: #fcd34d;"></i>' 
+            : '<i class="fa-solid fa-moon" style="color: #cbd5e1;"></i>';
+        headerToggleBtn.setAttribute('title', isDark ? 'Switch to Ivory Light Mode' : 'Switch to Obsidian Dark Mode');
+        headerToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    }
+
+    // Top utility bar link & icon
+    const utilText = document.getElementById('utilityThemeText');
+    const utilIcon = document.getElementById('utilityThemeIcon');
+    if (utilText) utilText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    if (utilIcon) {
+        utilIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        utilIcon.style.color = isDark ? '#fcd34d' : '#cbd5e1';
+    }
+
+    // Mobile drawer row & icon
+    const mobText = document.getElementById('mobileThemeText');
+    const mobIcon = document.getElementById('mobileThemeIcon');
+    if (mobText) mobText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    if (mobIcon) {
+        mobIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        mobIcon.style.color = isDark ? '#fcd34d' : '#cbd5e1';
+    }
+
+    if (showNotification) {
+        showToast(isDark ? '🌙 Midnight Obsidian Dark Mode activated' : '☀️ Ivory Sunlit Light Mode activated');
+    }
+}
+
+// ========================================================
 // DOM INITIALIZATION
 // ========================================================
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initDefaultDates();
     populateCityDropdown('ALL');
     loadRoomsFromApi();
